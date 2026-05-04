@@ -15,6 +15,9 @@ SYMBOL_NAMES = {
     "8046": "南電",
     "2313": "華通",
 }
+CUSTOM_WATCHLIST = {
+    "6205": "自選股",
+}
 
 
 def read_csv_rows(path: Path) -> list[dict[str, str]]:
@@ -64,6 +67,7 @@ def flatten_tracking_rows(scan_rows: list[dict], market: dict[str, dict[str, obj
                 "data_latest_completed_day": market_row.get("latest_date", ""),
                 "symbol": symbol,
                 "name": market_row.get("name", SYMBOL_NAMES.get(symbol, symbol)),
+                "custom_watchlist": CUSTOM_WATCHLIST.get(symbol, ""),
                 "decision": item.get("decision", ""),
                 "score": item.get("score", ""),
                 "tier": item.get("tier", ""),
@@ -99,6 +103,8 @@ def append_tracking_log(rows: list[dict[str, object]]) -> Path:
     existing: list[dict[str, str]] = []
     if path.exists():
         existing = read_csv_rows(path)
+    for row in existing:
+        row["custom_watchlist"] = CUSTOM_WATCHLIST.get(str(row.get("symbol", "")), "")
     existing_keys = {(row["run_date"], row["data_latest_completed_day"], row["symbol"]) for row in existing}
     new_rows = [
         row for row in rows
@@ -124,12 +130,12 @@ def write_markdown(rows: list[dict[str, object]]) -> Path:
         f"- latest_completed_day: {latest_day}",
         "- note: 2026-05-05 full daily candle was not available from the data source at update time.",
         "",
-        "| rank | symbol | name | decision | score | close | change_pct | volume_ratio | action |",
-        "|---:|---|---|---|---:|---:|---:|---:|---|",
+        "| rank | symbol | name | watchlist | decision | score | close | change_pct | volume_ratio | action |",
+        "|---:|---|---|---|---|---:|---:|---:|---:|---|",
     ]
     for idx, row in enumerate(rows, 1):
         lines.append(
-            f"| {idx} | {row['symbol']} | {row['name']} | {row['decision']} | {float(row['score']):.2f} | "
+            f"| {idx} | {row['symbol']} | {row['name']} | {row['custom_watchlist']} | {row['decision']} | {float(row['score']):.2f} | "
             f"{float(row['close']):.2f} | {float(row['change_pct']):.2f}% | {float(row['volume_ratio']):.2f} | {row['tracking_action']} |"
         )
     path.write_text("\n".join(lines), encoding="utf-8-sig")
@@ -170,7 +176,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="60">
-  <title>交易紀錄</title>
+  <title>AI Agent Trading System Report</title>
   <style>
     :root {{
       --bg: #f5f6f4;
@@ -256,6 +262,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     }}
     .hold {{ color: var(--ok); background: #eef8f0; border-color: #b6d5bf; }}
     .reject {{ color: var(--danger); background: #fff1ef; border-color: #e0b5af; }}
+    .watchlist {{ color: #0f5f7a; background: #eaf6fb; border-color: #acd3df; }}
     .pos {{ color: var(--ok); font-weight: 700; }}
     .neg {{ color: var(--danger); font-weight: 700; }}
     ul {{ margin: 8px 0 0 20px; padding: 0; }}
@@ -277,7 +284,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
 </head>
 <body>
   <header>
-    <h1>交易紀錄</h1>
+    <h1>AI Agent Trading System Report</h1>
     <p class="muted">更新日：{date.today().isoformat()}；最新完整日線：{html.escape(str(latest_day))}</p>
     <div class="notice">2026-05-05 的完整日 K 尚未由資料源發布，本次模型使用最新可取得的 2026-05-04 完整日線。若盤中追蹤，請把 2026-05-05 視為即時觀察，不當作正式收盤訊號。</div>
   </header>
@@ -286,7 +293,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       <div class="card"><div class="muted">追蹤候選</div><div class="metric">{len(hold_rows)}</div></div>
       <div class="card"><div class="muted">剔除/等待</div><div class="metric">{len(reject_rows)}</div></div>
       <div class="card"><div class="muted">資料檔</div><div class="metric">{len(rows)}</div></div>
-      <div class="card"><div class="muted">籌碼資料</div><div class="metric">未接入</div></div>
+      <div class="card"><div class="muted">自選股</div><div class="metric">{sum(1 for row in rows if row.get("custom_watchlist"))}</div></div>
     </section>
     <section>
       <h2>原始系統定位</h2>
@@ -387,7 +394,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       <table>
         <thead>
           <tr>
-            <th>排名</th><th>代號</th><th>名稱</th><th>決策</th><th>分數</th><th>收盤</th><th>漲跌幅</th><th>量比</th><th>型態</th><th>動作</th>
+            <th>排名</th><th>代號</th><th>名稱</th><th>自選股</th><th>決策</th><th>分數</th><th>收盤</th><th>漲跌幅</th><th>量比</th><th>型態</th><th>動作</th>
           </tr>
         </thead>
         <tbody>
@@ -418,11 +425,18 @@ def render_row(idx: int, row: dict[str, object]) -> str:
     decision = str(row["decision"])
     tag_class = "hold" if decision == "hold" else "reject"
     change_class = pct_class(row["change_pct"])
+    watchlist = str(row.get("custom_watchlist", ""))
+    watchlist_cell = (
+        f"<span class=\"tag watchlist\">{html.escape(watchlist)}</span>"
+        if watchlist
+        else "-"
+    )
     return (
         "<tr>"
         f"<td>{idx}</td>"
         f"<td>{html.escape(str(row['symbol']))}</td>"
         f"<td>{html.escape(str(row['name']))}</td>"
+        f"<td>{watchlist_cell}</td>"
         f"<td><span class=\"tag {tag_class}\">{html.escape(decision)}</span></td>"
         f"<td>{float(row['score']):.2f}</td>"
         f"<td>{float(row['close']):.2f}</td>"

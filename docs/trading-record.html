@@ -90,6 +90,7 @@
     }
     .hold { color: var(--ok); background: #eef8f0; border-color: #b6d5bf; }
     .reject { color: var(--danger); background: #fff1ef; border-color: #e0b5af; }
+    .watchlist { color: #0f5f7a; background: #eaf6fb; border-color: #acd3df; }
     .pos { color: var(--ok); font-weight: 700; }
     .neg { color: var(--danger); font-weight: 700; }
     ul { margin: 8px 0 0 20px; padding: 0; }
@@ -120,7 +121,7 @@
       <div class="card"><div class="muted">追蹤候選</div><div class="metric">3</div></div>
       <div class="card"><div class="muted">剔除/等待</div><div class="metric">2</div></div>
       <div class="card"><div class="muted">資料檔</div><div class="metric">5</div></div>
-      <div class="card"><div class="muted">籌碼資料</div><div class="metric">未接入</div></div>
+      <div class="card"><div class="muted">自選股</div><div class="metric">1</div></div>
     </section>
     <section>
       <h2>原始系統定位</h2>
@@ -225,15 +226,15 @@
       <table>
         <thead>
           <tr>
-            <th>排名</th><th>代號</th><th>名稱</th><th>決策</th><th>分數</th><th>收盤</th><th>漲跌幅</th><th>量比</th><th>型態</th><th>動作</th>
+            <th>排名</th><th>代號</th><th>名稱</th><th>自選股</th><th>決策</th><th>分數</th><th>收盤</th><th>漲跌幅</th><th>量比</th><th>型態</th><th>動作</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>3037</td><td>欣興</td><td><span class="tag hold">hold</span></td><td>85.00</td><td>911.00</td><td class="pos">3.17%</td><td>1.84</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
-<tr><td>2</td><td>4958</td><td>臻鼎-KY</td><td><span class="tag hold">hold</span></td><td>85.00</td><td>432.50</td><td class="pos">2.73%</td><td>1.51</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
-<tr><td>3</td><td>6205</td><td>詮欣</td><td><span class="tag hold">hold</span></td><td>85.00</td><td>94.50</td><td class="pos">9.25%</td><td>1.56</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
-<tr><td>4</td><td>8046</td><td>南電</td><td><span class="tag reject">reject</span></td><td>74.76</td><td>986.00</td><td class="neg">-1.89%</td><td>0.98</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>5</td><td>2313</td><td>華通</td><td><span class="tag reject">reject</span></td><td>54.38</td><td>268.50</td><td class="pos">9.82%</td><td>1.03</td><td>-</td><td>暫不納入進場候選</td></tr>
+          <tr><td>1</td><td>3037</td><td>欣興</td><td>-</td><td><span class="tag hold">hold</span></td><td>85.00</td><td>911.00</td><td class="pos">3.17%</td><td>1.84</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
+<tr><td>2</td><td>4958</td><td>臻鼎-KY</td><td>-</td><td><span class="tag hold">hold</span></td><td>85.00</td><td>432.50</td><td class="pos">2.73%</td><td>1.51</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
+<tr><td>3</td><td>6205</td><td>詮欣</td><td><span class="tag watchlist">自選股</span></td><td><span class="tag hold">hold</span></td><td>85.00</td><td>94.50</td><td class="pos">9.25%</td><td>1.56</td><td>w_pattern</td><td>優先追蹤，等待突破後不跌破 3MA/8MA</td></tr>
+<tr><td>4</td><td>8046</td><td>南電</td><td>-</td><td><span class="tag reject">reject</span></td><td>74.76</td><td>986.00</td><td class="neg">-1.89%</td><td>0.98</td><td>-</td><td>暫不納入進場候選</td></tr>
+<tr><td>5</td><td>2313</td><td>華通</td><td>-</td><td><span class="tag reject">reject</span></td><td>54.38</td><td>268.50</td><td class="pos">9.82%</td><td>1.03</td><td>-</td><td>暫不納入進場候選</td></tr>
         </tbody>
       </table>
     </section>
