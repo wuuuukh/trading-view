@@ -1,0 +1,36 @@
+moving_averages: [3, 8, 21, 55, 144, 233]
+timeframes: ["5K", "15K", "30K", "60K", "D", "W", "M"]
+
+chip_filter:
+  frequency: weekly
+  thresholds:
+    400: 8
+    600: 14
+    800: 22
+    1000: 32
+  top_n_holders: 30
+  top30_increase_bonus: 12
+  weakening_penalty: -15
+  max_score: 100
+
+scanner:
+  min_volume_ratio_breakout: 1.2
+  consolidation_window: 20
+  breakout_window: 20
+  pullback_volume_ratio: 0.85
+  primary_min_score: 75
+  secondary_min_score: 55
+
+agent_weights:
+  trend_structure: 25
+  moving_average_alignment: 25
+  pattern_quality: 20
+  volume_price: 15
+  chip: 15
+
+risk:
+  breakout_stop_loss_pct: 0.03
+  first_entry_fraction: 0.3333
+  second_entry_fraction: 0.3333
+  third_entry_fraction: 0.3334
+
