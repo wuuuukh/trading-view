@@ -38,7 +38,7 @@
   {
     "symbol": "4958",
     "decision": "hold",
-    "score": 85.0,
+    "score": 84.92,
     "tier": "secondary_watchlist",
     "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 188.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先",
     "market_state": "n/a",
@@ -48,7 +48,7 @@
       "symbol": "4958",
       "baseline_signal": true,
       "agent_decision": "hold",
-      "agent_score": 85.0,
+      "agent_score": 84.92,
       "agent_tier": "secondary_watchlist",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 188.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先"
     }
@@ -74,7 +74,7 @@
   {
     "symbol": "8046",
     "decision": "reject",
-    "score": 74.76,
+    "score": 74.58,
     "tier": "secondary_watchlist",
     "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 515.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
     "market_state": "n/a",
@@ -84,7 +84,7 @@
       "symbol": "8046",
       "baseline_signal": false,
       "agent_decision": "reject",
-      "agent_score": 74.76,
+      "agent_score": 74.58,
       "agent_tier": "secondary_watchlist",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 515.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先"
     }
