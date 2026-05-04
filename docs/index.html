@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trading Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Trading Dashboard</h1>
+      <p id="subtitle">Loading latest data...</p>
+    </div>
+    <a class="link-button" href="reports/tracking_log.csv">CSV</a>
+  </header>
+
+  <main>
+    <section class="metrics" aria-label="Summary">
+      <article>
+        <span>Symbols</span>
+        <strong id="metric-total">-</strong>
+      </article>
+      <article>
+        <span>Hold</span>
+        <strong id="metric-hold">-</strong>
+      </article>
+      <article>
+        <span>Reject</span>
+        <strong id="metric-reject">-</strong>
+      </article>
+      <article>
+        <span>Avg Score</span>
+        <strong id="metric-score">-</strong>
+      </article>
+    </section>
+
+    <section class="toolbar" aria-label="Filters">
+      <label>
+        <span>Search</span>
+        <input id="search" type="search" placeholder="Symbol or name">
+      </label>
+      <label>
+        <span>Decision</span>
+        <select id="decision-filter">
+          <option value="all">All</option>
+          <option value="hold">Hold</option>
+          <option value="reject">Reject</option>
+        </select>
+      </label>
+      <label>
+        <span>Sort</span>
+        <select id="sort">
+          <option value="score-desc">Score high to low</option>
+          <option value="change-desc">Change high to low</option>
+          <option value="volume-desc">Volume ratio high to low</option>
+          <option value="symbol-asc">Symbol low to high</option>
+        </select>
+      </label>
+    </section>
+
+    <section id="cards" class="cards" aria-live="polite"></section>
+
+    <section class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Decision</th>
+            <th>Score</th>
+            <th>Close</th>
+            <th>Change</th>
+            <th>Vol Ratio</th>
+            <th>Pattern</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

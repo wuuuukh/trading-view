@@ -1,0 +1,6 @@
+﻿run_date,data_latest_completed_day,symbol,name,decision,score,tier,market_state,pattern_type,close,change_pct,volume,volume_ratio,ma3,ma8,ma21,key_level,tracking_action
+2026-05-05,2026-05-04,3037,欣興,hold,85.0,secondary_watchlist,strong_uptrend,w_pattern,911.0,3.17,43631191,1.84,865.67,811.88,688.88,538.0,優先追蹤，等待突破後不跌破 3MA/8MA
+2026-05-05,2026-05-04,4958,臻鼎-KY,hold,85.0,secondary_watchlist,strong_uptrend,w_pattern,432.5,2.73,80952818,1.51,412.17,372.06,301.64,188.5,優先追蹤，等待突破後不跌破 3MA/8MA
+2026-05-05,2026-05-04,6205,詮欣,hold,85.0,secondary_watchlist,strong_uptrend,w_pattern,94.5,9.25,11365796,1.56,90.9,84.85,72.26,66.0,優先追蹤，等待突破後不跌破 3MA/8MA
+2026-05-05,2026-05-04,8046,南電,reject,74.76,secondary_watchlist,strong_uptrend,,986.0,-1.89,22470773,0.98,969.0,903.0,759.52,515.0,暫不納入進場候選
+2026-05-05,2026-05-04,2313,華通,reject,54.38,lower_priority,strong_uptrend,,268.5,9.82,83875146,1.03,247.67,237.75,255.74,215.0,暫不納入進場候選
