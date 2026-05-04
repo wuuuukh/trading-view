@@ -6,6 +6,8 @@ import json
 from datetime import date
 from pathlib import Path
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SYMBOL_NAMES = {
@@ -15,9 +17,28 @@ SYMBOL_NAMES = {
     "8046": "南電",
     "2313": "華通",
 }
-CUSTOM_WATCHLIST = {
-    "6205": "自選股",
-}
+
+
+def load_custom_watchlist() -> dict[str, dict[str, str]]:
+    path = ROOT / "config" / "custom_watchlist.yaml"
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as fh:
+        data = yaml.safe_load(fh) or {}
+    result: dict[str, dict[str, str]] = {}
+    for item in data.get("items", []):
+        symbol = str(item.get("symbol", "")).strip()
+        if not symbol:
+            continue
+        name = str(item.get("name") or SYMBOL_NAMES.get(symbol, symbol))
+        result[symbol] = {
+            "name": name,
+            "label": str(item.get("label") or f"{symbol} {name}"),
+            "priority": str(item.get("priority") or ""),
+            "reason": str(item.get("reason") or ""),
+            "tracking_note": str(item.get("tracking_note") or ""),
+        }
+    return result
 
 
 def read_csv_rows(path: Path) -> list[dict[str, str]]:
@@ -54,7 +75,11 @@ def latest_market_rows() -> dict[str, dict[str, object]]:
     return result
 
 
-def flatten_tracking_rows(scan_rows: list[dict], market: dict[str, dict[str, object]]) -> list[dict[str, object]]:
+def flatten_tracking_rows(
+    scan_rows: list[dict],
+    market: dict[str, dict[str, object]],
+    custom_watchlist: dict[str, dict[str, str]],
+) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for item in scan_rows:
         symbol = str(item["symbol"])
@@ -67,7 +92,7 @@ def flatten_tracking_rows(scan_rows: list[dict], market: dict[str, dict[str, obj
                 "data_latest_completed_day": market_row.get("latest_date", ""),
                 "symbol": symbol,
                 "name": market_row.get("name", SYMBOL_NAMES.get(symbol, symbol)),
-                "custom_watchlist": CUSTOM_WATCHLIST.get(symbol, ""),
+                "custom_watchlist": custom_watchlist.get(symbol, {}).get("label", ""),
                 "decision": item.get("decision", ""),
                 "score": item.get("score", ""),
                 "tier": item.get("tier", ""),
@@ -98,13 +123,13 @@ def classify_action(item: dict) -> str:
     return "暫不納入進場候選"
 
 
-def append_tracking_log(rows: list[dict[str, object]]) -> Path:
+def append_tracking_log(rows: list[dict[str, object]], custom_watchlist: dict[str, dict[str, str]]) -> Path:
     path = ROOT / "reports" / "tracking_log.csv"
     existing: list[dict[str, str]] = []
     if path.exists():
         existing = read_csv_rows(path)
     for row in existing:
-        row["custom_watchlist"] = CUSTOM_WATCHLIST.get(str(row.get("symbol", "")), "")
+        row["custom_watchlist"] = custom_watchlist.get(str(row.get("symbol", "")), {}).get("label", "")
     existing_keys = {(row["run_date"], row["data_latest_completed_day"], row["symbol"]) for row in existing}
     new_rows = [
         row for row in rows
@@ -463,8 +488,9 @@ def render_original_candidate(rank: str, symbol: str, name: str, tier: str, reas
 def main() -> None:
     scan_rows = load_scan()
     market = latest_market_rows()
-    rows = flatten_tracking_rows(scan_rows, market)
-    append_tracking_log(rows)
+    custom_watchlist = load_custom_watchlist()
+    rows = flatten_tracking_rows(scan_rows, market, custom_watchlist)
+    append_tracking_log(rows, custom_watchlist)
     write_markdown(rows)
     write_html(rows)
     print("updated reports/tracking_log.csv")
