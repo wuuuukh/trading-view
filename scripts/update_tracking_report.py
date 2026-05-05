@@ -191,8 +191,7 @@ def pct_class(value: object) -> str:
 
 
 def write_html(rows: list[dict[str, object]]) -> Path:
-    path = ROOT / "trading-record.html"
-    index_path = ROOT / "index.html"
+    path = ROOT / "index.html"
     latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
     hold_rows = [row for row in rows if row["decision"] == "hold"]
     reject_rows = [row for row in rows if row["decision"] != "hold"]
@@ -453,7 +452,6 @@ def write_html(rows: list[dict[str, object]]) -> Path:
 </html>
 """
     path.write_text(html_text, encoding="utf-8-sig")
-    index_path.write_text(html_text, encoding="utf-8-sig")
     return path
 
 
@@ -506,7 +504,7 @@ def main() -> None:
     write_html(rows)
     print("updated reports/tracking_log.csv")
     print("updated reports/tracking_summary.md")
-    print("updated trading-record.html")
+    print("updated index.html")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@
 - GitHub Pages source: `main` branch, `/docs` folder
 - Main report page: `AI Agent Trading System Report`
 - Public entry file: `docs/index.html`
-- Direct report URL: `https://wuuuukh.github.io/trading-view/AI_Agent_Trading_System_Report.html`
+- Direct report URL: `https://wuuuukh.github.io/trading-view/`
 
 ## Update Flow
 

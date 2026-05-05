@@ -11,12 +11,23 @@ New-Item -ItemType Directory -Force -Path $SiteReports | Out-Null
 New-Item -ItemType Directory -Force -Path $Docs | Out-Null
 New-Item -ItemType Directory -Force -Path $DocsReports | Out-Null
 
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Site "index.html") -Force
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Site "trading-record.html") -Force
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Site "AI_Agent_Trading_System_Report.html") -Force
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Docs "index.html") -Force
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Docs "trading-record.html") -Force
-Copy-Item -LiteralPath (Join-Path $Root "trading-record.html") -Destination (Join-Path $Docs "AI_Agent_Trading_System_Report.html") -Force
+Copy-Item -LiteralPath (Join-Path $Root "index.html") -Destination (Join-Path $Site "index.html") -Force
+Copy-Item -LiteralPath (Join-Path $Root "index.html") -Destination (Join-Path $Docs "index.html") -Force
+
+$LegacyReportPages = @(
+    (Join-Path $Root "trading-record.html"),
+    (Join-Path $Root "AI_Agent_Trading_System_Report.html"),
+    (Join-Path $Site "trading-record.html"),
+    (Join-Path $Site "AI_Agent_Trading_System_Report.html"),
+    (Join-Path $Docs "trading-record.html"),
+    (Join-Path $Docs "AI_Agent_Trading_System_Report.html")
+)
+
+foreach ($Page in $LegacyReportPages) {
+    if (Test-Path -LiteralPath $Page) {
+        Remove-Item -LiteralPath $Page -Force
+    }
+}
 
 $WebRoot = Join-Path $Root "web"
 if (Test-Path -LiteralPath $WebRoot) {
