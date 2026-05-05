@@ -3,7 +3,8 @@ name: Update trading website
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 8 * * 1-5"
+    # Runs every day at 16:30 Asia/Taipei. GitHub Actions cron uses UTC.
+    - cron: "30 8 * * *"
 
 permissions:
   contents: write

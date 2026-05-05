@@ -145,6 +145,17 @@ def append_tracking_log(rows: list[dict[str, object]], custom_watchlist: dict[st
     return path
 
 
+def market_data_note(latest_day: object) -> str:
+    today = date.today().isoformat()
+    latest = str(latest_day or "n/a")
+    if latest != "n/a" and latest >= today:
+        return f"{latest} full daily candle is available; report uses the latest completed daily data."
+    return (
+        f"{today} full daily candle was not available from the data source at update time; "
+        f"report uses latest completed day {latest}."
+    )
+
+
 def write_markdown(rows: list[dict[str, object]]) -> Path:
     path = ROOT / "reports" / "tracking_summary.md"
     latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
@@ -153,7 +164,7 @@ def write_markdown(rows: list[dict[str, object]]) -> Path:
         "",
         f"- run_date: {date.today().isoformat()}",
         f"- latest_completed_day: {latest_day}",
-        "- note: 2026-05-05 full daily candle was not available from the data source at update time.",
+        f"- note: {market_data_note(latest_day)}",
         "",
         "| rank | symbol | name | watchlist | decision | score | close | change_pct | volume_ratio | action |",
         "|---:|---|---|---|---|---:|---:|---:|---:|---|",
@@ -311,7 +322,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
   <header>
     <h1>AI Agent Trading System Report</h1>
     <p class="muted">更新日：{date.today().isoformat()}；最新完整日線：{html.escape(str(latest_day))}</p>
-    <div class="notice">2026-05-05 的完整日 K 尚未由資料源發布，本次模型使用最新可取得的 2026-05-04 完整日線。若盤中追蹤，請把 2026-05-05 視為即時觀察，不當作正式收盤訊號。</div>
+    <div class="notice">{html.escape(market_data_note(latest_day))}</div>
   </header>
   <main>
     <section class="summary">
