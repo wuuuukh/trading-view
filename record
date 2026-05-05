@@ -1,0 +1,50 @@
+# Record
+
+## 日期
+
+2026-05-05
+
+## 紀錄內容
+
+### 專案狀態
+
+- 本機路徑：`C:\Users\User\Desktop\Trading View`
+- GitHub repo：`https://github.com/wuuuukh/trading-view`
+- 網站網址：`https://wuuuukh.github.io/trading-view/`
+- GitHub Pages 來源：`main` branch 的 `/docs` folder
+- 公開入口檔案：`docs/index.html`
+- 本機報告入口檔案：`index.html`
+
+### 自動更新
+
+- GitHub Actions workflow：`.github/workflows/update-site.yml`
+- 自動更新工作名稱：`Update trading website`
+- 排程：每天台北時間 16:30
+- 更新腳本：`scripts/update_all.ps1`
+- 報告產生器：`scripts/update_tracking_report.py`
+- 靜態網站匯出腳本：`scripts/export_static_site.ps1`
+- 手動觸發路徑：GitHub repo -> Actions -> Update trading website -> Run workflow
+
+### 報告檔案整理
+
+- 報告 HTML 已固定只保留一個入口：`index.html`
+- 舊的重複報告頁 `trading-record.html` 和 `AI_Agent_Trading_System_Report.html` 已移除。
+- GitHub Pages 仍需要 `docs/index.html` 作為發布入口。
+
+### 自選股紀錄
+
+- 自選股設定檔：`config/custom_watchlist.yaml`
+- 目前重點自選股：`6205 詮欣`
+- 顯示名稱應由 `config/custom_watchlist.yaml` 讀取，不要硬寫在 HTML。
+- 後續更新時持續注意：趨勢是否維持強勢、量能是否延續、是否跌破 3MA/8MA。
+
+### 本機整理
+
+- 保留 `docs/`、`trading_agent/`、`scripts/`、`config/`、`data/`、`reports/`、`web/`。
+- 舊 zip、Python cache、local server logs、舊 duplicated project copy 已清理。
+
+### 之後紀錄規則
+
+- 人工紀錄固定寫在這個檔案：`record`
+- 格式固定為：大標、日期、紀錄內容。
+- 不再新增分散的 `records/*.md` 人工紀錄檔。
