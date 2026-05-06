@@ -190,11 +190,26 @@ def pct_class(value: object) -> str:
     return ""
 
 
+def format_symbol_list(rows: list[dict[str, object]]) -> str:
+    if not rows:
+        return "無"
+    return "、".join(f"{row['symbol']} {row['name']}" for row in rows)
+
+
 def write_html(rows: list[dict[str, object]]) -> Path:
     path = ROOT / "index.html"
     latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
     hold_rows = [row for row in rows if row["decision"] == "hold"]
     reject_rows = [row for row in rows if row["decision"] != "hold"]
+    priority_rows = [
+        row for row in hold_rows
+        if str(row.get("tracking_action", "")).startswith("優先追蹤")
+    ]
+    observe_rows = [
+        row for row in hold_rows
+        if not str(row.get("tracking_action", "")).startswith("優先追蹤")
+    ]
+    report_date = date.today().strftime("%Y/%m/%d")
     table_rows = "\n".join(render_row(idx, row) for idx, row in enumerate(rows, 1))
     original_candidates = "\n".join(
         [
@@ -425,7 +440,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       </div>
     </section>
     <section>
-      <h2>2026/05/05 新增追蹤資料</h2>
+      <h2>{report_date} 新增追蹤資料</h2>
       <table>
         <thead>
           <tr>
@@ -439,8 +454,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     </section>
     <section>
       <h2>交易結論</h2>
-      <p>優先追蹤：3037 欣興、4958 臻鼎-KY、6205 詮欣。三檔皆為強多排列且模型分數 85，策略上仍是等待突破或回測後不跌破 3MA/8MA，不追高。</p>
-      <p>暫不納入：8046 南電、2313 華通。8046 趨勢強但量能與結構不足；2313 短線結構較弱，維持低優先。</p>
+      <p>優先追蹤：{html.escape(format_symbol_list(priority_rows))}。條件為當日模型維持 hold、分數達高標且型態成立；策略上等待突破或回測後不跌破 3MA/8MA，不追高。</p>
+      <p>觀察不追高：{html.escape(format_symbol_list(observe_rows))}。仍列入追蹤，但沒有進入優先追蹤條件。</p>
+      <p>暫不納入：{html.escape(format_symbol_list(reject_rows))}。依當日資料重新計算後未達進場候選條件。</p>
       <p class="muted">風控規則：突破型初始停損 3%；收盤跌破日 K 3MA 先出 1/2，跌破日 K 8MA 全出；加碼只在走強時進行。</p>
     </section>
     <section>
