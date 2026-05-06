@@ -405,7 +405,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       <p class="muted">原先移出前 5 的股票：2330 台積電、2317 鴻海、3231 緯創、2454 聯發科。理由是短線資料中部分標的有轉弱或法人調節跡象；依 SOP，短線不追弱、不猜反彈。</p>
     </section>
     <section>
-      <h2>2026/05/04 開盤後執行規則</h2>
+      <h2>{report_date} 開盤後執行規則</h2>
       <div class="grid">
         <div class="card">
           <strong>可升級或試單</strong>
@@ -431,9 +431,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         <div class="card">
           <strong>下次讀檔方式</strong>
           <ul>
-            <li><code>2026-05-03_trading_agent_session.md</code></li>
+            <li><code>record</code></li>
             <li><code>config/rules.yaml</code></li>
-            <li><code>config/next_week_watchlist.yaml</code></li>
+            <li><code>config/custom_watchlist.yaml</code></li>
             <li><code>reports/tracking_log.csv</code></li>
           </ul>
         </div>
