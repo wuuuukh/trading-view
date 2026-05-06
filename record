@@ -2,7 +2,7 @@
 
 ## 日期
 
-2026-05-05
+2026-05-06
 
 ## 紀錄內容
 
@@ -19,11 +19,18 @@
 
 - GitHub Actions workflow：`.github/workflows/update-site.yml`
 - 自動更新工作名稱：`Update trading website`
-- 排程：每天台北時間 16:30
+- 排程：每天台北時間 16:30、17:10、18:00 自動嘗試更新
 - 更新腳本：`scripts/update_all.ps1`
 - 報告產生器：`scripts/update_tracking_report.py`
 - 靜態網站匯出腳本：`scripts/export_static_site.ps1`
 - 手動觸發路徑：GitHub repo -> Actions -> Update trading website -> Run workflow
+
+### 2026-05-06 更新紀錄
+
+- 16:56 檢查時，網站與報告仍停在 2026-05-05。
+- 已手動重新執行 `scripts/update_all.ps1`，資料、策略掃描、追蹤摘要與網站 HTML 已更新到 2026-05-06。
+- 2026-05-06 策略摘要：3037 hold，6205 hold，4958 reject，8046 reject，2313 reject。
+- 為避免資料源晚於 16:30 才釋出，GitHub Actions 改成每天 16:30、17:10、18:00 三次嘗試；若沒有檔案變化就不會產生多餘提交。
 
 ### 報告檔案整理
 

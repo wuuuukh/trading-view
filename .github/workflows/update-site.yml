@@ -3,8 +3,11 @@ name: Update trading website
 on:
   workflow_dispatch:
   schedule:
-    # Runs every day at 16:30 Asia/Taipei. GitHub Actions cron uses UTC.
-    - cron: "30 8 * * *"
+    # GitHub Actions cron uses UTC. These retry windows cover Taiwan market
+    # data arriving later than the first scheduled update.
+    - cron: "30 8 * * *"  # 16:30 Asia/Taipei
+    - cron: "10 9 * * *"  # 17:10 Asia/Taipei
+    - cron: "0 10 * * *"  # 18:00 Asia/Taipei
 
 permissions:
   contents: write
