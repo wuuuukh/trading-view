@@ -1,6 +1,6 @@
 # Candidate Scan Report
 
-## 3037 - hold (81.96)
+## 3037 - hold (81.44)
 - tier: secondary_watchlist
 - market_state: strong_uptrend
 - pattern_type: n_pattern
