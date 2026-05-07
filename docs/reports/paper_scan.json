@@ -2,32 +2,32 @@
   {
     "symbol": "3037",
     "decision": "hold",
-    "score": 85.0,
+    "score": 81.96,
     "tier": "secondary_watchlist",
-    "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 538.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+    "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 886.00，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有足夠成交量，不列最高優先",
     "market_state": "strong_uptrend",
-    "pattern_type": "w_pattern",
+    "pattern_type": "n_pattern",
     "risk_note": "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。",
     "details": {
       "symbol": "3037",
       "latest": {
-        "timestamp": "2026-05-06 00:00:00",
-        "open": 908.0,
-        "high": 928.0,
-        "low": 846.0,
-        "close": 858.0,
-        "volume": 44744339,
-        "ma3": 890.6666666666666,
-        "ma8": 851.5,
-        "ma21": 724.7619047619048,
-        "ma55": 562.3181818181819,
-        "ma144": 344.5173611111111,
-        "ma233": 261.1437768240343,
-        "volume_ma": 23880535.75,
-        "volume_ratio": 1.873674002477101,
-        "macd": 93.91761327605616,
-        "macd_signal": 82.42887574375352,
-        "macd_hist": 11.488737532302636
+        "timestamp": "2026-05-07 00:00:00",
+        "open": 875.0,
+        "high": 905.0,
+        "low": 862.0,
+        "close": 896.0,
+        "volume": 26476351,
+        "ma3": 885.6666666666666,
+        "ma8": 864.75,
+        "ma21": 740.5714285714286,
+        "ma55": 571.5545454545454,
+        "ma144": 349.5865972222222,
+        "ma233": 264.5106008583691,
+        "volume_ma": 22135681.7,
+        "volume_ratio": 1.196093771080924,
+        "macd": 94.0483928859486,
+        "macd_signal": 84.75290282110007,
+        "macd_hist": 9.295490064848536
       },
       "trend": {
         "market_state": "strong_uptrend",
@@ -40,29 +40,29 @@
       },
       "pattern": {
         "matched": true,
-        "pattern_type": "w_pattern",
+        "pattern_type": "n_pattern",
         "score": 100,
-        "key_level": 538.0,
-        "reason": "頸線 538.00，第二底不破/假跌破檢查 True",
+        "key_level": 886.0,
+        "reason": "N 字關鍵位 886.00，量縮回檔 True",
         "all_patterns": [
           {
-            "matched": true,
-            "pattern_type": "w_pattern",
-            "score": 100,
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
             "key_level": 538.0,
             "reason": "頸線 538.00，第二底不破/假跌破檢查 True"
           },
           {
             "matched": false,
             "pattern_type": null,
-            "score": 25,
+            "score": 35,
             "key_level": 948.0,
-            "reason": "區間高點 948.00，量比 1.87"
+            "reason": "區間高點 948.00，量比 1.20"
           },
           {
-            "matched": false,
-            "pattern_type": null,
-            "score": 70,
+            "matched": true,
+            "pattern_type": "n_pattern",
+            "score": 100,
             "key_level": 886.0,
             "reason": "N 字關鍵位 886.00，量縮回檔 True"
           }
@@ -74,108 +74,34 @@
     }
   },
   {
-    "symbol": "6205",
-    "decision": "hold",
-    "score": 85.0,
-    "tier": "secondary_watchlist",
-    "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 55.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先",
-    "market_state": "strong_uptrend",
-    "pattern_type": "w_pattern",
-    "risk_note": "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。",
-    "details": {
-      "symbol": "6205",
-      "latest": {
-        "timestamp": "2026-05-06 00:00:00",
-        "open": 103.0,
-        "high": 104.5,
-        "low": 91.7,
-        "close": 94.1,
-        "volume": 15836336,
-        "ma3": 95.60000000000001,
-        "ma8": 88.175,
-        "ma21": 76.4,
-        "ma55": 62.21636363636363,
-        "ma144": 51.73680555555555,
-        "ma233": 49.20836909871245,
-        "volume_ma": 8898227.0,
-        "volume_ratio": 1.779718139355177,
-        "macd": 9.335881565832835,
-        "macd_signal": 7.873986785443139,
-        "macd_hist": 1.461894780389696
-      },
-      "trend": {
-        "market_state": "strong_uptrend",
-        "trend_score": 100.0,
-        "reason": "均線分數 100，價格相對主要均線檢查完成",
-        "short_strong": true,
-        "mid_bull": true,
-        "long_bull": true,
-        "ma_score": 100
-      },
-      "pattern": {
-        "matched": true,
-        "pattern_type": "w_pattern",
-        "score": 100,
-        "key_level": 55.2,
-        "reason": "頸線 55.20，第二底不破/假跌破檢查 True",
-        "all_patterns": [
-          {
-            "matched": true,
-            "pattern_type": "w_pattern",
-            "score": 100,
-            "key_level": 55.2,
-            "reason": "頸線 55.20，第二底不破/假跌破檢查 True"
-          },
-          {
-            "matched": false,
-            "pattern_type": null,
-            "score": 25,
-            "key_level": 103.0,
-            "reason": "區間高點 103.00，量比 1.78"
-          },
-          {
-            "matched": false,
-            "pattern_type": null,
-            "score": 55,
-            "key_level": 91.8,
-            "reason": "N 字關鍵位 91.80，量縮回檔 False"
-          }
-        ]
-      },
-      "chip_score": 0.0,
-      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
-      "chip": null
-    }
-  },
-  {
     "symbol": "4958",
     "decision": "reject",
-    "score": 76.24,
+    "score": 74.48,
     "tier": "secondary_watchlist",
-    "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 394.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
+    "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 396.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
     "market_state": "strong_uptrend",
     "pattern_type": null,
     "risk_note": "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。",
     "details": {
       "symbol": "4958",
       "latest": {
-        "timestamp": "2026-05-06 00:00:00",
-        "open": 435.0,
-        "high": 440.0,
-        "low": 400.0,
-        "close": 412.0,
-        "volume": 56667967,
-        "ma3": 423.6666666666667,
-        "ma8": 396.875,
-        "ma21": 320.95238095238096,
-        "ma55": 243.63636363636363,
-        "ma144": 188.61111111111111,
-        "ma233": 166.73047210300427,
-        "volume_ma": 55345778.8,
-        "volume_ratio": 1.023889594268389,
-        "macd": 52.4495631384159,
-        "macd_signal": 43.38503249696232,
-        "macd_hist": 9.06453064145358
+        "timestamp": "2026-05-07 00:00:00",
+        "open": 415.0,
+        "high": 429.5,
+        "low": 403.0,
+        "close": 427.0,
+        "volume": 47730420,
+        "ma3": 421.8333333333333,
+        "ma8": 406.8125,
+        "ma21": 330.57142857142856,
+        "ma55": 247.78181818181818,
+        "ma144": 190.40277777777777,
+        "ma233": 168.1231759656652,
+        "volume_ma": 56298593.95,
+        "volume_ratio": 0.8478083847420846,
+        "macd": 52.85384474037221,
+        "macd_signal": 45.2787949456443,
+        "macd_hist": 7.57504979472791
       },
       "trend": {
         "market_state": "strong_uptrend",
@@ -190,8 +116,8 @@
         "matched": false,
         "pattern_type": null,
         "score": 80,
-        "key_level": 394.0,
-        "reason": "N 字關鍵位 394.00，量縮回檔 False",
+        "key_level": 396.0,
+        "reason": "N 字關鍵位 396.00，量縮回檔 False",
         "all_patterns": [
           {
             "matched": false,
@@ -203,16 +129,90 @@
           {
             "matched": false,
             "pattern_type": null,
-            "score": 0,
+            "score": 35,
             "key_level": 447.5,
-            "reason": "區間高點 447.50，量比 1.02"
+            "reason": "區間高點 447.50，量比 0.85"
           },
           {
             "matched": false,
             "pattern_type": null,
             "score": 80,
-            "key_level": 394.0,
-            "reason": "N 字關鍵位 394.00，量縮回檔 False"
+            "key_level": 396.0,
+            "reason": "N 字關鍵位 396.00，量縮回檔 False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
+    "symbol": "6205",
+    "decision": "reject",
+    "score": 73.44,
+    "tier": "secondary_watchlist",
+    "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 55.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
+    "market_state": "strong_uptrend",
+    "pattern_type": null,
+    "risk_note": "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。",
+    "details": {
+      "symbol": "6205",
+      "latest": {
+        "timestamp": "2026-05-07 00:00:00",
+        "open": 94.1,
+        "high": 94.1,
+        "low": 88.6,
+        "close": 90.7,
+        "volume": 7799919,
+        "ma3": 94.33333333333333,
+        "ma8": 89.7375,
+        "ma21": 78.25238095238095,
+        "ma55": 62.92363636363637,
+        "ma144": 52.06319444444444,
+        "ma233": 49.37145922746781,
+        "volume_ma": 9237957.75,
+        "volume_ratio": 0.8443336948580437,
+        "macd": 9.02330208800818,
+        "macd_signal": 8.103849845956148,
+        "macd_hist": 0.9194522420520315
+      },
+      "trend": {
+        "market_state": "strong_uptrend",
+        "trend_score": 100.0,
+        "reason": "均線分數 100，價格相對主要均線檢查完成",
+        "short_strong": true,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 100
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 55.2,
+        "reason": "頸線 55.20，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 55.2,
+            "reason": "頸線 55.20，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 104.5,
+            "reason": "區間高點 104.50，量比 0.84"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 25,
+            "key_level": 91.8,
+            "reason": "N 字關鍵位 91.80，量縮回檔 False"
           }
         ]
       },
@@ -224,7 +224,7 @@
   {
     "symbol": "8046",
     "decision": "reject",
-    "score": 70.5,
+    "score": 65.75,
     "tier": "secondary_watchlist",
     "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 977.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
     "market_state": "strong_uptrend",
@@ -233,23 +233,23 @@
     "details": {
       "symbol": "8046",
       "latest": {
-        "timestamp": "2026-05-06 00:00:00",
-        "open": 1005.0,
-        "high": 1025.0,
-        "low": 901.0,
-        "close": 940.0,
-        "volume": 22794178,
-        "ma3": 974.3333333333334,
-        "ma8": 945.375,
-        "ma21": 797.3809523809524,
-        "ma55": 612.4818181818182,
-        "ma144": 404.3958333333333,
-        "ma233": 308.7407725321889,
-        "volume_ma": 21713179.0,
-        "volume_ratio": 1.0497853861012245,
-        "macd": 107.48977110422447,
-        "macd_signal": 96.5160873086073,
-        "macd_hist": 10.973683795617177
+        "timestamp": "2026-05-07 00:00:00",
+        "open": 970.0,
+        "high": 980.0,
+        "low": 932.0,
+        "close": 947.0,
+        "volume": 11915247,
+        "ma3": 961.3333333333334,
+        "ma8": 954.5,
+        "ma21": 812.7619047619048,
+        "ma55": 622.2454545454545,
+        "ma144": 409.44097222222223,
+        "ma233": 312.3459227467811,
+        "volume_ma": 20707249.1,
+        "volume_ratio": 0.5754142881296579,
+        "macd": 103.77382716861416,
+        "macd_signal": 97.96763528060868,
+        "macd_hist": 5.806191888005486
       },
       "trend": {
         "market_state": "strong_uptrend",
@@ -279,7 +279,7 @@
             "pattern_type": null,
             "score": 0,
             "key_level": 1035.0,
-            "reason": "區間高點 1035.00，量比 1.05"
+            "reason": "區間高點 1035.00，量比 0.58"
           },
           {
             "matched": false,
@@ -298,32 +298,32 @@
   {
     "symbol": "2313",
     "decision": "reject",
-    "score": 56.46,
-    "tier": "secondary_watchlist",
-    "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 294.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做",
+    "score": 49.86,
+    "tier": "lower_priority",
+    "reason": "均線分數 65，價格相對主要均線檢查完成；N 字關鍵位 294.00，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先",
     "market_state": "constructive",
     "pattern_type": null,
     "risk_note": "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。",
     "details": {
       "symbol": "2313",
       "latest": {
-        "timestamp": "2026-05-06 00:00:00",
-        "open": 274.5,
-        "high": 274.5,
-        "low": 247.5,
-        "close": 250.0,
-        "volume": 105025955,
-        "ma3": 264.3333333333333,
-        "ma8": 244.625,
-        "ma21": 255.66666666666666,
-        "ma55": 230.8,
-        "ma144": 149.91805555555555,
-        "ma233": 117.88240343347638,
-        "volume_ma": 81822792.3,
-        "volume_ratio": 1.2835782310499322,
-        "macd": 4.000008351353927,
-        "macd_signal": 4.310770097401696,
-        "macd_hist": -0.3107617460477696
+        "timestamp": "2026-05-07 00:00:00",
+        "open": 248.0,
+        "high": 253.0,
+        "low": 237.0,
+        "close": 249.5,
+        "volume": 65170759,
+        "ma3": 258.0,
+        "ma8": 249.0,
+        "ma21": 254.45238095238096,
+        "ma55": 231.84545454545454,
+        "ma144": 151.12569444444446,
+        "ma233": 118.68497854077252,
+        "volume_ma": 79105282.05,
+        "volume_ratio": 0.8238483867462553,
+        "macd": 3.6219065123868006,
+        "macd_signal": 4.1729973803987175,
+        "macd_hist": -0.5510908680119169
       },
       "trend": {
         "market_state": "constructive",
@@ -337,23 +337,23 @@
       "pattern": {
         "matched": false,
         "pattern_type": null,
-        "score": 55,
+        "score": 45,
         "key_level": 294.0,
-        "reason": "頸線 294.00，第二底不破/假跌破檢查 True",
+        "reason": "N 字關鍵位 294.00，量縮回檔 True",
         "all_patterns": [
           {
             "matched": false,
             "pattern_type": null,
-            "score": 55,
+            "score": 30,
             "key_level": 294.0,
             "reason": "頸線 294.00，第二底不破/假跌破檢查 True"
           },
           {
             "matched": false,
             "pattern_type": null,
-            "score": 25,
+            "score": 0,
             "key_level": 294.0,
-            "reason": "區間高點 294.00，量比 1.28"
+            "reason": "區間高點 294.00，量比 0.82"
           },
           {
             "matched": false,
