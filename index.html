@@ -113,8 +113,8 @@
 <body>
   <header>
     <h1>AI Agent Trading System Report</h1>
-    <p class="muted">更新日：2026-05-10；最新完整日線：2026-05-08</p>
-    <div class="notice">2026-05-10 full daily candle was not available from the data source at update time; report uses latest completed day 2026-05-08.</div>
+    <p class="muted">更新日：2026-05-11；最新完整日線：2026-05-11</p>
+    <div class="notice">2026-05-11 full daily candle is available; report uses the latest completed daily data.</div>
   </header>
   <main>
     <section class="summary">
@@ -187,7 +187,7 @@
       <p class="muted">原先移出前 5 的股票：2330 台積電、2317 鴻海、3231 緯創、2454 聯發科。理由是短線資料中部分標的有轉弱或法人調節跡象；依 SOP，短線不追弱、不猜反彈。</p>
     </section>
     <section>
-      <h2>2026/05/10 開盤後執行規則</h2>
+      <h2>2026/05/11 開盤後執行規則</h2>
       <div class="grid">
         <div class="card">
           <strong>可升級或試單</strong>
@@ -222,7 +222,7 @@
       </div>
     </section>
     <section>
-      <h2>2026/05/10 新增追蹤資料</h2>
+      <h2>2026/05/11 新增追蹤資料</h2>
       <table>
         <thead>
           <tr>
@@ -230,11 +230,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>3037</td><td>欣興</td><td>-</td><td><span class="tag hold">hold</span></td><td>69.84</td><td>818.00</td><td class="neg">-8.71%</td><td>1.47</td><td>w_pattern</td><td>觀察，不追高</td></tr>
-<tr><td>2</td><td>4958</td><td>臻鼎-KY</td><td>-</td><td><span class="tag reject">reject</span></td><td>67.65</td><td>401.00</td><td class="neg">-6.09%</td><td>0.76</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>3</td><td>6205</td><td>詮欣</td><td><span class="tag watchlist">6205 詮欣</span></td><td><span class="tag reject">reject</span></td><td>55.21</td><td>84.90</td><td class="neg">-6.39%</td><td>0.51</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>4</td><td>2313</td><td>華通</td><td>-</td><td><span class="tag reject">reject</span></td><td>55.05</td><td>253.50</td><td class="pos">1.60%</td><td>1.09</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>5</td><td>8046</td><td>南電</td><td>-</td><td><span class="tag reject">reject</span></td><td>54.63</td><td>854.00</td><td class="neg">-9.82%</td><td>0.95</td><td>-</td><td>暫不納入進場候選</td></tr>
+          <tr><td>1</td><td>3037</td><td>欣興</td><td>-</td><td><span class="tag hold">hold</span></td><td>68.28</td><td>861.00</td><td class="pos">5.26%</td><td>1.32</td><td>w_pattern</td><td>觀察，不追高</td></tr>
+<tr><td>2</td><td>6205</td><td>詮欣</td><td><span class="tag watchlist">6205 詮欣</span></td><td><span class="tag reject">reject</span></td><td>53.63</td><td>86.10</td><td class="pos">1.41%</td><td>0.35</td><td>-</td><td>暫不納入進場候選</td></tr>
+<tr><td>3</td><td>4958</td><td>臻鼎-KY</td><td>-</td><td><span class="tag reject">reject</span></td><td>52.49</td><td>412.00</td><td class="pos">2.74%</td><td>0.74</td><td>-</td><td>暫不納入進場候選</td></tr>
+<tr><td>4</td><td>2313</td><td>華通</td><td>-</td><td><span class="tag reject">reject</span></td><td>52.03</td><td>242.00</td><td class="neg">-4.54%</td><td>1.04</td><td>-</td><td>暫不納入進場候選</td></tr>
+<tr><td>5</td><td>8046</td><td>南電</td><td>-</td><td><span class="tag reject">reject</span></td><td>51.95</td><td>908.00</td><td class="pos">6.32%</td><td>0.68</td><td>-</td><td>暫不納入進場候選</td></tr>
         </tbody>
       </table>
     </section>
@@ -242,7 +242,7 @@
       <h2>交易結論</h2>
       <p>優先追蹤：無。條件為當日模型維持 hold、分數達高標且型態成立；策略上等待突破或回測後不跌破 3MA/8MA，不追高。</p>
       <p>觀察不追高：3037 欣興。仍列入追蹤，但沒有進入優先追蹤條件。</p>
-      <p>暫不納入：4958 臻鼎-KY、6205 詮欣、2313 華通、8046 南電。依當日資料重新計算後未達進場候選條件。</p>
+      <p>暫不納入：6205 詮欣、4958 臻鼎-KY、2313 華通、8046 南電。依當日資料重新計算後未達進場候選條件。</p>
       <p class="muted">風控規則：突破型初始停損 3%；收盤跌破日 K 3MA 先出 1/2，跌破日 K 8MA 全出；加碼只在走強時進行。</p>
     </section>
     <section>
