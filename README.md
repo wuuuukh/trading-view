@@ -14,7 +14,7 @@
 6. AI Agent 評分與決策：輸出 accept / reject / hold、score、reason、market_state、pattern_type、risk_note。
 7. 切入確認：最後才檢查 5K 開盤節奏與 60K MACD，符合 SOP 才允許現價切入。
 8. 風控與部位管理：短線看日K 3MA / 8MA，中線看週K趨勢，長線看月K 3MA。
-9. 每週汰換：分實際操作組與觀察組，降級股票保留觀察 1 週，未轉強自動淘汰。
+9. 每週日更新選股池：分實際操作組與觀察組，降級股票保留觀察 1 週，未轉強自動淘汰。
 10. 回測 / paper trading：提供 baseline vs agent 比較與研究用模擬。
 11. 人工可讀報告：輸出 JSON / CSV / Markdown。
 

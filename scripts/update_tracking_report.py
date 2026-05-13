@@ -428,8 +428,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
           </ul>
         </div>
         <div class="card">
-          <strong>每週汰換</strong>
+          <strong>每週日選股更新</strong>
           <ul>
+            <li>每週日更新一次選股池，分為實際操作組與觀察組。</li>
             <li>實際操作組保留獲利為正、結構未破、月K 3MA 未跌破。</li>
             <li>獲利轉負、結構轉弱、均線破壞、主流退潮則降級。</li>
             <li>降級股票放觀察組 1 週，未轉強自動淘汰。</li>

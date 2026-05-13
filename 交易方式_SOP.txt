@@ -159,7 +159,7 @@ Rule-Constrained AI Agent Trading System SOP
 
 九、選股更新機制
 
-每週更新一次選股池。
+每週日更新一次選股池。
 
 分成兩組：
 - 實際操作組。

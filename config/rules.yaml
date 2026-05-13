@@ -101,6 +101,8 @@ entry_signals:
 
 weekly_rotation:
   frequency: weekly
+  update_day: sunday
+  update_note: "每週日更新選股池"
   groups:
     operation_group:
       keep_if:
