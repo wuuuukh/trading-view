@@ -57,8 +57,62 @@ def detect_n_pattern(df: pd.DataFrame, rules: dict) -> dict:
     return {"matched": matched, "pattern_type": "n_pattern" if matched else None, "score": score, "key_level": key_level, "reason": f"N 字關鍵位 {key_level:.2f}，量縮回檔 {volume_contracts}"}
 
 
+def detect_platform_reclaim(df: pd.DataFrame, rules: dict) -> dict:
+    """平台整理後轉強：區間收斂後重新站回平台高點，且量能符合攻擊條件。"""
+    scanner = rules.get("scanner", {})
+    window = int(scanner.get("consolidation_window", 20))
+    min_volume_ratio = float(scanner.get("min_volume_ratio_breakout", 1.2))
+    if len(df) < window + 1:
+        return {"matched": False, "pattern_type": None, "score": 0, "key_level": None, "reason": "平台整理資料不足"}
+    recent = df.iloc[-window - 1 : -1]
+    row = df.iloc[-1]
+    platform_high = float(recent["high"].max())
+    platform_low = float(recent["low"].min())
+    range_pct = (platform_high - platform_low) / max(platform_low, 1)
+    tight_range = range_pct <= 0.18
+    reclaim = float(row["close"]) > platform_high
+    volume_ok = float(row.get("volume_ratio", 0)) >= min_volume_ratio
+    ma_ok = row.get("ma3", 0) > row.get("ma8", 0) > row.get("ma21", 0)
+    matched = bool(tight_range and reclaim and volume_ok and ma_ok)
+    score = int(tight_range) * 25 + int(reclaim) * 35 + int(volume_ok) * 20 + int(ma_ok) * 20
+    return {
+        "matched": matched,
+        "pattern_type": "platform_reclaim" if matched else None,
+        "score": score,
+        "key_level": platform_high,
+        "reason": f"平台高點 {platform_high:.2f}，區間幅度 {range_pct:.1%}，短均開花 {ma_ok}",
+    }
+
+
+def detect_ma_bloom(df: pd.DataFrame, rules: dict) -> dict:
+    """均線開花型態：3MA > 8MA > 21MA，短均斜率向上，且股價站上短均。"""
+    if len(df) < 4:
+        return {"matched": False, "pattern_type": None, "score": 0, "key_level": None, "reason": "均線開花資料不足"}
+    row = df.iloc[-1]
+    prev = df.iloc[-4]
+    order_ok = row.get("ma3", 0) > row.get("ma8", 0) > row.get("ma21", 0)
+    slope_ok = row.get("ma3", 0) > prev.get("ma3", 0) and row.get("ma8", 0) > prev.get("ma8", 0)
+    price_above_short = float(row["close"]) > float(row.get("ma3", float("inf")))
+    volume_ok = float(row.get("volume_ratio", 0)) >= float(rules.get("scanner", {}).get("min_volume_ratio_breakout", 1.2))
+    matched = bool(order_ok and slope_ok and price_above_short and volume_ok)
+    score = int(order_ok) * 35 + int(slope_ok) * 25 + int(price_above_short) * 20 + int(volume_ok) * 20
+    return {
+        "matched": matched,
+        "pattern_type": "ma_bloom" if matched else None,
+        "score": score,
+        "key_level": float(row.get("ma3", 0)),
+        "reason": f"日線 3MA>8MA>21MA {order_ok}，短均斜率向上 {slope_ok}，站上3MA {price_above_short}",
+    }
+
+
 def detect_patterns(df: pd.DataFrame, rules: dict) -> dict:
-    patterns = [detect_w_pattern(df, rules), detect_breakout(df, rules), detect_n_pattern(df, rules)]
+    patterns = [
+        detect_w_pattern(df, rules),
+        detect_breakout(df, rules),
+        detect_n_pattern(df, rules),
+        detect_platform_reclaim(df, rules),
+        detect_ma_bloom(df, rules),
+    ]
     # 避免把 best 本體塞回 all_patterns，否則輸出 dict/JSON 時會形成自我引用。
     best = dict(max(patterns, key=lambda item: item["score"]))
     best["all_patterns"] = [dict(item) for item in patterns]

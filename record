@@ -24,6 +24,7 @@
 - 報告產生器：`scripts/update_tracking_report.py`
 - 靜態網站匯出腳本：`scripts/export_static_site.ps1`
 - 手動觸發路徑：GitHub repo -> Actions -> Update trading website -> Run workflow
+- 後續主要查看與回顧紀錄以 GitHub Pages 網站為準：`https://wuuuukh.github.io/trading-view/`
 
 ### 2026-05-06 更新紀錄
 

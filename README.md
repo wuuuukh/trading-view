@@ -6,14 +6,17 @@
 
 ## 系統設計
 
-1. 市場資料輸入：載入 OHLCV，支援多週期資料夾。
-2. 籌碼面初篩：計算大股東每週持股張數變化、門檻分級、前 30 名同步增加。
-3. 趨勢與型態辨識：固定使用 3 / 8 / 21 / 55 / 144 / 233 MA，辨識 W、突破、N 字。
-4. 候選股篩選：以技術結構 + 多週期均線 + 籌碼累積共振排序。
-5. AI Agent 評分與決策：輸出 accept / reject / hold、score、reason、market_state、pattern_type、risk_note。
-6. 風控與部位管理：分批進場、3% 突破型停損、跌破 3MA 減碼、跌破 8MA 全出、長線看月K 3MA。
-7. 回測 / paper trading：提供 baseline vs agent 比較與研究用模擬。
-8. 人工可讀報告：輸出 JSON / CSV / Markdown。
+1. 市場資料輸入：載入 OHLCV，支援日K、週K、月K與盤中週期資料夾。
+2. 大盤過濾：加權指數跌幅超過 3% 時轉保守，不主動攻擊、不追價、降低新倉。
+3. 籌碼面初篩：計算大股東每週持股張數變化、門檻分級、前 30 名同步增加，並保留法人、投信、主力籌碼欄位。
+4. 趨勢與型態辨識：固定使用 3 / 8 / 21 / 55 / 144 / 233 MA，辨識 W、突破、N 字、平台整理轉強與均線開花。
+5. 候選股篩選：以強勢股條件 + 型態 + 日/週/月均線共振 + 籌碼偏多排序。
+6. AI Agent 評分與決策：輸出 accept / reject / hold、score、reason、market_state、pattern_type、risk_note。
+7. 切入確認：最後才檢查 5K 開盤節奏與 60K MACD，符合 SOP 才允許現價切入。
+8. 風控與部位管理：短線看日K 3MA / 8MA，中線看週K趨勢，長線看月K 3MA。
+9. 每週汰換：分實際操作組與觀察組，降級股票保留觀察 1 週，未轉強自動淘汰。
+10. 回測 / paper trading：提供 baseline vs agent 比較與研究用模擬。
+11. 人工可讀報告：輸出 JSON / CSV / Markdown。
 
 ## MVP 開發順序
 
@@ -21,7 +24,7 @@
 2. 實作固定均線、成交量與 MACD 輔助指標。
 3. 實作籌碼資料模型與可配置評分。
 4. 實作 W / Breakout / N 字型態偵測初版。
-5. 實作 candidate scanner 與 watchlist 分層。
+5. 實作 candidate scanner 與實際操作組 / 觀察組分層。
 6. 實作 rule-constrained AI Agent 評分與決策說明。
 7. 實作風控、部位管理、回測與 paper trading。
 8. 輸出 JSON / CSV / Markdown 報告。
@@ -76,4 +79,3 @@ pip install -r requirements.txt
 python -m trading_agent.cli scan --ohlcv data/ohlcv --chip data/chip/shareholders.csv --out reports
 python -m trading_agent.cli paper --ohlcv data/ohlcv --chip data/chip/shareholders.csv --out reports
 ```
-

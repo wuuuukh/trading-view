@@ -22,7 +22,7 @@
 - upside_profit: 2,803
 - max_stop_loss: 2,213
 - expected_profit: 621
-- rule: 只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。
+- rule: 先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。
 
 ## 4958 臻鼎-KY
 - score: 85
@@ -34,7 +34,7 @@
 - upside_profit: 2,803
 - max_stop_loss: 2,213
 - expected_profit: 621
-- rule: 只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。
+- rule: 先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。
 
 ## 6205 詮欣
 - score: 85
@@ -46,7 +46,7 @@
 - upside_profit: 2,803
 - max_stop_loss: 2,213
 - expected_profit: 621
-- rule: 只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。
+- rule: 先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。
 
 ## 8046 南電
 - score: 75
@@ -58,7 +58,7 @@
 - upside_profit: 1,946
 - max_stop_loss: 1,946
 - expected_profit: 214
-- rule: 只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。
+- rule: 先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。
 
 ## 2313 華通
 - score: 54
@@ -70,4 +70,4 @@
 - upside_profit: 849
 - max_stop_loss: 1,415
 - expected_profit: -206
-- rule: 只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。
+- rule: 先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。

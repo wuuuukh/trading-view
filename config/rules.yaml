@@ -1,6 +1,39 @@
 moving_averages: [3, 8, 21, 55, 144, 233]
 timeframes: ["5K", "15K", "30K", "60K", "D", "W", "M"]
 
+market_filter:
+  index_drop_conservative_pct: 0.03
+  conservative_actions:
+    - "不主動攻擊"
+    - "降低新倉"
+    - "不追價"
+
+strength_filter:
+  required_traits:
+    - "主流題材"
+    - "強勢族群"
+    - "攻擊量"
+    - "法人偏多"
+    - "籌碼偏多"
+    - "多頭均線排列"
+  reject_traits:
+    - "弱勢股"
+    - "空頭股"
+    - "跌破重要均線"
+    - "無量"
+
+multi_timeframe:
+  daily_bloom:
+    required_order: [3, 8, 21]
+    require_positive_slope: true
+    require_price_above_short_ma: true
+  weekly_bloom:
+    require_ma_up: true
+    require_trend_continuation: true
+  monthly_bloom:
+    require_trend_up: true
+    require_price_above_month_ma3: true
+
 chip_filter:
   frequency: weekly
   thresholds:
@@ -20,6 +53,12 @@ scanner:
   pullback_volume_ratio: 0.85
   primary_min_score: 75
   secondary_min_score: 55
+  allowed_patterns:
+    - "breakout"
+    - "w_pattern"
+    - "n_pattern"
+    - "platform_reclaim"
+    - "ma_bloom"
 
 agent_weights:
   trend_structure: 25
@@ -33,4 +72,54 @@ risk:
   first_entry_fraction: 0.3333
   second_entry_fraction: 0.3333
   third_entry_fraction: 0.3334
+  short_term_watch_ma: [3, 8]
+  long_term_exit_ma: "monthly_ma3"
 
+entry_signals:
+  open_three_red_5k:
+    enabled: true
+    required_consecutive_red: 3
+    require_higher_highs: true
+    require_higher_lows: true
+    require_volume_not_fading: true
+    action: "第三根5K現價買進"
+  explosive_5k_pullback_ma3:
+    enabled: true
+    volume_multiple_vs_week_5k_avg: 2.0
+    action: "不追高，等回撤日K 3MA不破再現價買入"
+  open_three_black_pullback_ma3:
+    enabled: true
+    required_consecutive_black: 3
+    require_daily_structure_intact: true
+    require_daily_ma3_not_broken: true
+    action: "等回測日K 3MA不破後現價買入"
+  macd_60k_confirmation:
+    enabled: true
+    allow_green_histogram_shrinking: true
+    allow_red_histogram_turning_up: true
+    action: "配合5K切入點確認動能轉強"
+
+weekly_rotation:
+  frequency: weekly
+  groups:
+    operation_group:
+      keep_if:
+        - "獲利為正"
+        - "結構未破壞"
+        - "月K 3MA未跌破"
+      demote_if:
+        - "獲利轉負"
+        - "結構轉弱"
+        - "均線破壞"
+        - "主流退潮"
+    observation_group:
+      keep_demoted_for_weeks: 1
+      remove_if_not_recovered_after_weeks: 1
+  elimination_conditions:
+    - "跌破月K 3MA"
+    - "均線空頭排列"
+    - "爆量長黑破壞結構"
+    - "量縮無趨勢"
+    - "主流族群退潮"
+    - "法人連續偏空"
+    - "籌碼鬆動"

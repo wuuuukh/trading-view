@@ -71,8 +71,14 @@ class RuleConstrainedAgent:
             reasons.append("沒有足夠成交量，不列最高優先")
         if weak_market:
             reasons.append("弱勢或趨勢不清，不做強勢股以外標的")
+        if chip <= 0:
+            reasons.append("籌碼未確認偏多，只能列觀察組，不能列實際操作組")
 
-        risk_note = "突破型初始停損 3%；收盤跌破日K 3MA 先出 1/2，跌破日K 8MA 全出；加碼只在走強時進行。"
+        risk_note = (
+            "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；"
+            "大盤跌幅超過3%轉保守，不主動攻擊、不追價；"
+            "短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。"
+        )
         return AgentDecision(
             symbol=candidate["symbol"],
             decision=decision,
@@ -88,4 +94,3 @@ class RuleConstrainedAgent:
 
 def decision_to_dict(decision: AgentDecision) -> dict:
     return asdict(decision)
-

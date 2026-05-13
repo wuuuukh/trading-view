@@ -117,7 +117,7 @@ def classify_action(item: dict) -> str:
     score = float(item.get("score", 0))
     pattern_type = item.get("pattern_type")
     if decision == "hold" and score >= 85 and pattern_type:
-        return "優先追蹤，等待突破後不跌破 3MA/8MA"
+        return "優先追蹤，等待5K切入點與60K MACD確認"
     if decision == "hold":
         return "觀察，不追高"
     return "暫不納入進場候選"
@@ -405,36 +405,35 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       <p class="muted">原先移出前 5 的股票：2330 台積電、2317 鴻海、3231 緯創、2454 聯發科。理由是短線資料中部分標的有轉弱或法人調節跡象；依 SOP，短線不追弱、不猜反彈。</p>
     </section>
     <section>
-      <h2>{report_date} 開盤後執行規則</h2>
+      <h2>Rule-Constrained AI Agent 執行規則</h2>
       <div class="grid">
         <div class="card">
-          <strong>可升級或試單</strong>
+          <strong>允許切入前置條件</strong>
           <ul>
-            <li>放量突破區間高點、前高或頸線。</li>
-            <li>回踩 8MA、頸線或關鍵支撐不破。</li>
-            <li>回檔時量縮，轉強時量增。</li>
-            <li>3MA &gt; 8MA &gt; 21MA 為短線偏強。</li>
-            <li>21MA &gt; 55MA 為中期偏多。</li>
+            <li>大盤允許；加權指數跌幅超過 3% 則轉保守。</li>
+            <li>只做主流題材、強勢族群、攻擊量與籌碼偏多股票。</li>
+            <li>型態先成立：突破、W、N、平台整理轉強或均線開花。</li>
+            <li>日K、週K、月K均線共振，月K 3MA 未跌破。</li>
+            <li>60K MACD 綠柱縮短或紅柱翻揚。</li>
           </ul>
         </div>
         <div class="card">
-          <strong>不做條件</strong>
+          <strong>現價切入點</strong>
           <ul>
-            <li>未突破前不進場。</li>
-            <li>沒有量不做。</li>
-            <li>走弱不加碼。</li>
-            <li>跌破日 K 3MA 先出 1/2。</li>
-            <li>跌破日 K 8MA 全出。</li>
-            <li>突破型虧損達 3% 立即出場。</li>
+            <li>開盤連三根 5K 紅K，高低點墊高且量能不衰退。</li>
+            <li>5K 爆大量後不追高，等回撤日K 3MA 不破。</li>
+            <li>開盤連三黑但日K結構未破，回測日K 3MA 不破。</li>
+            <li>以上切入點需配合 60K MACD 動能轉強。</li>
+            <li>短線看日K 3MA / 8MA，中長線看週K與月K 3MA。</li>
           </ul>
         </div>
         <div class="card">
-          <strong>下次讀檔方式</strong>
+          <strong>每週汰換</strong>
           <ul>
-            <li><code>record</code></li>
-            <li><code>config/rules.yaml</code></li>
-            <li><code>config/custom_watchlist.yaml</code></li>
-            <li><code>reports/tracking_log.csv</code></li>
+            <li>實際操作組保留獲利為正、結構未破、月K 3MA 未跌破。</li>
+            <li>獲利轉負、結構轉弱、均線破壞、主流退潮則降級。</li>
+            <li>降級股票放觀察組 1 週，未轉強自動淘汰。</li>
+            <li>跌破月K 3MA、空頭排列、爆量長黑或籌碼鬆動直接淘汰。</li>
           </ul>
         </div>
       </div>
@@ -454,10 +453,10 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     </section>
     <section>
       <h2>交易結論</h2>
-      <p>優先追蹤：{html.escape(format_symbol_list(priority_rows))}。條件為當日模型維持 hold、分數達高標且型態成立；策略上等待突破或回測後不跌破 3MA/8MA，不追高。</p>
+      <p>優先追蹤：{html.escape(format_symbol_list(priority_rows))}。條件為當日模型維持 hold、分數達高標且型態成立；新版策略需再等大盤允許、日/週/月共振、籌碼偏多、5K切入點與60K MACD確認後，最後才允許現價切入。</p>
       <p>觀察不追高：{html.escape(format_symbol_list(observe_rows))}。仍列入追蹤，但沒有進入優先追蹤條件。</p>
       <p>暫不納入：{html.escape(format_symbol_list(reject_rows))}。依當日資料重新計算後未達進場候選條件。</p>
-      <p class="muted">風控規則：突破型初始停損 3%；收盤跌破日 K 3MA 先出 1/2，跌破日 K 8MA 全出；加碼只在走強時進行。</p>
+      <p class="muted">風控規則：大盤跌幅超過 3% 轉保守；短線觀察日K 3MA / 8MA，中線觀察週K趨勢，長線月K 3MA 不破續抱，月K結構破壞再減碼或出場。</p>
     </section>
     <section>
       <h2>輸出檔案</h2>

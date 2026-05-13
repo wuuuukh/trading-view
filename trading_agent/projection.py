@@ -64,7 +64,7 @@ def build_next_week_projection(watchlist: dict[str, Any], rules: dict, capital: 
             "max_stop_loss": round(max_loss, 0),
             "expected_profit": round(expected_profit, 0),
             "thesis": item.get("thesis", ""),
-            "rule": "只在放量突破或回踩 8MA/頸線不破時試單；未突破不進場。",
+            "rule": "先過大盤、強勢股、型態、日/週/月均線共振與籌碼；再等5K開盤節奏配合60K MACD轉強，確認後才現價切入。",
         })
 
     deployed_capital = sum(float(row["first_entry_capital"]) for row in rows)
@@ -81,7 +81,7 @@ def build_next_week_projection(watchlist: dict[str, Any], rules: dict, capital: 
             "allocation": "依 agent score 配重完整額度；下週仍只先用 1/3 試單。",
             "win_rate": "由 agent score 與分層轉換為研究用機率，尚未用真實歷史回測校準。",
             "profit": "上行情境用分數推估 2% 到 4% 區間；下行情境使用突破型 3% 停損。",
-            "execution": "沒有開盤確認、沒有量、沒有突破，就不進場，實際投入可能低於試算值。",
+            "execution": "沒有大盤允許、強勢結構、籌碼偏多、5K切入點與60K MACD確認，就不現價切入，實際投入可能低於試算值。",
         },
         "summary": {
             "estimated_average_win_rate": round(avg_win_rate, 3),
