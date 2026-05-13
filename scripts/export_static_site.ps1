@@ -53,7 +53,10 @@ $ReportFiles = @(
     "backtest_compare.json",
     "next_week_projection.md",
     "next_week_projection.csv",
-    "next_week_projection.json"
+    "next_week_projection.json",
+    "weekly_selection.md",
+    "weekly_selection.csv",
+    "weekly_selection.json"
 )
 
 foreach ($File in $ReportFiles) {

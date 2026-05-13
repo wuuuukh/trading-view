@@ -109,6 +109,29 @@
     .obs-grid span { display: block; color: var(--muted); font-size: 12px; }
     .obs-grid strong { display: block; margin-top: 2px; font-size: 14px; }
     .card-note { margin-top: 10px; color: var(--ink); font-size: 14px; }
+    .weekly-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .weekly-column {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 150px;
+    }
+    .weekly-column.operation { border-top: 4px solid var(--ok); }
+    .weekly-column.observe { border-top: 4px solid var(--accent); }
+    .weekly-column.rejects { border-top: 4px solid var(--danger); }
+    .weekly-item {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    .weekly-item span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .weekly-item p { font-size: 13px; margin-top: 5px; }
+    .empty-text { color: var(--muted); font-size: 14px; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -151,7 +174,7 @@
     @media (max-width: 820px) {
       header { padding: 22px 18px 16px; }
       main { padding: 18px 12px 32px; }
-      .summary, .grid, .decision-strip, .ideas { grid-template-columns: 1fr; }
+      .summary, .grid, .decision-strip, .ideas, .weekly-board { grid-template-columns: 1fr; }
       .obs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .obs-grid div, .obs-grid div:nth-child(3n), .obs-grid div:nth-last-child(-n+3) { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
       table { display: block; overflow-x: auto; }
@@ -166,11 +189,33 @@
   </header>
   <main>
     <section class="summary">
-      <div class="metric-card"><div class="metric-label">實際操作候選</div><div class="metric">0</div></div>
-      <div class="metric-card"><div class="metric-label">觀察組</div><div class="metric">2</div></div>
-      <div class="metric-card"><div class="metric-label">暫停/淘汰</div><div class="metric">3</div></div>
+      <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">0</div></div>
+      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">1</div></div>
+      <div class="metric-card"><div class="metric-label">本週暫停/淘汰</div><div class="metric">4</div></div>
       <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">82.28</div></div>
       <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">1</div></div>
+    </section>
+    <section>
+      <h2>本週選股池</h2>
+      <p class="muted">選股日：2026-05-10 / 使用資料：2026-05-04 to 2026-05-08 / 適用週期：2026-05-11 to 2026-05-15</p>
+      <p class="muted small">每週日用上一週完整日K資料產生下週選股池，不使用下週未來資料。</p>
+      <div class="weekly-board">
+        <div class="weekly-column operation">
+          <strong>實際操作組</strong>
+          <p class="empty-text">本週無股票符合實際操作組；主因是籌碼未確認或切入條件不足。</p>
+        </div>
+        <div class="weekly-column observe">
+          <strong>觀察組</strong>
+          <div class="weekly-item"><strong>3037 欣興</strong><span>Score 69.84 / w_pattern / 量比 1.47</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
+        </div>
+        <div class="weekly-column rejects">
+          <strong>暫停/淘汰</strong>
+          <div class="weekly-item"><strong>4958 臻鼎-KY</strong><span>Score 67.83 / 無型態 / 量比 0.78</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
+<div class="weekly-item"><strong>6205 詮欣</strong><span>Score 55.21 / 無型態 / 量比 0.51</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
+<div class="weekly-item"><strong>2313 華通</strong><span>Score 55.05 / 無型態 / 量比 1.09</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
+<div class="weekly-item"><strong>8046 南電</strong><span>Score 55.04 / 無型態 / 量比 0.99</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
+        </div>
+      </div>
     </section>
     <section class="decision-strip">
       <div class="card buy">

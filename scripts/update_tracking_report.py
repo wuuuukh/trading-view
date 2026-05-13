@@ -50,6 +50,13 @@ def load_scan() -> list[dict]:
     return json.loads((ROOT / "reports" / "scan.json").read_text(encoding="utf-8"))
 
 
+def load_weekly_selection() -> dict:
+    path = ROOT / "reports" / "weekly_selection.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def latest_market_rows() -> dict[str, dict[str, object]]:
     result: dict[str, dict[str, object]] = {}
     for path in sorted((ROOT / "data" / "ohlcv").glob("*.csv")):
@@ -305,8 +312,29 @@ def render_observation_row(idx: int, row: dict[str, object]) -> str:
     )
 
 
+def render_weekly_group(items: list[dict[str, object]], empty_text: str) -> str:
+    if not items:
+        return f'<p class="empty-text">{html.escape(empty_text)}</p>'
+    lines = []
+    for item in items:
+        pattern = item.get("pattern_type") or "無型態"
+        lines.append(
+            "<div class=\"weekly-item\">"
+            f"<strong>{html.escape(str(item['symbol']))} {html.escape(str(item['name']))}</strong>"
+            f"<span>Score {format_number(item.get('score'))} / {html.escape(str(pattern))} / 量比 {format_number(item.get('volume_ratio'))}</span>"
+            f"<p>{html.escape(str(item.get('action', '')))}</p>"
+            "</div>"
+        )
+    return "\n".join(lines)
+
+
 def write_html(rows: list[dict[str, object]]) -> Path:
     path = ROOT / "index.html"
+    weekly = load_weekly_selection()
+    weekly_groups = weekly.get("groups", {})
+    weekly_operation = weekly_groups.get("operation_group", [])
+    weekly_observation = weekly_groups.get("observation_group", [])
+    weekly_rejected = weekly_groups.get("rejected", [])
     latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
     hold_rows = [row for row in rows if row["decision"] == "hold"]
     reject_rows = [row for row in rows if row["decision"] != "hold"]
@@ -434,6 +462,29 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     .obs-grid span {{ display: block; color: var(--muted); font-size: 12px; }}
     .obs-grid strong {{ display: block; margin-top: 2px; font-size: 14px; }}
     .card-note {{ margin-top: 10px; color: var(--ink); font-size: 14px; }}
+    .weekly-board {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }}
+    .weekly-column {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 150px;
+    }}
+    .weekly-column.operation {{ border-top: 4px solid var(--ok); }}
+    .weekly-column.observe {{ border-top: 4px solid var(--accent); }}
+    .weekly-column.rejects {{ border-top: 4px solid var(--danger); }}
+    .weekly-item {{
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      margin-top: 10px;
+    }}
+    .weekly-item span {{ display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }}
+    .weekly-item p {{ font-size: 13px; margin-top: 5px; }}
+    .empty-text {{ color: var(--muted); font-size: 14px; }}
     table {{
       width: 100%;
       border-collapse: collapse;
@@ -476,7 +527,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     @media (max-width: 820px) {{
       header {{ padding: 22px 18px 16px; }}
       main {{ padding: 18px 12px 32px; }}
-      .summary, .grid, .decision-strip, .ideas {{ grid-template-columns: 1fr; }}
+      .summary, .grid, .decision-strip, .ideas, .weekly-board {{ grid-template-columns: 1fr; }}
       .obs-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .obs-grid div, .obs-grid div:nth-child(3n), .obs-grid div:nth-last-child(-n+3) {{ border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }}
       table {{ display: block; overflow-x: auto; }}
@@ -491,11 +542,30 @@ def write_html(rows: list[dict[str, object]]) -> Path:
   </header>
   <main>
     <section class="summary">
-      <div class="metric-card"><div class="metric-label">實際操作候選</div><div class="metric">{len(priority_rows)}</div></div>
-      <div class="metric-card"><div class="metric-label">觀察組</div><div class="metric">{len(observe_rows)}</div></div>
-      <div class="metric-card"><div class="metric-label">暫停/淘汰</div><div class="metric">{len(reject_rows)}</div></div>
+      <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">{len(weekly_operation)}</div></div>
+      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">{len(weekly_observation)}</div></div>
+      <div class="metric-card"><div class="metric-label">本週暫停/淘汰</div><div class="metric">{len(weekly_rejected)}</div></div>
       <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">{best_score:.2f}</div></div>
       <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">{sum(1 for row in rows if row.get("custom_watchlist"))}</div></div>
+    </section>
+    <section>
+      <h2>本週選股池</h2>
+      <p class="muted">選股日：{html.escape(str(weekly.get('selection_date', 'n/a')))} / 使用資料：{html.escape(str(weekly.get('source_week', 'n/a')))} / 適用週期：{html.escape(str(weekly.get('target_week', 'n/a')))}</p>
+      <p class="muted small">{html.escape(str(weekly.get('method', '')))}</p>
+      <div class="weekly-board">
+        <div class="weekly-column operation">
+          <strong>實際操作組</strong>
+          {render_weekly_group(weekly_operation, '本週無股票符合實際操作組；主因是籌碼未確認或切入條件不足。')}
+        </div>
+        <div class="weekly-column observe">
+          <strong>觀察組</strong>
+          {render_weekly_group(weekly_observation, '本週無觀察股。')}
+        </div>
+        <div class="weekly-column rejects">
+          <strong>暫停/淘汰</strong>
+          {render_weekly_group(weekly_rejected, '本週無淘汰股。')}
+        </div>
+      </div>
     </section>
     <section class="decision-strip">
       <div class="card buy">
