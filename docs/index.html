@@ -111,7 +111,7 @@
     .card-note { margin-top: 10px; color: var(--ink); font-size: 14px; }
     .weekly-board {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
     .weekly-column {
@@ -123,7 +123,6 @@
     }
     .weekly-column.operation { border-top: 4px solid var(--ok); }
     .weekly-column.observe { border-top: 4px solid var(--accent); }
-    .weekly-column.rejects { border-top: 4px solid var(--danger); }
     .weekly-item {
       border-top: 1px solid var(--line);
       padding-top: 10px;
@@ -190,15 +189,15 @@
   <main>
     <section class="summary">
       <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">0</div></div>
-      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">1</div></div>
-      <div class="metric-card"><div class="metric-label">本週暫停/淘汰</div><div class="metric">4</div></div>
-      <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">82.28</div></div>
+      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">4</div></div>
+      <div class="metric-card"><div class="metric-label">候選來源</div><div class="metric">5</div></div>
+      <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">85.00</div></div>
       <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">1</div></div>
     </section>
     <section>
       <h2>本週選股池</h2>
-      <p class="muted">選股日：2026-05-10 / 使用資料：2026-05-04 to 2026-05-08 / 適用週期：2026-05-11 to 2026-05-15</p>
-      <p class="muted small">每週日用上一週完整日K資料產生下週選股池，不使用下週未來資料。</p>
+      <p class="muted">選股日：2026-05-10 / 來源：神秘金字塔股權類股排行週榜前五 / 使用資料：2026-05-04 to 2026-05-08 / 適用週期：2026-05-11 to 2026-05-15</p>
+      <p class="muted small">每週日先用神秘金字塔週排行找候選，再用上一週完整日K套SOP產生下週選股池，不使用下週未來資料。</p>
       <div class="weekly-board">
         <div class="weekly-column operation">
           <strong>實際操作組</strong>
@@ -206,181 +205,12 @@
         </div>
         <div class="weekly-column observe">
           <strong>觀察組</strong>
-          <div class="weekly-item"><strong>3037 欣興</strong><span>Score 69.84 / w_pattern / 量比 1.47</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
-        </div>
-        <div class="weekly-column rejects">
-          <strong>暫停/淘汰</strong>
-          <div class="weekly-item"><strong>4958 臻鼎-KY</strong><span>Score 67.83 / 無型態 / 量比 0.78</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
-<div class="weekly-item"><strong>6205 詮欣</strong><span>Score 55.21 / 無型態 / 量比 0.51</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
-<div class="weekly-item"><strong>2313 華通</strong><span>Score 55.05 / 無型態 / 量比 1.09</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
-<div class="weekly-item"><strong>8046 南電</strong><span>Score 55.04 / 無型態 / 量比 0.99</span><p>本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。</p></div>
+          <div class="weekly-item"><strong>2464 盟立</strong><span>Score 85.00 / w_pattern / 量比 2.49</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
+<div class="weekly-item"><strong>2484 希華</strong><span>Score 85.00 / w_pattern / 量比 1.87</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
+<div class="weekly-item"><strong>8150 南茂</strong><span>Score 85.00 / w_pattern / 量比 2.26</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
+<div class="weekly-item"><strong>3057 喬鼎</strong><span>Score 82.46 / w_pattern / 量比 1.25</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
         </div>
       </div>
-    </section>
-    <section class="decision-strip">
-      <div class="card buy">
-        <strong>今日可積極處理</strong>
-        <p>無</p>
-        <p class="muted small">必須再等 5K 切入點與 60K MACD 確認，才允許現價切入。</p>
-      </div>
-      <div class="card watch">
-        <strong>觀察不追高</strong>
-        <p>4958 臻鼎-KY、3037 欣興</p>
-        <p class="muted small">結構仍可追蹤，但籌碼、切入點或分數尚未允許進入實際操作組。</p>
-      </div>
-      <div class="card avoid">
-        <strong>暫停/淘汰</strong>
-        <p>6205 詮欣、2313 華通、8046 南電</p>
-        <p class="muted small">沒有結構、量能不足、均線轉弱或籌碼未確認時不進場。</p>
-      </div>
-    </section>
-    <section>
-      <h2>個股決策卡</h2>
-      <div class="ideas">
-      <article class="idea-card hold">
-        <div class="idea-top">
-          <div>
-            <div class="symbol-line">4958 <span>臻鼎-KY</span></div>
-            <div class="muted small">觀察組 / strong_uptrend / ma_bloom</div>
-          </div>
-          <span class="tag hold">hold</span>
-        </div>
-        <div class="price-line">
-          <strong>442.50</strong>
-          <span class="pos">8.72%</span>
-          <span>Score 82.28</span>
-        </div>
-        <div class="obs-grid">
-          <div><span>量比</span><strong>1.23</strong></div>
-          <div><span>3MA距離</span><strong>5.23%</strong></div>
-          <div><span>8MA距離</span><strong>5.34%</strong></div>
-          <div><span>21MA距離</span><strong>22.74%</strong></div>
-          <div><span>MACD柱</span><strong>0.44</strong></div>
-          <div><span>關鍵位</span><strong>420.50 / 5.23%</strong></div>
-        </div>
-        <div class="card-note"><b>下一步：</b>日線開花續強，等待 5K 紅紅紅或回撤日K 3MA不破。</div>
-        <div class="card-note"><b>風控：</b>只能觀察，籌碼未確認前不列實際操作組。</div>
-      </article>
-    
-
-      <article class="idea-card hold">
-        <div class="idea-top">
-          <div>
-            <div class="symbol-line">3037 <span>欣興</span></div>
-            <div class="muted small">觀察組 / strong_uptrend / w_pattern</div>
-          </div>
-          <span class="tag hold">hold</span>
-        </div>
-        <div class="price-line">
-          <strong>892.00</strong>
-          <span class="pos">1.94%</span>
-          <span>Score 67.97</span>
-        </div>
-        <div class="obs-grid">
-          <div><span>量比</span><strong>1.28</strong></div>
-          <div><span>3MA距離</span><strong>1.83%</strong></div>
-          <div><span>8MA距離</span><strong>1.74%</strong></div>
-          <div><span>21MA距離</span><strong>13.60%</strong></div>
-          <div><span>MACD柱</span><strong>-3.39</strong></div>
-          <div><span>關鍵位</span><strong>538.00 / 65.80%</strong></div>
-        </div>
-        <div class="card-note"><b>下一步：</b>W 型有效，等待 5K 節奏與 60K MACD轉強。</div>
-        <div class="card-note"><b>風控：</b>只能觀察，籌碼未確認前不列實際操作組。</div>
-      </article>
-    
-
-      <article class="idea-card reject">
-        <div class="idea-top">
-          <div>
-            <div class="symbol-line">6205 <span>詮欣</span></div>
-            <div class="muted small">暫停/淘汰 / constructive / 無型態</div>
-          </div>
-          <span class="tag reject">reject</span>
-        </div>
-        <div class="price-line">
-          <strong>80.40</strong>
-          <span class="neg">-6.40%</span>
-          <span>Score 51.14</span>
-        </div>
-        <div class="obs-grid">
-          <div><span>量比</span><strong>0.35</strong></div>
-          <div><span>3MA距離</span><strong>-4.44%</strong></div>
-          <div><span>8MA距離</span><strong>-10.02%</strong></div>
-          <div><span>21MA距離</span><strong>-3.51%</strong></div>
-          <div><span>MACD柱</span><strong>-1.45</strong></div>
-          <div><span>關鍵位</span><strong>55.20 / 45.65%</strong></div>
-        </div>
-        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
-        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
-      </article>
-    
-
-      <article class="idea-card reject">
-        <div class="idea-top">
-          <div>
-            <div class="symbol-line">2313 <span>華通</span></div>
-            <div class="muted small">暫停/淘汰 / constructive / 無型態</div>
-          </div>
-          <span class="tag reject">reject</span>
-        </div>
-        <div class="price-line">
-          <strong>237.00</strong>
-          <span class="neg">-8.85%</span>
-          <span>Score 51.04</span>
-        </div>
-        <div class="obs-grid">
-          <div><span>量比</span><strong>1.19</strong></div>
-          <div><span>3MA距離</span><strong>-3.79%</strong></div>
-          <div><span>8MA距離</span><strong>-6.83%</strong></div>
-          <div><span>21MA距離</span><strong>-4.57%</strong></div>
-          <div><span>MACD柱</span><strong>-1.41</strong></div>
-          <div><span>關鍵位</span><strong>294.00 / -19.39%</strong></div>
-        </div>
-        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
-        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
-      </article>
-    
-
-      <article class="idea-card reject">
-        <div class="idea-top">
-          <div>
-            <div class="symbol-line">8046 <span>南電</span></div>
-            <div class="muted small">暫停/淘汰 / strong_uptrend / 無型態</div>
-          </div>
-          <span class="tag reject">reject</span>
-        </div>
-        <div class="price-line">
-          <strong>880.00</strong>
-          <span class="neg">-2.22%</span>
-          <span>Score 50.89</span>
-        </div>
-        <div class="obs-grid">
-          <div><span>量比</span><strong>0.58</strong></div>
-          <div><span>3MA距離</span><strong>-1.79%</strong></div>
-          <div><span>8MA距離</span><strong>-5.02%</strong></div>
-          <div><span>21MA距離</span><strong>2.77%</strong></div>
-          <div><span>MACD柱</span><strong>-15.07</strong></div>
-          <div><span>關鍵位</span><strong>1,035.00 / -14.98%</strong></div>
-        </div>
-        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
-        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
-      </article>
-    </div>
-    </section>
-    <section>
-      <h2>必要觀察資訊</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>排名</th><th>股票</th><th>分組</th><th>分數</th><th>價格</th><th>量比</th><th>型態/趨勢</th><th>均線位置</th><th>MACD柱</th><th>籌碼</th><th>下一步</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>1</td><td><strong>4958</strong><br><span class="muted small">臻鼎-KY</span></td><td>觀察組<br><span class="tag hold">hold</span></td><td>82.28</td><td>442.50<br><span class="pos">8.72%</span></td><td>1.23</td><td>ma_bloom<br><span class="muted small">strong_uptrend</span></td><td>3MA 420.50 (5.23%)<br>8MA 420.06 (5.34%)<br>21MA 360.52 (22.74%)</td><td>0.44</td><td>籌碼未確認</td><td>日線開花續強，等待 5K 紅紅紅或回撤日K 3MA不破。</td></tr>
-<tr><td>2</td><td><strong>3037</strong><br><span class="muted small">欣興</span></td><td>觀察組<br><span class="tag hold">hold</span></td><td>67.97</td><td>892.00<br><span class="pos">1.94%</span></td><td>1.28</td><td>w_pattern<br><span class="muted small">strong_uptrend</span></td><td>3MA 876.00 (1.83%)<br>8MA 876.75 (1.74%)<br>21MA 785.19 (13.60%)</td><td>-3.39</td><td>籌碼未確認</td><td>W 型有效，等待 5K 節奏與 60K MACD轉強。</td></tr>
-<tr><td>3</td><td><strong>6205</strong><br><span class="muted small">詮欣</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>51.14</td><td>80.40<br><span class="neg">-6.40%</span></td><td>0.35</td><td>-<br><span class="muted small">constructive</span></td><td>3MA 84.13 (-4.44%)<br>8MA 89.35 (-10.02%)<br>21MA 83.33 (-3.51%)</td><td>-1.45</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr>
-<tr><td>4</td><td><strong>2313</strong><br><span class="muted small">華通</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>51.04</td><td>237.00<br><span class="neg">-8.85%</span></td><td>1.19</td><td>-<br><span class="muted small">constructive</span></td><td>3MA 246.33 (-3.79%)<br>8MA 254.38 (-6.83%)<br>21MA 248.36 (-4.57%)</td><td>-1.41</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr>
-<tr><td>5</td><td><strong>8046</strong><br><span class="muted small">南電</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>50.89</td><td>880.00<br><span class="neg">-2.22%</span></td><td>0.58</td><td>-<br><span class="muted small">strong_uptrend</span></td><td>3MA 896.00 (-1.79%)<br>8MA 926.50 (-5.02%)<br>21MA 856.29 (2.77%)</td><td>-15.07</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr></tbody>
-      </table>
     </section>
     <section>
       <h2>操作規則</h2>

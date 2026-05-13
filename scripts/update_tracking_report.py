@@ -334,7 +334,6 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     weekly_groups = weekly.get("groups", {})
     weekly_operation = weekly_groups.get("operation_group", [])
     weekly_observation = weekly_groups.get("observation_group", [])
-    weekly_rejected = weekly_groups.get("rejected", [])
     latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
     hold_rows = [row for row in rows if row["decision"] == "hold"]
     reject_rows = [row for row in rows if row["decision"] != "hold"]
@@ -347,9 +346,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         if not str(row.get("tracking_action", "")).startswith("優先追蹤")
     ]
     report_date = date.today().strftime("%Y/%m/%d")
-    dashboard_cards = "\n".join(render_dashboard_card(row) for row in rows)
-    observation_table = "\n".join(render_observation_row(idx, row) for idx, row in enumerate(rows, 1))
-    best_score = max((float(row.get("score", 0)) for row in rows), default=0)
+    visible_rows = priority_rows + observe_rows
+    weekly_visible = weekly_operation + weekly_observation
+    best_score = max((float(row.get("score", 0)) for row in weekly_visible), default=0)
     stale_warning = "" if str(latest_day) >= date.today().isoformat() else "資料不是今日完整日K，僅供追蹤。"
     html_text = f"""<!doctype html>
 <html lang="zh-Hant">
@@ -464,7 +463,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     .card-note {{ margin-top: 10px; color: var(--ink); font-size: 14px; }}
     .weekly-board {{
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }}
     .weekly-column {{
@@ -476,7 +475,6 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     }}
     .weekly-column.operation {{ border-top: 4px solid var(--ok); }}
     .weekly-column.observe {{ border-top: 4px solid var(--accent); }}
-    .weekly-column.rejects {{ border-top: 4px solid var(--danger); }}
     .weekly-item {{
       border-top: 1px solid var(--line);
       padding-top: 10px;
@@ -544,13 +542,13 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     <section class="summary">
       <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">{len(weekly_operation)}</div></div>
       <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">{len(weekly_observation)}</div></div>
-      <div class="metric-card"><div class="metric-label">本週暫停/淘汰</div><div class="metric">{len(weekly_rejected)}</div></div>
+      <div class="metric-card"><div class="metric-label">候選來源</div><div class="metric">5</div></div>
       <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">{best_score:.2f}</div></div>
       <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">{sum(1 for row in rows if row.get("custom_watchlist"))}</div></div>
     </section>
     <section>
       <h2>本週選股池</h2>
-      <p class="muted">選股日：{html.escape(str(weekly.get('selection_date', 'n/a')))} / 使用資料：{html.escape(str(weekly.get('source_week', 'n/a')))} / 適用週期：{html.escape(str(weekly.get('target_week', 'n/a')))}</p>
+      <p class="muted">選股日：{html.escape(str(weekly.get('selection_date', 'n/a')))} / 來源：{html.escape(str(weekly.get('source', 'n/a')))} / 使用資料：{html.escape(str(weekly.get('source_week', 'n/a')))} / 適用週期：{html.escape(str(weekly.get('target_week', 'n/a')))}</p>
       <p class="muted small">{html.escape(str(weekly.get('method', '')))}</p>
       <div class="weekly-board">
         <div class="weekly-column operation">
@@ -561,43 +559,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
           <strong>觀察組</strong>
           {render_weekly_group(weekly_observation, '本週無觀察股。')}
         </div>
-        <div class="weekly-column rejects">
-          <strong>暫停/淘汰</strong>
-          {render_weekly_group(weekly_rejected, '本週無淘汰股。')}
-        </div>
       </div>
-    </section>
-    <section class="decision-strip">
-      <div class="card buy">
-        <strong>今日可積極處理</strong>
-        <p>{html.escape(format_symbol_list(priority_rows))}</p>
-        <p class="muted small">必須再等 5K 切入點與 60K MACD 確認，才允許現價切入。</p>
-      </div>
-      <div class="card watch">
-        <strong>觀察不追高</strong>
-        <p>{html.escape(format_symbol_list(observe_rows))}</p>
-        <p class="muted small">結構仍可追蹤，但籌碼、切入點或分數尚未允許進入實際操作組。</p>
-      </div>
-      <div class="card avoid">
-        <strong>暫停/淘汰</strong>
-        <p>{html.escape(format_symbol_list(reject_rows))}</p>
-        <p class="muted small">沒有結構、量能不足、均線轉弱或籌碼未確認時不進場。</p>
-      </div>
-    </section>
-    <section>
-      <h2>個股決策卡</h2>
-      <div class="ideas">{dashboard_cards}</div>
-    </section>
-    <section>
-      <h2>必要觀察資訊</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>排名</th><th>股票</th><th>分組</th><th>分數</th><th>價格</th><th>量比</th><th>型態/趨勢</th><th>均線位置</th><th>MACD柱</th><th>籌碼</th><th>下一步</th>
-          </tr>
-        </thead>
-        <tbody>{observation_table}</tbody>
-      </table>
     </section>
     <section>
       <h2>操作規則</h2>

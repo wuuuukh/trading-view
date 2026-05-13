@@ -13,7 +13,14 @@ SYMBOL_NAMES = {
     "6205": "詮欣",
     "8046": "南電",
     "2313": "華通",
+    "1597": "直得",
+    "8150": "南茂",
+    "2464": "盟立",
+    "3057": "喬鼎",
+    "2484": "希華",
 }
+
+TWSTHR_TOP5 = ["1597", "8150", "2464", "3057", "2484"]
 
 
 def load_scan(path: Path) -> list[dict[str, Any]]:
@@ -47,6 +54,8 @@ def build_weekly_selection(
     rows: list[dict[str, Any]] = []
     for item in scan_rows:
         group = group_item(item)
+        if group == "rejected":
+            continue
         details = item.get("details", {})
         latest = details.get("latest", {})
         pattern = details.get("pattern", {})
@@ -76,11 +85,12 @@ def build_weekly_selection(
         "selection_date": selection_date,
         "source_week": source_week,
         "target_week": target_week,
-        "method": "每週日用上一週完整日K資料產生下週選股池，不使用下週未來資料。",
+        "source": "神秘金字塔股權類股排行週榜前五",
+        "source_symbols": TWSTHR_TOP5,
+        "method": "每週日先用神秘金字塔週排行找候選，再用上一週完整日K套SOP產生下週選股池，不使用下週未來資料。",
         "groups": {
             "operation_group": [row for row in rows if row["group"] == "operation_group"],
             "observation_group": [row for row in rows if row["group"] == "observation_group"],
-            "rejected": [row for row in rows if row["group"] == "rejected"],
         },
         "rows": rows,
     }
@@ -111,7 +121,6 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
     labels = {
         "operation_group": "實際操作組",
         "observation_group": "觀察組",
-        "rejected": "暫停/淘汰",
     }
     for group_key, label in labels.items():
         lines.extend([f"## {label}", ""])
@@ -129,7 +138,7 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
 
 
 def main() -> None:
-    scan_path = ROOT / "reports" / "weekly_2026-05-10" / "scan.json"
+    scan_path = ROOT / "reports" / "weekly_2026-05-10" / "twsthr_top5" / "scan.json"
     selection = build_weekly_selection(
         load_scan(scan_path),
         selection_date="2026-05-10",
