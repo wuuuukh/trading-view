@@ -4,18 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="60">
-  <title>AI Agent Trading System Report</title>
+  <title>Trading Decision Dashboard</title>
   <style>
     :root {
-      --bg: #f5f6f4;
+      --bg: #f4f6f8;
       --panel: #ffffff;
       --text: #1f2328;
-      --muted: #646a73;
-      --line: #d9ddd7;
-      --accent: #116c5f;
+      --muted: #68707d;
+      --line: #d9e0e7;
+      --accent: #0f766e;
       --warn: #8a5a00;
-      --danger: #a43b32;
-      --ok: #1f6f43;
+      --danger: #b42318;
+      --ok: #137333;
+      --ink: #26313d;
     }
     * { box-sizing: border-box; }
     body {
@@ -26,42 +27,88 @@
       line-height: 1.55;
     }
     header {
-      background: var(--panel);
+      background: #26313d;
+      color: #ffffff;
       border-bottom: 1px solid var(--line);
-      padding: 28px 34px 20px;
+      padding: 26px 34px;
     }
     main {
-      max-width: 1180px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 24px 24px 42px;
     }
-    h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: 0; }
-    h2 { margin: 28px 0 12px; font-size: 20px; letter-spacing: 0; }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: 0; }
+    h2 { margin: 26px 0 12px; font-size: 20px; letter-spacing: 0; }
     p { margin: 6px 0; }
+    header .muted { color: #c8d2dc; }
     .muted { color: var(--muted); }
+    .small { font-size: 12px; }
     .notice {
       margin-top: 14px;
       padding: 12px 14px;
-      border-left: 4px solid var(--warn);
+      border-left: 4px solid #f9c74f;
       background: #fff8e8;
+      color: #3b2f12;
     }
     .summary {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .card {
+    .metric-card, .card, .idea-card {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 14px;
     }
-    .metric { font-size: 26px; font-weight: 700; }
+    .metric-label { color: var(--muted); font-size: 13px; }
+    .metric { font-size: 28px; font-weight: 800; margin-top: 2px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .decision-strip {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .decision-strip .card { border-left: 4px solid var(--line); }
+    .decision-strip .buy { border-left-color: var(--ok); }
+    .decision-strip .watch { border-left-color: var(--accent); }
+    .decision-strip .avoid { border-left-color: var(--danger); }
+    .ideas {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .idea-card.hold { border-left: 4px solid var(--accent); }
+    .idea-card.reject { border-left: 4px solid var(--danger); }
+    .idea-top, .price-line {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .symbol-line { font-size: 21px; font-weight: 800; }
+    .symbol-line span { font-size: 15px; color: var(--muted); font-weight: 600; }
+    .price-line { margin: 12px 0; align-items: baseline; justify-content: flex-start; }
+    .price-line strong { font-size: 24px; }
+    .price-line span { font-weight: 700; }
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .obs-grid div { padding: 9px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .obs-grid div:nth-child(3n) { border-right: 0; }
+    .obs-grid div:nth-last-child(-n+3) { border-bottom: 0; }
+    .obs-grid span { display: block; color: var(--muted); font-size: 12px; }
+    .obs-grid strong { display: block; margin-top: 2px; font-size: 14px; }
+    .card-note { margin-top: 10px; color: var(--ink); font-size: 14px; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -104,150 +151,204 @@
     @media (max-width: 820px) {
       header { padding: 22px 18px 16px; }
       main { padding: 18px 12px 32px; }
-      .summary { grid-template-columns: 1fr 1fr; }
-      .grid { grid-template-columns: 1fr; }
+      .summary, .grid, .decision-strip, .ideas { grid-template-columns: 1fr; }
+      .obs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .obs-grid div, .obs-grid div:nth-child(3n), .obs-grid div:nth-last-child(-n+3) { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
       table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>AI Agent Trading System Report</h1>
-    <p class="muted">更新日：2026-05-13；最新完整日線：2026-05-13</p>
+    <h1>Trading Decision Dashboard</h1>
+    <p class="muted">更新日：2026-05-13 / 最新完整日線：2026-05-13 / 每週日更新選股池</p>
     <div class="notice">2026-05-13 full daily candle is available; report uses the latest completed daily data.</div>
   </header>
   <main>
     <section class="summary">
-      <div class="card"><div class="muted">追蹤候選</div><div class="metric">2</div></div>
-      <div class="card"><div class="muted">剔除/等待</div><div class="metric">3</div></div>
-      <div class="card"><div class="muted">資料檔</div><div class="metric">5</div></div>
-      <div class="card"><div class="muted">自選股</div><div class="metric">1</div></div>
+      <div class="metric-card"><div class="metric-label">實際操作候選</div><div class="metric">0</div></div>
+      <div class="metric-card"><div class="metric-label">觀察組</div><div class="metric">2</div></div>
+      <div class="metric-card"><div class="metric-label">暫停/淘汰</div><div class="metric">3</div></div>
+      <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">82.28</div></div>
+      <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">1</div></div>
     </section>
-    <section>
-      <h2>原始系統定位</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>用途</strong>
-          <p>這是一套圍繞個人交易 SOP、操作思維、均線系統、型態邏輯與籌碼面選股規則所設計的 rule-constrained AI Agent Trading 系統。</p>
-        </div>
-        <div class="card">
-          <strong>限制</strong>
-          <p>系統用途是研究型、自動化輔助型交易系統，不接真實券商 API、不做真實下單、不做 webhook。</p>
-        </div>
-        <div class="card">
-          <strong>輸出</strong>
-          <p>保留 JSON / CSV / Markdown / HTML 報告，供每日追蹤與回顧，不取代人工決策。</p>
-        </div>
+    <section class="decision-strip">
+      <div class="card buy">
+        <strong>今日可積極處理</strong>
+        <p>無</p>
+        <p class="muted small">必須再等 5K 切入點與 60K MACD 確認，才允許現價切入。</p>
+      </div>
+      <div class="card watch">
+        <strong>觀察不追高</strong>
+        <p>4958 臻鼎-KY、3037 欣興</p>
+        <p class="muted small">結構仍可追蹤，但籌碼、切入點或分數尚未允許進入實際操作組。</p>
+      </div>
+      <div class="card avoid">
+        <strong>暫停/淘汰</strong>
+        <p>6205 詮欣、2313 華通、8046 南電</p>
+        <p class="muted small">沒有結構、量能不足、均線轉弱或籌碼未確認時不進場。</p>
       </div>
     </section>
     <section>
-      <h2>原始交易 SOP</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>只做強勢</strong>
-          <ul>
-            <li>只做強勢股，不做弱勢股。</li>
-            <li>只做順勢，不抄底，不摸頂。</li>
-            <li>先看結構，再看均線，再看量價，最後才是進場。</li>
-          </ul>
+      <h2>個股決策卡</h2>
+      <div class="ideas">
+      <article class="idea-card hold">
+        <div class="idea-top">
+          <div>
+            <div class="symbol-line">4958 <span>臻鼎-KY</span></div>
+            <div class="muted small">觀察組 / strong_uptrend / ma_bloom</div>
+          </div>
+          <span class="tag hold">hold</span>
         </div>
-        <div class="card">
-          <strong>技術規則</strong>
-          <ul>
-            <li>固定均線：3、8、21、55、144、233。</li>
-            <li>型態先支援 W 型、突破型、N 字型。</li>
-            <li>沒有結構，不做；沒有量，不做；沒有趨勢，不做；沒有規則，不做。</li>
-          </ul>
+        <div class="price-line">
+          <strong>442.50</strong>
+          <span class="pos">8.72%</span>
+          <span>Score 82.28</span>
         </div>
-        <div class="card">
-          <strong>籌碼規則</strong>
-          <ul>
-            <li>加入大股東每週持股張數變化。</li>
-            <li>籌碼門檻：400 / 600 / 800 / 1000 張。</li>
-            <li>前 30 名大股東持股同步增加則額外加分。</li>
-            <li>籌碼面是加分與排序條件，不單獨取代技術結構。</li>
-          </ul>
+        <div class="obs-grid">
+          <div><span>量比</span><strong>1.23</strong></div>
+          <div><span>3MA距離</span><strong>5.23%</strong></div>
+          <div><span>8MA距離</span><strong>5.34%</strong></div>
+          <div><span>21MA距離</span><strong>22.74%</strong></div>
+          <div><span>MACD柱</span><strong>0.44</strong></div>
+          <div><span>關鍵位</span><strong>420.50 / 5.23%</strong></div>
         </div>
-      </div>
+        <div class="card-note"><b>下一步：</b>日線開花續強，等待 5K 紅紅紅或回撤日K 3MA不破。</div>
+        <div class="card-note"><b>風控：</b>只能觀察，籌碼未確認前不列實際操作組。</div>
+      </article>
+    
+
+      <article class="idea-card hold">
+        <div class="idea-top">
+          <div>
+            <div class="symbol-line">3037 <span>欣興</span></div>
+            <div class="muted small">觀察組 / strong_uptrend / w_pattern</div>
+          </div>
+          <span class="tag hold">hold</span>
+        </div>
+        <div class="price-line">
+          <strong>892.00</strong>
+          <span class="pos">1.94%</span>
+          <span>Score 67.97</span>
+        </div>
+        <div class="obs-grid">
+          <div><span>量比</span><strong>1.28</strong></div>
+          <div><span>3MA距離</span><strong>1.83%</strong></div>
+          <div><span>8MA距離</span><strong>1.74%</strong></div>
+          <div><span>21MA距離</span><strong>13.60%</strong></div>
+          <div><span>MACD柱</span><strong>-3.39</strong></div>
+          <div><span>關鍵位</span><strong>538.00 / 65.80%</strong></div>
+        </div>
+        <div class="card-note"><b>下一步：</b>W 型有效，等待 5K 節奏與 60K MACD轉強。</div>
+        <div class="card-note"><b>風控：</b>只能觀察，籌碼未確認前不列實際操作組。</div>
+      </article>
+    
+
+      <article class="idea-card reject">
+        <div class="idea-top">
+          <div>
+            <div class="symbol-line">6205 <span>詮欣</span></div>
+            <div class="muted small">暫停/淘汰 / constructive / 無型態</div>
+          </div>
+          <span class="tag reject">reject</span>
+        </div>
+        <div class="price-line">
+          <strong>80.40</strong>
+          <span class="neg">-6.40%</span>
+          <span>Score 51.14</span>
+        </div>
+        <div class="obs-grid">
+          <div><span>量比</span><strong>0.35</strong></div>
+          <div><span>3MA距離</span><strong>-4.44%</strong></div>
+          <div><span>8MA距離</span><strong>-10.02%</strong></div>
+          <div><span>21MA距離</span><strong>-3.51%</strong></div>
+          <div><span>MACD柱</span><strong>-1.45</strong></div>
+          <div><span>關鍵位</span><strong>55.20 / 45.65%</strong></div>
+        </div>
+        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
+        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
+      </article>
+    
+
+      <article class="idea-card reject">
+        <div class="idea-top">
+          <div>
+            <div class="symbol-line">2313 <span>華通</span></div>
+            <div class="muted small">暫停/淘汰 / constructive / 無型態</div>
+          </div>
+          <span class="tag reject">reject</span>
+        </div>
+        <div class="price-line">
+          <strong>237.00</strong>
+          <span class="neg">-8.85%</span>
+          <span>Score 51.04</span>
+        </div>
+        <div class="obs-grid">
+          <div><span>量比</span><strong>1.19</strong></div>
+          <div><span>3MA距離</span><strong>-3.79%</strong></div>
+          <div><span>8MA距離</span><strong>-6.83%</strong></div>
+          <div><span>21MA距離</span><strong>-4.57%</strong></div>
+          <div><span>MACD柱</span><strong>-1.41</strong></div>
+          <div><span>關鍵位</span><strong>294.00 / -19.39%</strong></div>
+        </div>
+        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
+        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
+      </article>
+    
+
+      <article class="idea-card reject">
+        <div class="idea-top">
+          <div>
+            <div class="symbol-line">8046 <span>南電</span></div>
+            <div class="muted small">暫停/淘汰 / strong_uptrend / 無型態</div>
+          </div>
+          <span class="tag reject">reject</span>
+        </div>
+        <div class="price-line">
+          <strong>880.00</strong>
+          <span class="neg">-2.22%</span>
+          <span>Score 50.89</span>
+        </div>
+        <div class="obs-grid">
+          <div><span>量比</span><strong>0.58</strong></div>
+          <div><span>3MA距離</span><strong>-1.79%</strong></div>
+          <div><span>8MA距離</span><strong>-5.02%</strong></div>
+          <div><span>21MA距離</span><strong>2.77%</strong></div>
+          <div><span>MACD柱</span><strong>-15.07</strong></div>
+          <div><span>關鍵位</span><strong>1,035.00 / -14.98%</strong></div>
+        </div>
+        <div class="card-note"><b>下一步：</b>重新出現型態、量能與均線共振。</div>
+        <div class="card-note"><b>風控：</b>不進場，等待重新站回強勢結構。</div>
+      </article>
+    </div>
     </section>
     <section>
-      <h2>2026/04/27-2026/05/03 原始候選名單</h2>
-      <table>
-        <thead>
-          <tr><th>排名</th><th>代號</th><th>名稱</th><th>分層</th><th>原始理由</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>4958</td><td>臻鼎-KY</td><td>Primary review</td><td>4/30 漲停創高，投信 4 月買超 16,574 張，AI + 載板 + 光通訊。</td></tr>
-<tr><td>2</td><td>8046</td><td>南電</td><td>Primary review</td><td>4/30 漲停創高，投信連 4 月買超，4 月買超 15,239 張。</td></tr>
-<tr><td>3</td><td>3037</td><td>欣興</td><td>Primary review</td><td>4/30 漲停創高，投信 4 月買超 29,940 張，PCB/載板主線。</td></tr>
-<tr><td>4</td><td>2313</td><td>華通</td><td>Primary review</td><td>4/30 投信買超第 1，外資也買超 10,304 張，收漲 6.3%。</td></tr>
-<tr><td>5</td><td>6205</td><td>詮欣</td><td>Secondary watchlist</td><td>使用者提供：大股東持有張數持續增加，籌碼加分；技術面仍需開盤後確認。</td></tr>
-        </tbody>
-      </table>
-      <p class="muted">原先移出前 5 的股票：2330 台積電、2317 鴻海、3231 緯創、2454 聯發科。理由是短線資料中部分標的有轉弱或法人調節跡象；依 SOP，短線不追弱、不猜反彈。</p>
-    </section>
-    <section>
-      <h2>Rule-Constrained AI Agent 執行規則</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>允許切入前置條件</strong>
-          <ul>
-            <li>大盤允許；加權指數跌幅超過 3% 則轉保守。</li>
-            <li>只做主流題材、強勢族群、攻擊量與籌碼偏多股票。</li>
-            <li>型態先成立：突破、W、N、平台整理轉強或均線開花。</li>
-            <li>日K、週K、月K均線共振，月K 3MA 未跌破。</li>
-            <li>60K MACD 綠柱縮短或紅柱翻揚。</li>
-          </ul>
-        </div>
-        <div class="card">
-          <strong>現價切入點</strong>
-          <ul>
-            <li>開盤連三根 5K 紅K，高低點墊高且量能不衰退。</li>
-            <li>5K 爆大量後不追高，等回撤日K 3MA 不破。</li>
-            <li>開盤連三黑但日K結構未破，回測日K 3MA 不破。</li>
-            <li>以上切入點需配合 60K MACD 動能轉強。</li>
-            <li>短線看日K 3MA / 8MA，中長線看週K與月K 3MA。</li>
-          </ul>
-        </div>
-        <div class="card">
-          <strong>每週日選股更新</strong>
-          <ul>
-            <li>每週日更新一次選股池，分為實際操作組與觀察組。</li>
-            <li>實際操作組保留獲利為正、結構未破、月K 3MA 未跌破。</li>
-            <li>獲利轉負、結構轉弱、均線破壞、主流退潮則降級。</li>
-            <li>降級股票放觀察組 1 週，未轉強自動淘汰。</li>
-            <li>跌破月K 3MA、空頭排列、爆量長黑或籌碼鬆動直接淘汰。</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section>
-      <h2>2026/05/13 新增追蹤資料</h2>
+      <h2>必要觀察資訊</h2>
       <table>
         <thead>
           <tr>
-            <th>排名</th><th>代號</th><th>名稱</th><th>自選股</th><th>決策</th><th>分數</th><th>收盤</th><th>漲跌幅</th><th>量比</th><th>型態</th><th>動作</th>
+            <th>排名</th><th>股票</th><th>分組</th><th>分數</th><th>價格</th><th>量比</th><th>型態/趨勢</th><th>均線位置</th><th>MACD柱</th><th>籌碼</th><th>下一步</th>
           </tr>
         </thead>
-        <tbody>
-          <tr><td>1</td><td>4958</td><td>臻鼎-KY</td><td>-</td><td><span class="tag hold">hold</span></td><td>82.28</td><td>442.50</td><td class="pos">8.72%</td><td>1.23</td><td>ma_bloom</td><td>觀察，不追高</td></tr>
-<tr><td>2</td><td>3037</td><td>欣興</td><td>-</td><td><span class="tag hold">hold</span></td><td>67.97</td><td>892.00</td><td class="pos">1.94%</td><td>1.28</td><td>w_pattern</td><td>觀察，不追高</td></tr>
-<tr><td>3</td><td>6205</td><td>詮欣</td><td><span class="tag watchlist">6205 詮欣</span></td><td><span class="tag reject">reject</span></td><td>51.14</td><td>80.40</td><td class="neg">-6.40%</td><td>0.35</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>4</td><td>2313</td><td>華通</td><td>-</td><td><span class="tag reject">reject</span></td><td>51.04</td><td>237.00</td><td class="neg">-8.85%</td><td>1.19</td><td>-</td><td>暫不納入進場候選</td></tr>
-<tr><td>5</td><td>8046</td><td>南電</td><td>-</td><td><span class="tag reject">reject</span></td><td>50.89</td><td>880.00</td><td class="neg">-2.22%</td><td>0.58</td><td>-</td><td>暫不納入進場候選</td></tr>
-        </tbody>
+        <tbody><tr><td>1</td><td><strong>4958</strong><br><span class="muted small">臻鼎-KY</span></td><td>觀察組<br><span class="tag hold">hold</span></td><td>82.28</td><td>442.50<br><span class="pos">8.72%</span></td><td>1.23</td><td>ma_bloom<br><span class="muted small">strong_uptrend</span></td><td>3MA 420.50 (5.23%)<br>8MA 420.06 (5.34%)<br>21MA 360.52 (22.74%)</td><td>0.44</td><td>籌碼未確認</td><td>日線開花續強，等待 5K 紅紅紅或回撤日K 3MA不破。</td></tr>
+<tr><td>2</td><td><strong>3037</strong><br><span class="muted small">欣興</span></td><td>觀察組<br><span class="tag hold">hold</span></td><td>67.97</td><td>892.00<br><span class="pos">1.94%</span></td><td>1.28</td><td>w_pattern<br><span class="muted small">strong_uptrend</span></td><td>3MA 876.00 (1.83%)<br>8MA 876.75 (1.74%)<br>21MA 785.19 (13.60%)</td><td>-3.39</td><td>籌碼未確認</td><td>W 型有效，等待 5K 節奏與 60K MACD轉強。</td></tr>
+<tr><td>3</td><td><strong>6205</strong><br><span class="muted small">詮欣</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>51.14</td><td>80.40<br><span class="neg">-6.40%</span></td><td>0.35</td><td>-<br><span class="muted small">constructive</span></td><td>3MA 84.13 (-4.44%)<br>8MA 89.35 (-10.02%)<br>21MA 83.33 (-3.51%)</td><td>-1.45</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr>
+<tr><td>4</td><td><strong>2313</strong><br><span class="muted small">華通</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>51.04</td><td>237.00<br><span class="neg">-8.85%</span></td><td>1.19</td><td>-<br><span class="muted small">constructive</span></td><td>3MA 246.33 (-3.79%)<br>8MA 254.38 (-6.83%)<br>21MA 248.36 (-4.57%)</td><td>-1.41</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr>
+<tr><td>5</td><td><strong>8046</strong><br><span class="muted small">南電</span></td><td>暫停/淘汰<br><span class="tag reject">reject</span></td><td>50.89</td><td>880.00<br><span class="neg">-2.22%</span></td><td>0.58</td><td>-<br><span class="muted small">strong_uptrend</span></td><td>3MA 896.00 (-1.79%)<br>8MA 926.50 (-5.02%)<br>21MA 856.29 (2.77%)</td><td>-15.07</td><td>籌碼未確認</td><td>重新出現型態、量能與均線共振。</td></tr></tbody>
       </table>
     </section>
     <section>
-      <h2>交易結論</h2>
-      <p>優先追蹤：無。條件為當日模型維持 hold、分數達高標且型態成立；新版策略需再等大盤允許、日/週/月共振、籌碼偏多、5K切入點與60K MACD確認後，最後才允許現價切入。</p>
-      <p>觀察不追高：4958 臻鼎-KY、3037 欣興。仍列入追蹤，但沒有進入優先追蹤條件。</p>
-      <p>暫不納入：6205 詮欣、2313 華通、8046 南電。依當日資料重新計算後未達進場候選條件。</p>
-      <p class="muted">風控規則：大盤跌幅超過 3% 轉保守；短線觀察日K 3MA / 8MA，中線觀察週K趨勢，長線月K 3MA 不破續抱，月K結構破壞再減碼或出場。</p>
+      <h2>操作規則</h2>
+      <div class="grid">
+        <div class="card"><strong>進場前置</strong><ul><li>大盤允許，跌幅超過 3% 轉保守。</li><li>只做強勢族群、攻擊量、籌碼偏多、多頭排列。</li><li>型態需先成立，再看 5K 開盤節奏。</li></ul></div>
+        <div class="card"><strong>切入確認</strong><ul><li>5K 紅紅紅，高低點墊高且量不衰退。</li><li>5K 爆大量後回撤日K 3MA 不破。</li><li>連三黑但日K結構未破，回測 3MA 不破。</li><li>60K MACD 綠柱縮短或紅柱翻揚。</li></ul></div>
+        <div class="card"><strong>持股與汰換</strong><ul><li>短線看日K 3MA / 8MA。</li><li>中線看週K趨勢延續。</li><li>長線看月K 3MA。</li><li>每週日更新選股池，降級股票觀察 1 週。</li></ul></div>
+      </div>
     </section>
     <section>
-      <h2>輸出檔案</h2>
-      <p><code>reports/tracking_log.csv</code> 保存每次追蹤紀錄；<code>reports/tracking_summary.md</code> 保存本次摘要；掃描原始輸出在 <code>reports/scan.json</code> 與 <code>reports/scan.csv</code>。</p>
+      <h2>資料說明</h2>
+      <p class="muted">本頁為研究型輔助報告，不接券商、不自動下單。</p>
+      <p class="muted">保留紀錄：<code>reports/tracking_log.csv</code>、<code>reports/tracking_summary.md</code>、<code>reports/scan.json</code>。</p>
     </section>
   </main>
 </body>
