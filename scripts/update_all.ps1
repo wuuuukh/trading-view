@@ -11,6 +11,7 @@ python -m trading_agent.cli scan --ohlcv data\ohlcv --out reports
 python -m trading_agent.cli paper --ohlcv data\ohlcv --out reports
 python -m trading_agent.cli backtest --ohlcv data\ohlcv --out reports
 python -m trading_agent.cli project --capital 1000000 --out reports
+python scripts\build_weekly_selection.py
 python scripts\update_tracking_report.py
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_static_site.ps1
 
