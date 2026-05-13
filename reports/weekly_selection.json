@@ -12,12 +12,11 @@
   ],
   "method": "每週日先用神秘金字塔週排行找候選，再用上一週完整日K套SOP產生下週選股池，不使用下週未來資料。",
   "groups": {
-    "operation_group": [],
-    "observation_group": [
+    "operation_group": [
       {
         "symbol": "2464",
         "name": "盟立",
-        "group": "observation_group",
+        "group": "operation_group",
         "decision": "hold",
         "score": 85.0,
         "tier": "secondary_watchlist",
@@ -30,13 +29,13 @@
         "ma21": 93.16,
         "key_level": 69.2,
         "chip_status": "籌碼未確認",
-        "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+        "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
         "symbol": "2484",
         "name": "希華",
-        "group": "observation_group",
+        "group": "operation_group",
         "decision": "hold",
         "score": 85.0,
         "tier": "secondary_watchlist",
@@ -49,13 +48,13 @@
         "ma21": 40.31,
         "key_level": 29.4,
         "chip_status": "籌碼未確認",
-        "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+        "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 29.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
         "symbol": "8150",
         "name": "南茂",
-        "group": "observation_group",
+        "group": "operation_group",
         "decision": "hold",
         "score": 85.0,
         "tier": "secondary_watchlist",
@@ -68,13 +67,13 @@
         "ma21": 72.96,
         "key_level": 56.8,
         "chip_status": "籌碼未確認",
-        "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+        "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
         "symbol": "3057",
         "name": "喬鼎",
-        "group": "observation_group",
+        "group": "operation_group",
         "decision": "hold",
         "score": 82.46,
         "tier": "secondary_watchlist",
@@ -87,16 +86,36 @@
         "ma21": 19.17,
         "key_level": 20.1,
         "chip_status": "籌碼未確認",
-        "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+        "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 20.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
+      {
+        "symbol": "1597",
+        "name": "直得",
+        "group": "operation_group",
+        "decision": "reject",
+        "score": 56.09,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "",
+        "close": 173.0,
+        "volume_ratio": 0.28,
+        "ma3": 177.17,
+        "ma8": 157.19,
+        "ma21": 128.41,
+        "key_level": 143.5,
+        "chip_status": "籌碼未確認",
+        "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "reason": "均線分數 70，價格相對主要均線檢查完成；N 字關鍵位 143.50，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       }
-    ]
+    ],
+    "observation_group": []
   },
   "rows": [
     {
       "symbol": "2464",
       "name": "盟立",
-      "group": "observation_group",
+      "group": "operation_group",
       "decision": "hold",
       "score": 85.0,
       "tier": "secondary_watchlist",
@@ -109,13 +128,13 @@
       "ma21": 93.16,
       "key_level": 69.2,
       "chip_status": "籌碼未確認",
-      "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+      "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
       "symbol": "2484",
       "name": "希華",
-      "group": "observation_group",
+      "group": "operation_group",
       "decision": "hold",
       "score": 85.0,
       "tier": "secondary_watchlist",
@@ -128,13 +147,13 @@
       "ma21": 40.31,
       "key_level": 29.4,
       "chip_status": "籌碼未確認",
-      "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+      "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 29.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
       "symbol": "8150",
       "name": "南茂",
-      "group": "observation_group",
+      "group": "operation_group",
       "decision": "hold",
       "score": 85.0,
       "tier": "secondary_watchlist",
@@ -147,13 +166,13 @@
       "ma21": 72.96,
       "key_level": 56.8,
       "chip_status": "籌碼未確認",
-      "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+      "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
       "symbol": "3057",
       "name": "喬鼎",
-      "group": "observation_group",
+      "group": "operation_group",
       "decision": "hold",
       "score": 82.46,
       "tier": "secondary_watchlist",
@@ -166,8 +185,27 @@
       "ma21": 19.17,
       "key_level": 20.1,
       "chip_status": "籌碼未確認",
-      "action": "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。",
+      "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 20.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "1597",
+      "name": "直得",
+      "group": "operation_group",
+      "decision": "reject",
+      "score": 56.09,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "",
+      "close": 173.0,
+      "volume_ratio": 0.28,
+      "ma3": 177.17,
+      "ma8": 157.19,
+      "ma21": 128.41,
+      "key_level": 143.5,
+      "chip_status": "籌碼未確認",
+      "action": "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "reason": "均線分數 70，價格相對主要均線檢查完成；N 字關鍵位 143.50，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     }
   ]
 }

@@ -474,12 +474,14 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       min-height: 150px;
     }}
     .weekly-column.operation {{ border-top: 4px solid var(--ok); }}
-    .weekly-column.observe {{ border-top: 4px solid var(--accent); }}
+    .weekly-column.observe {{ border-top: 4px solid #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }}
     .weekly-item {{
       border-top: 1px solid var(--line);
       padding-top: 10px;
       margin-top: 10px;
     }}
+    .weekly-column.operation .weekly-item {{ background: #eef8f0; border: 1px solid #b6d5bf; border-radius: 8px; padding: 10px; }}
+    .weekly-column.observe .weekly-item {{ background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px; padding: 10px; }}
     .weekly-item span {{ display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }}
     .weekly-item p {{ font-size: 13px; margin-top: 5px; }}
     .empty-text {{ color: var(--muted); font-size: 14px; }}

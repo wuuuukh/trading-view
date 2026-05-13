@@ -28,9 +28,7 @@ def load_scan(path: Path) -> list[dict[str, Any]]:
 
 
 def group_item(item: dict[str, Any]) -> str:
-    details = item.get("details", {})
-    chip = details.get("chip")
-    if item.get("decision") == "accept" and chip is not None:
+    if str(item.get("symbol")) in TWSTHR_TOP5:
         return "operation_group"
     if item.get("decision") == "hold":
         return "observation_group"
@@ -39,7 +37,7 @@ def group_item(item: dict[str, Any]) -> str:
 
 def action_for(item: dict[str, Any], group: str) -> str:
     if group == "operation_group":
-        return "等待5K切入點與60K MACD確認後，才允許現價切入。"
+        return "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
     if group == "observation_group":
         return "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。"
     return "本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。"
@@ -54,8 +52,6 @@ def build_weekly_selection(
     rows: list[dict[str, Any]] = []
     for item in scan_rows:
         group = group_item(item)
-        if group == "rejected":
-            continue
         details = item.get("details", {})
         latest = details.get("latest", {})
         pattern = details.get("pattern", {})

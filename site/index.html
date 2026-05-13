@@ -122,12 +122,14 @@
       min-height: 150px;
     }
     .weekly-column.operation { border-top: 4px solid var(--ok); }
-    .weekly-column.observe { border-top: 4px solid var(--accent); }
+    .weekly-column.observe { border-top: 4px solid #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
     .weekly-item {
       border-top: 1px solid var(--line);
       padding-top: 10px;
       margin-top: 10px;
     }
+    .weekly-column.operation .weekly-item { background: #eef8f0; border: 1px solid #b6d5bf; border-radius: 8px; padding: 10px; }
+    .weekly-column.observe .weekly-item { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px; padding: 10px; }
     .weekly-item span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
     .weekly-item p { font-size: 13px; margin-top: 5px; }
     .empty-text { color: var(--muted); font-size: 14px; }
@@ -188,8 +190,8 @@
   </header>
   <main>
     <section class="summary">
-      <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">0</div></div>
-      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">4</div></div>
+      <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">5</div></div>
+      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">0</div></div>
       <div class="metric-card"><div class="metric-label">候選來源</div><div class="metric">5</div></div>
       <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">85.00</div></div>
       <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">1</div></div>
@@ -201,14 +203,15 @@
       <div class="weekly-board">
         <div class="weekly-column operation">
           <strong>實際操作組</strong>
-          <p class="empty-text">本週無股票符合實際操作組；主因是籌碼未確認或切入條件不足。</p>
+          <div class="weekly-item"><strong>2464 盟立</strong><span>Score 85.00 / w_pattern / 量比 2.49</span><p>神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。</p></div>
+<div class="weekly-item"><strong>2484 希華</strong><span>Score 85.00 / w_pattern / 量比 1.87</span><p>神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。</p></div>
+<div class="weekly-item"><strong>8150 南茂</strong><span>Score 85.00 / w_pattern / 量比 2.26</span><p>神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。</p></div>
+<div class="weekly-item"><strong>3057 喬鼎</strong><span>Score 82.46 / w_pattern / 量比 1.25</span><p>神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。</p></div>
+<div class="weekly-item"><strong>1597 直得</strong><span>Score 56.09 / 無型態 / 量比 0.28</span><p>神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。</p></div>
         </div>
         <div class="weekly-column observe">
           <strong>觀察組</strong>
-          <div class="weekly-item"><strong>2464 盟立</strong><span>Score 85.00 / w_pattern / 量比 2.49</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
-<div class="weekly-item"><strong>2484 希華</strong><span>Score 85.00 / w_pattern / 量比 1.87</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
-<div class="weekly-item"><strong>8150 南茂</strong><span>Score 85.00 / w_pattern / 量比 2.26</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
-<div class="weekly-item"><strong>3057 喬鼎</strong><span>Score 82.46 / w_pattern / 量比 1.25</span><p>列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。</p></div>
+          <p class="empty-text">本週無觀察股。</p>
         </div>
       </div>
     </section>
