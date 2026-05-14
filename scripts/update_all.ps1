@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 Set-Location -LiteralPath $Root
 
-$Symbols = @("4958", "8046", "3037", "2313", "6205")
+$Symbols = @("1597", "8150", "2464", "3057", "2484")
 $Today = Get-Date -Format "yyyy-MM-dd"
 
 python scripts\update_ohlcv_tw.py @Symbols --months 18 --end $Today --out data\ohlcv

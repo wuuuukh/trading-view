@@ -328,258 +328,394 @@ def render_weekly_group(items: list[dict[str, object]], empty_text: str) -> str:
     return "\n".join(lines)
 
 
+def display_pattern(value: object) -> str:
+    labels = {
+        "breakout": "突破",
+        "w_pattern": "W",
+        "n_pattern": "N字",
+        "base_breakout": "平台",
+        "ma_bloom": "開花",
+        "": "待確認",
+        None: "待確認",
+    }
+    return labels.get(value, str(value))
+
+
+def to_float(value: object) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def ma_alignment(close: object, ma3: object, ma8: object, ma21: object) -> str:
+    close_n = to_float(close)
+    ma3_n = to_float(ma3)
+    ma8_n = to_float(ma8)
+    ma21_n = to_float(ma21)
+    if None in (close_n, ma3_n, ma8_n, ma21_n):
+        return "待確認"
+    if close_n >= ma3_n and ma3_n > ma8_n > ma21_n:
+        return "偏多"
+    if close_n >= ma8_n and ma3_n >= ma8_n:
+        return "普通偏多"
+    return "轉弱警戒"
+
+
+def risk_note_for_candidate(symbol: str, ma3: object, ma8: object) -> str:
+    ma3_text = format_number(ma3)
+    ma8_text = format_number(ma8)
+    return f"{symbol} 短線看日K 3MA {ma3_text} 與 8MA {ma8_text}；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出操作組。"
+
+
+def clean_dashboard_reason(symbol: str, item: dict[str, object], group_label: str) -> str:
+    pattern = display_pattern(item.get("pattern_type"))
+    score = format_number(item.get("score"))
+    volume_ratio = format_number(item.get("volume_ratio"))
+    if group_label == "實際操作組":
+        return f"{symbol} 來自神秘金字塔週榜前五，列入本週操作組；Score {score}，型態 {pattern}，量比 {volume_ratio}。仍需等待 5K 節奏與 60K MACD 確認。"
+    return f"{symbol} 先列觀察組；Score {score}，型態 {pattern}，量比 {volume_ratio}。補齊籌碼與切入條件前不進實際操作組。"
+
+
 def write_html(rows: list[dict[str, object]]) -> Path:
     path = ROOT / "index.html"
     weekly = load_weekly_selection()
     weekly_groups = weekly.get("groups", {})
-    weekly_operation = weekly_groups.get("operation_group", [])
-    weekly_observation = weekly_groups.get("observation_group", [])
-    latest_day = rows[0]["data_latest_completed_day"] if rows else "n/a"
-    hold_rows = [row for row in rows if row["decision"] == "hold"]
-    reject_rows = [row for row in rows if row["decision"] != "hold"]
-    priority_rows = [
-        row for row in hold_rows
-        if str(row.get("tracking_action", "")).startswith("優先追蹤")
+    market = latest_market_rows()
+    current_scan = {str(row.get("symbol")): row for row in rows}
+    name_map = {
+        "1597": "直得",
+        "8150": "南茂",
+        "2464": "盟立",
+        "3057": "喬鼎",
+        "2484": "希華",
+    }
+
+    def candidate_from_weekly(item: dict[str, object], group_label: str) -> dict[str, object]:
+        symbol = str(item.get("symbol", ""))
+        market_row = market.get(symbol, {})
+        scan_row = current_scan.get(symbol, {})
+        close = market_row.get("close", item.get("close", ""))
+        change_pct = market_row.get("change_pct", "")
+        latest_date = market_row.get("latest_date", "")
+        ma3 = scan_row.get("ma3", item.get("ma3", ""))
+        ma8 = scan_row.get("ma8", item.get("ma8", ""))
+        ma21 = scan_row.get("ma21", item.get("ma21", ""))
+        return {
+            "symbol": symbol,
+            "name": name_map.get(symbol, str(item.get("name", symbol))),
+            "latest_price": close,
+            "change_pct": change_pct,
+            "score": float(item.get("score") or 0),
+            "decision": "hold" if group_label == "實際操作組" else str(item.get("decision") or "hold"),
+            "reason": clean_dashboard_reason(symbol, item, group_label),
+            "market_state": item.get("market_state") or "待確認",
+            "pattern_type": display_pattern(item.get("pattern_type")),
+            "chip_state": "神秘金字塔週榜偏多；正式籌碼資料待接",
+            "entry_trigger": "等待 5K 切入點 + 60K MACD 確認",
+            "risk_note": risk_note_for_candidate(symbol, ma3, ma8),
+            "group_assignment": group_label,
+            "index_state": "正常" if not str(latest_date).startswith("n/a") else "待確認",
+            "daily_ma_alignment": ma_alignment(close, ma3, ma8, ma21),
+            "weekly_ma_alignment": "週K待接，但本週先依上一週完整日K與週榜分層",
+            "monthly_ma_alignment": "月K 3MA 不破才允許續抱",
+            "shareholder_score": "-",
+            "institution_bias": "待接法人/投信資料",
+            "next_1d_return": None,
+            "next_3d_return": None,
+            "next_5d_return": None,
+            "latest_date": latest_date,
+            "volume_ratio": item.get("volume_ratio", ""),
+            "ma": {
+                "3MA": ma3,
+                "8MA": ma8,
+                "21MA": ma21,
+                "55MA": scan_row.get("ma55", ""),
+                "144MA": scan_row.get("ma144", ""),
+                "233MA": scan_row.get("ma233", ""),
+            },
+            "patterns": {
+                "突破": item.get("pattern_type") == "breakout",
+                "W": item.get("pattern_type") == "w_pattern",
+                "N字": item.get("pattern_type") == "n_pattern",
+                "平台": item.get("pattern_type") == "base_breakout",
+                "開花": item.get("pattern_type") == "ma_bloom" or ma_alignment(close, ma3, ma8, ma21) == "偏多",
+            },
+            "triggers": {
+                "開盤八法紅紅紅": False,
+                "5K爆大量回撤3MA": False,
+                "連三黑回測3MA": False,
+                "60K MACD轉強": False,
+            },
+        }
+
+    weekly_operation = [
+        candidate_from_weekly(item, "實際操作組")
+        for item in weekly_groups.get("operation_group", [])
     ]
-    observe_rows = [
-        row for row in hold_rows
-        if not str(row.get("tracking_action", "")).startswith("優先追蹤")
+    weekly_observation = [
+        candidate_from_weekly(item, "觀察組")
+        for item in weekly_groups.get("observation_group", [])
     ]
-    report_date = date.today().strftime("%Y/%m/%d")
-    visible_rows = priority_rows + observe_rows
-    weekly_visible = weekly_operation + weekly_observation
-    best_score = max((float(row.get("score", 0)) for row in weekly_visible), default=0)
-    stale_warning = "" if str(latest_day) >= date.today().isoformat() else "資料不是今日完整日K，僅供追蹤。"
-    html_text = f"""<!doctype html>
+    candidates = weekly_operation + weekly_observation
+    latest_dates = [
+        str(row.get("latest_date"))
+        for row in market.values()
+        if row.get("latest_date")
+    ]
+    latest_day = max(latest_dates) if latest_dates else (rows[0]["data_latest_completed_day"] if rows else "n/a")
+    payload = {
+        "generated_at": date.today().isoformat(),
+        "latest_completed_day": str(latest_day),
+        "market_note": market_data_note(latest_day),
+        "selection": {
+            "selection_date": weekly.get("selection_date", "n/a"),
+            "source_week": weekly.get("source_week", "n/a"),
+            "target_week": weekly.get("target_week", "n/a"),
+            "source": "神秘金字塔股權類股排行週榜前五",
+            "method": "每週日用上一週完整日K與神秘金字塔週榜產生下週選股池；每日盤後更新價格、均線、量能與追蹤資料。",
+        },
+        "candidates": candidates,
+    }
+    html_text = """<!doctype html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="60">
-  <title>Trading Decision Dashboard</title>
+  <title>AI Agent Trading Strategy Dashboard</title>
   <style>
-    :root {{
-      --bg: #f4f6f8;
-      --panel: #ffffff;
-      --text: #1f2328;
-      --muted: #68707d;
-      --line: #d9e0e7;
-      --accent: #0f766e;
-      --warn: #8a5a00;
-      --danger: #b42318;
-      --ok: #137333;
-      --ink: #26313d;
-    }}
-    * {{ box-sizing: border-box; }}
-    body {{
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Microsoft JhengHei", "PingFang TC", Arial, sans-serif;
-      line-height: 1.55;
-    }}
-    header {{
+    :root {
+      --bg:#f3f6f8; --panel:#fff; --soft:#f8fafc; --line:#d9e1e8;
+      --text:#1d2733; --muted:#647282; --green:#0f6b57; --green-soft:#e8f5ef;
+      --blue:#1d4f91; --blue-soft:#eaf2ff; --red:#b42318; --red-soft:#fff1ef;
+      --amber:#8a5a00; --amber-soft:#fff7df; --dark:#24313f;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:"Microsoft JhengHei","PingFang TC",Arial,sans-serif;
+      line-height:1.45; letter-spacing:0;
+    }
+    header {
       background: #26313d;
-      color: #ffffff;
-      border-bottom: 1px solid var(--line);
-      padding: 26px 34px;
-    }}
-    main {{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 24px 24px 42px;
-    }}
-    h1 {{ margin: 0 0 8px; font-size: 28px; letter-spacing: 0; }}
-    h2 {{ margin: 26px 0 12px; font-size: 20px; letter-spacing: 0; }}
-    p {{ margin: 6px 0; }}
-    header .muted {{ color: #c8d2dc; }}
-    .muted {{ color: var(--muted); }}
-    .small {{ font-size: 12px; }}
-    .notice {{
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-left: 4px solid #f9c74f;
-      background: #fff8e8;
-      color: #3b2f12;
-    }}
-    .summary {{
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-    }}
-    .metric-card, .card, .idea-card {{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-    }}
-    .metric-label {{ color: var(--muted); font-size: 13px; }}
-    .metric {{ font-size: 28px; font-weight: 800; margin-top: 2px; }}
-    .grid {{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }}
-    .decision-strip {{
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }}
-    .decision-strip .card {{ border-left: 4px solid var(--line); }}
-    .decision-strip .buy {{ border-left-color: var(--ok); }}
-    .decision-strip .watch {{ border-left-color: var(--accent); }}
-    .decision-strip .avoid {{ border-left-color: var(--danger); }}
-    .ideas {{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }}
-    .idea-card.hold {{ border-left: 4px solid var(--accent); }}
-    .idea-card.reject {{ border-left: 4px solid var(--danger); }}
-    .idea-top, .price-line {{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }}
-    .symbol-line {{ font-size: 21px; font-weight: 800; }}
-    .symbol-line span {{ font-size: 15px; color: var(--muted); font-weight: 600; }}
-    .price-line {{ margin: 12px 0; align-items: baseline; justify-content: flex-start; }}
-    .price-line strong {{ font-size: 24px; }}
-    .price-line span {{ font-weight: 700; }}
-    .obs-grid {{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }}
-    .obs-grid div {{ padding: 9px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }}
-    .obs-grid div:nth-child(3n) {{ border-right: 0; }}
-    .obs-grid div:nth-last-child(-n+3) {{ border-bottom: 0; }}
-    .obs-grid span {{ display: block; color: var(--muted); font-size: 12px; }}
-    .obs-grid strong {{ display: block; margin-top: 2px; font-size: 14px; }}
-    .card-note {{ margin-top: 10px; color: var(--ink); font-size: 14px; }}
-    .weekly-board {{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }}
-    .weekly-column {{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      min-height: 150px;
-    }}
-    .weekly-column.operation {{ border-top: 4px solid var(--ok); }}
-    .weekly-column.observe {{ border-top: 4px solid #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }}
-    .weekly-item {{
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
-      margin-top: 10px;
-    }}
-    .weekly-column.operation .weekly-item {{ background: #eef8f0; border: 1px solid #b6d5bf; border-radius: 8px; padding: 10px; }}
-    .weekly-column.observe .weekly-item {{ background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px; padding: 10px; }}
-    .weekly-item span {{ display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }}
-    .weekly-item p {{ font-size: 13px; margin-top: 5px; }}
-    .empty-text {{ color: var(--muted); font-size: 14px; }}
-    table {{
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }}
-    th, td {{
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-      font-size: 14px;
-    }}
-    th {{ background: #ecefeb; white-space: nowrap; }}
-    tr:last-child td {{ border-bottom: 0; }}
-    .tag {{
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      border: 1px solid var(--line);
-      background: #f7f7f4;
-    }}
-    .hold {{ color: var(--ok); background: #eef8f0; border-color: #b6d5bf; }}
-    .reject {{ color: var(--danger); background: #fff1ef; border-color: #e0b5af; }}
-    .watchlist {{ color: #0f5f7a; background: #eaf6fb; border-color: #acd3df; }}
-    .pos {{ color: var(--ok); font-weight: 700; }}
-    .neg {{ color: var(--danger); font-weight: 700; }}
-    ul {{ margin: 8px 0 0 20px; padding: 0; }}
-    li {{ margin: 4px 0; }}
-    code {{
-      background: #eef0ed;
-      border: 1px solid #dfe3dc;
-      border-radius: 4px;
-      padding: 1px 5px;
-    }}
-    @media (max-width: 820px) {{
-      header {{ padding: 22px 18px 16px; }}
-      main {{ padding: 18px 12px 32px; }}
-      .summary, .grid, .decision-strip, .ideas, .weekly-board {{ grid-template-columns: 1fr; }}
-      .obs-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
-      .obs-grid div, .obs-grid div:nth-child(3n), .obs-grid div:nth-last-child(-n+3) {{ border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }}
-      table {{ display: block; overflow-x: auto; }}
-    }}
+      color:#fff; border-bottom:1px solid #1b2633;
+    }
+    .header-inner { max-width:1440px; margin:0 auto; padding:22px 28px; }
+    h1 { margin:0; font-size:25px; }
+    h2 { margin:26px 0 12px; font-size:18px; }
+    h3 { margin:0 0 10px; font-size:16px; }
+    p { margin:6px 0; }
+    main { max-width:1440px; margin:0 auto; padding:18px 22px 42px; }
+    .muted { color:var(--muted); } header .muted { color:#c7d2dd; }
+    .mode { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+    .mode span { border:1px solid #5b6877; padding:5px 9px; border-radius:999px; font-size:12px; }
+    .mode .active { background:#e7f4ef; color:#0f513f; border-color:#b7d8ca; }
+    .grid { display:grid; gap:12px; }
+    .overview { grid-template-columns:1.2fr repeat(4,1fr); }
+    .detail-grid { grid-template-columns:1.1fr 1fr 1fr; }
+    .pool-grid { grid-template-columns:1fr 1fr 1fr; }
+    .card {
+      background:var(--panel); border:1px solid var(--line); border-radius:8px;
+      padding:14px; box-shadow:0 1px 2px rgba(15,23,42,.05);
+    }
+    .metric-label { color:var(--muted); font-size:12px; }
+    .metric-value { margin-top:4px; font-size:26px; font-weight:800; }
+    .status-normal { border-left:4px solid var(--green); }
+    .status-watch { border-left:4px solid var(--blue); }
+    .notice { margin-top:10px; padding:10px 12px; border-left:4px solid var(--amber); background:var(--amber-soft); }
+    .toolbar { display:flex; gap:10px; justify-content:space-between; align-items:center; margin:10px 0; flex-wrap:wrap; }
+    input, select { height:34px; border:1px solid var(--line); border-radius:6px; padding:0 10px; background:#fff; }
+    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    th, td { padding:10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; }
+    th { background:#edf2f4; white-space:nowrap; font-size:12px; color:#435266; }
+    tbody tr { cursor:pointer; } tbody tr:hover { background:#f6faf8; } tr:last-child td { border-bottom:0; }
+    .symbol { font-size:16px; font-weight:800; }
+    .tag { display:inline-block; padding:3px 8px; border-radius:999px; font-size:12px; font-weight:700; border:1px solid var(--line); }
+    .tag.operation, .tag.accept, .tag.hold { color:var(--green); background:var(--green-soft); border-color:#b7d8ca; }
+    .tag.watch { color:var(--blue); background:var(--blue-soft); border-color:#bcd2f5; }
+    .tag.reject, .tag.eliminate { color:var(--red); background:var(--red-soft); border-color:#e4b7af; }
+    .kv-grid { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    .kv { padding:9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); min-height:56px; }
+    .kv:nth-child(3n) { border-right:0; } .kv:nth-last-child(-n+3) { border-bottom:0; }
+    .kv span, .check span { color:var(--muted); font-size:12px; display:block; }
+    .kv strong, .check strong { display:block; margin-top:3px; font-size:14px; }
+    .check-list { display:grid; gap:8px; }
+    .check { display:flex; justify-content:space-between; gap:10px; border-bottom:1px solid var(--line); padding-bottom:7px; }
+    .rule-line { border-left:3px solid var(--line); padding:7px 9px; background:var(--soft); margin-top:6px; font-size:13px; }
+    .pool-card.operation { border-top:4px solid var(--green); background:#f6fbf8; }
+    .pool-card.watch { border-top:4px solid var(--blue); background:#f8fbff; }
+    .pool-card.eliminate { border-top:4px solid var(--red); background:#fffafa; }
+    .pool-item { padding:9px 0; border-top:1px solid var(--line); }
+    .pool-item:first-child { border-top:0; }
+    .pos { color:var(--green); font-weight:700; } .neg { color:var(--red); font-weight:700; }
+    @media (max-width:1100px) { .overview,.detail-grid,.pool-grid { grid-template-columns:1fr; } table { display:block; overflow-x:auto; } }
   </style>
 </head>
 <body>
   <header>
-    <h1>Trading Decision Dashboard</h1>
-    <p class="muted">更新日：{date.today().isoformat()} / 最新完整日線：{html.escape(str(latest_day))} / 每週日更新選股池</p>
-    <div class="notice">{html.escape(market_data_note(latest_day))}</div>
+    <div class="header-inner">
+      <h1>AI Agent Trading Strategy Dashboard</h1>
+      <p class="muted">更新日：<span id="generated-at"></span> / 最新完整日K：<span id="latest-day"></span> / 每週日更新選股池</p>
+      <div class="mode"><span class="active">Candidate Scan</span><span>Paper Trading</span><span>Research Dashboard</span></div>
+    </div>
   </header>
   <main>
-    <section class="summary">
-      <div class="metric-card"><div class="metric-label">本週實際操作組</div><div class="metric">{len(weekly_operation)}</div></div>
-      <div class="metric-card"><div class="metric-label">本週觀察組</div><div class="metric">{len(weekly_observation)}</div></div>
-      <div class="metric-card"><div class="metric-label">候選來源</div><div class="metric">5</div></div>
-      <div class="metric-card"><div class="metric-label">最高分</div><div class="metric">{best_score:.2f}</div></div>
-      <div class="metric-card"><div class="metric-label">自選股</div><div class="metric">{sum(1 for row in rows if row.get("custom_watchlist"))}</div></div>
+    <section class="grid overview">
+      <div class="card status-normal"><div class="metric-label">大盤狀態</div><div class="metric-value" id="index-state">正常</div><p class="muted" id="market-note"></p></div>
+      <div class="card"><div class="metric-label">掃描股票總數</div><div class="metric-value" id="metric-total">0</div></div>
+      <div class="card"><div class="metric-label">Primary Review</div><div class="metric-value" id="metric-primary">0</div></div>
+      <div class="card"><div class="metric-label">Secondary Watchlist</div><div class="metric-value" id="metric-secondary">0</div></div>
+      <div class="card status-watch"><div class="metric-label">今日操作模式</div><div class="metric-value" id="operation-mode">正常</div></div>
     </section>
+
     <section>
-      <h2>本週選股池</h2>
-      <p class="muted">選股日：{html.escape(str(weekly.get('selection_date', 'n/a')))} / 來源：{html.escape(str(weekly.get('source', 'n/a')))} / 使用資料：{html.escape(str(weekly.get('source_week', 'n/a')))} / 適用週期：{html.escape(str(weekly.get('target_week', 'n/a')))}</p>
-      <p class="muted small">{html.escape(str(weekly.get('method', '')))}</p>
-      <div class="weekly-board">
-        <div class="weekly-column operation">
-          <strong>實際操作組</strong>
-          {render_weekly_group(weekly_operation, '本週無股票符合實際操作組；主因是籌碼未確認或切入條件不足。')}
-        </div>
-        <div class="weekly-column observe">
-          <strong>觀察組</strong>
-          {render_weekly_group(weekly_observation, '本週無觀察股。')}
-        </div>
+      <h2>候選股排行榜</h2>
+      <p class="muted" id="selection-note"></p>
+      <div class="toolbar">
+        <input id="search" placeholder="搜尋代號或名稱">
+        <div><select id="decision-filter"><option value="all">全部 Decision</option><option value="hold">hold</option><option value="reject">reject</option></select>
+        <select id="group-filter"><option value="all">全部分組</option><option value="實際操作組">實際操作組</option><option value="觀察組">觀察組</option><option value="淘汰">淘汰</option></select></div>
+      </div>
+      <table><thead><tr><th>股票</th><th>最新價格</th><th>Agent Score</th><th>Decision</th><th>Group Assignment</th><th>Pattern Type</th><th>Market State</th><th>Chip State</th><th>Entry Trigger</th><th>理由摘要</th></tr></thead><tbody id="candidate-body"></tbody></table>
+    </section>
+
+    <section>
+      <h2>單一標的詳情</h2>
+      <div class="grid detail-grid">
+        <div class="card"><h3 id="detail-symbol">-</h3><p class="muted" id="detail-reason">-</p><span id="detail-group" class="tag">-</span><h3 style="margin-top:14px">多週期均線結構</h3><div class="kv-grid" id="ma-grid"></div><div class="check-list" style="margin-top:10px"><div class="check"><span>日K共振</span><strong id="daily-ma-alignment">-</strong></div><div class="check"><span>週K共振</span><strong id="weekly-ma-alignment">-</strong></div><div class="check"><span>月K共振</span><strong id="monthly-ma-alignment">-</strong></div></div></div>
+        <div class="card"><h3>型態 + 籌碼 + MACD</h3><div class="check-list"><div class="check"><span>突破型態</span><strong id="pattern-breakout">-</strong></div><div class="check"><span>W 型態</span><strong id="pattern-w">-</strong></div><div class="check"><span>N 字型態</span><strong id="pattern-n">-</strong></div><div class="check"><span>平台整理轉強</span><strong id="pattern-platform">-</strong></div><div class="check"><span>均線開花</span><strong id="pattern-bloom">-</strong></div><div class="check"><span>籌碼總分</span><strong id="shareholder-score">-</strong></div><div class="check"><span>法人/投信</span><strong id="institution-bias">-</strong></div></div></div>
+        <div class="card"><h3>進場 / 持股 / 出場</h3><div class="check-list"><div class="check"><span>開盤八法紅紅紅</span><strong id="trigger-red3">-</strong></div><div class="check"><span>5K爆大量回撤3MA</span><strong id="trigger-volume">-</strong></div><div class="check"><span>連三黑回測3MA</span><strong id="trigger-black3">-</strong></div><div class="check"><span>60K MACD轉強</span><strong id="trigger-macd">-</strong></div></div><div style="margin-top:12px"><div class="rule-line">短線：日K 3MA / 8MA</div><div class="rule-line">中線：週K均線排列</div><div class="rule-line">長線：月K 3MA 不破續抱</div><div class="rule-line" id="risk-note">-</div></div></div>
       </div>
     </section>
+
     <section>
-      <h2>操作規則</h2>
-      <div class="grid">
-        <div class="card"><strong>進場前置</strong><ul><li>大盤允許，跌幅超過 3% 轉保守。</li><li>只做強勢族群、攻擊量、籌碼偏多、多頭排列。</li><li>型態需先成立，再看 5K 開盤節奏。</li></ul></div>
-        <div class="card"><strong>切入確認</strong><ul><li>5K 紅紅紅，高低點墊高且量不衰退。</li><li>5K 爆大量後回撤日K 3MA 不破。</li><li>連三黑但日K結構未破，回測 3MA 不破。</li><li>60K MACD 綠柱縮短或紅柱翻揚。</li></ul></div>
-        <div class="card"><strong>持股與汰換</strong><ul><li>短線看日K 3MA / 8MA。</li><li>中線看週K趨勢延續。</li><li>長線看月K 3MA。</li><li>每週日更新選股池，降級股票觀察 1 週。</li></ul></div>
+      <h2>選股池更新與汰換</h2>
+      <div class="grid pool-grid">
+        <div class="card pool-card operation"><h3>實際操作組</h3><div id="operation-pool"></div></div>
+        <div class="card pool-card watch"><h3>觀察組</h3><div id="watch-pool"></div></div>
+        <div class="card pool-card eliminate"><h3>淘汰清單</h3><p class="muted">刪除或淘汰標的不特別展示；若未來要看歷史，可查 reports。</p><div id="eliminate-pool"></div></div>
       </div>
     </section>
+
     <section>
-      <h2>資料說明</h2>
-      <p class="muted">本頁為研究型輔助報告，不接券商、不自動下單。{html.escape(stale_warning)}</p>
-      <p class="muted">保留紀錄：<code>reports/tracking_log.csv</code>、<code>reports/tracking_summary.md</code>、<code>reports/scan.json</code>。</p>
+      <h2>後驗追蹤</h2>
+      <table><thead><tr><th>掃描日期</th><th>股票</th><th>候選分層</th><th>當日價格</th><th>1D</th><th>3D</th><th>5D</th><th>分層驗證</th></tr></thead><tbody id="tracking-body"></tbody></table>
+    </section>
+
+    <section>
+      <h2>策略規則</h2>
+      <div class="grid detail-grid">
+        <div class="card"><h3>核心原則</h3><div class="rule-line">大盤跌幅超過 3%：轉保守、不主動攻擊、降低新倉、不追價。</div><div class="rule-line">只做主流題材、強勢族群、攻擊量、法人/籌碼偏多、多頭均線。</div></div>
+        <div class="card"><h3>進場 SOP</h3><div class="rule-line">先看型態，再看日/週/月均線共振，最後才看 5K 節奏與 60K MACD。</div><div class="rule-line">第三根 5K 紅K、爆量回撤 3MA、連三黑回測 3MA，需配合動能確認。</div></div>
+        <div class="card"><h3>持股與汰換</h3><div class="rule-line">短線看日K 3MA / 8MA；中線看週K；長線看月K 3MA。</div><div class="rule-line">每週日更新選股池；結構破壞、跌破月K 3MA、主流退潮或籌碼鬆動即移出。</div></div>
+      </div>
     </section>
   </main>
+  <script>
+    const dashboardData = __DASHBOARD_DATA__;
+    const candidates = dashboardData.candidates || [];
+    const state = { query: "", decision: "all", group: "all", selected: candidates[0] || null };
+    const byId = (id) => document.getElementById(id);
+    const fmt = (value, digits = 2) => value === "" || value === null || value === undefined || Number.isNaN(Number(value)) ? "-" : Number(value).toFixed(digits);
+    const pct = (value) => value === null || value === undefined || value === "" ? "-" : `${Number(value).toFixed(2)}%`;
+    const yesNo = (value) => value ? '<span class="pos">是</span>' : '<span class="muted">否</span>';
+    function tagClass(value) {
+      if (value === "實際操作組") return "operation";
+      if (value === "觀察組") return "watch";
+      if (value === "淘汰") return "eliminate";
+      if (value === "hold") return "hold";
+      if (value === "accept") return "accept";
+      if (value === "reject") return "reject";
+      return "watch";
+    }
+    function filteredCandidates() {
+      return candidates.filter((item) => {
+        const q = state.query.trim().toLowerCase();
+        const matchQuery = !q || `${item.symbol} ${item.name}`.toLowerCase().includes(q);
+        const matchDecision = state.decision === "all" || item.decision === state.decision;
+        const matchGroup = state.group === "all" || item.group_assignment === state.group;
+        return matchQuery && matchDecision && matchGroup;
+      }).sort((a, b) => Number(b.score) - Number(a.score));
+    }
+    function renderMetrics() {
+      byId("generated-at").textContent = dashboardData.generated_at;
+      byId("latest-day").textContent = dashboardData.latest_completed_day;
+      byId("market-note").textContent = dashboardData.market_note;
+      byId("selection-note").textContent = `選股日：${dashboardData.selection.selection_date} / 使用資料：${dashboardData.selection.source_week} / 適用週期：${dashboardData.selection.target_week} / 來源：${dashboardData.selection.source}`;
+      byId("metric-total").textContent = candidates.length;
+      byId("metric-primary").textContent = candidates.filter((x) => x.score >= 85).length;
+      byId("metric-secondary").textContent = candidates.filter((x) => x.score >= 55 && x.score < 85).length;
+      byId("operation-mode").textContent = candidates.some((x) => x.index_state === "保守") ? "保守" : "正常";
+    }
+    function renderCandidateTable() {
+      const rows = filteredCandidates();
+      byId("candidate-body").innerHTML = rows.map((item) => `
+        <tr data-symbol="${item.symbol}">
+          <td><div class="symbol">${item.symbol}</div><div class="muted">${item.name}</div></td>
+          <td>${fmt(item.latest_price)}<br><span class="${Number(item.change_pct) >= 0 ? "pos" : "neg"}">${pct(item.change_pct)}</span></td>
+          <td><strong>${fmt(item.score)}</strong></td>
+          <td><span class="tag ${tagClass(item.decision)}">${item.decision}</span></td>
+          <td><span class="tag ${tagClass(item.group_assignment)}">${item.group_assignment}</span></td>
+          <td>${item.pattern_type}</td>
+          <td>${item.market_state}</td>
+          <td>${item.chip_state}</td>
+          <td>${item.entry_trigger}</td>
+          <td>${item.reason}</td>
+        </tr>`).join("");
+      [...byId("candidate-body").querySelectorAll("tr")].forEach((row) => {
+        row.addEventListener("click", () => { state.selected = candidates.find((item) => item.symbol === row.dataset.symbol); renderDetail(); });
+      });
+    }
+    function renderDetail() {
+      const item = state.selected;
+      if (!item) return;
+      byId("detail-symbol").textContent = `${item.symbol} ${item.name}`;
+      byId("detail-reason").textContent = item.reason;
+      byId("detail-group").textContent = item.group_assignment;
+      byId("detail-group").className = `tag ${tagClass(item.group_assignment)}`;
+      byId("ma-grid").innerHTML = Object.entries(item.ma).map(([key, value]) => `<div class="kv"><span>${key}</span><strong>${fmt(value)}</strong></div>`).join("");
+      byId("daily-ma-alignment").textContent = item.daily_ma_alignment;
+      byId("weekly-ma-alignment").textContent = item.weekly_ma_alignment;
+      byId("monthly-ma-alignment").textContent = item.monthly_ma_alignment;
+      byId("pattern-breakout").innerHTML = yesNo(item.patterns["突破"]);
+      byId("pattern-w").innerHTML = yesNo(item.patterns["W"]);
+      byId("pattern-n").innerHTML = yesNo(item.patterns["N字"]);
+      byId("pattern-platform").innerHTML = yesNo(item.patterns["平台"]);
+      byId("pattern-bloom").innerHTML = yesNo(item.patterns["開花"]);
+      byId("shareholder-score").textContent = item.shareholder_score;
+      byId("institution-bias").textContent = item.institution_bias;
+      byId("trigger-red3").innerHTML = yesNo(item.triggers["開盤八法紅紅紅"]);
+      byId("trigger-volume").innerHTML = yesNo(item.triggers["5K爆大量回撤3MA"]);
+      byId("trigger-black3").innerHTML = yesNo(item.triggers["連三黑回測3MA"]);
+      byId("trigger-macd").innerHTML = yesNo(item.triggers["60K MACD轉強"]);
+      byId("risk-note").textContent = item.risk_note;
+    }
+    function renderPools() {
+      const groups = {
+        "operation-pool": candidates.filter((x) => x.group_assignment === "實際操作組"),
+        "watch-pool": candidates.filter((x) => x.group_assignment === "觀察組"),
+        "eliminate-pool": candidates.filter((x) => x.group_assignment === "淘汰")
+      };
+      Object.entries(groups).forEach(([id, rows]) => {
+        byId(id).innerHTML = rows.length ? rows.map((item) => `<div class="pool-item"><strong>${item.symbol} ${item.name}</strong><br><span class="muted">Score ${fmt(item.score)} / ${item.pattern_type} / ${item.entry_trigger}</span></div>`).join("") : '<div class="muted">無</div>';
+      });
+    }
+    function renderTracking() {
+      byId("tracking-body").innerHTML = candidates.map((item) => `<tr><td>${dashboardData.selection.selection_date}</td><td><strong>${item.symbol}</strong><br><span class="muted">${item.name}</span></td><td>${item.group_assignment}</td><td>${fmt(item.latest_price)}</td><td>${pct(item.next_1d_return)}</td><td>${pct(item.next_3d_return)}</td><td>${pct(item.next_5d_return)}</td><td class="muted">等待後續日K驗證</td></tr>`).join("");
+    }
+    function renderAll() { renderMetrics(); renderCandidateTable(); renderDetail(); renderPools(); renderTracking(); }
+    byId("search").addEventListener("input", (event) => { state.query = event.target.value; renderCandidateTable(); });
+    byId("decision-filter").addEventListener("change", (event) => { state.decision = event.target.value; renderCandidateTable(); });
+    byId("group-filter").addEventListener("change", (event) => { state.group = event.target.value; renderCandidateTable(); });
+    renderAll();
+  </script>
 </body>
 </html>
 """
+    html_text = html_text.replace(
+        "__DASHBOARD_DATA__",
+        json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
+    )
     path.write_text(html_text, encoding="utf-8-sig")
     return path
 

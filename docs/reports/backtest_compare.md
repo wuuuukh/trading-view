@@ -1,5 +1,12 @@
 # Candidate Scan Report
 
+## 1597 - reject (67.5)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 100，價格相對主要均線檢查完成；頸線 89.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
 ## 2313 - reject (51.04)
 - tier: lower_priority
 - market_state: n/a
@@ -7,11 +14,32 @@
 - reason: 均線分數 65，價格相對主要均線檢查完成；N 字關鍵位 294.00，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較
 
+## 2464 - reject (55.38)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 65，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 2484 - reject (53.74)
+- tier: lower_priority
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 65，價格相對主要均線檢查完成；頸線 30.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
 ## 3037 - hold (67.97)
 - tier: secondary_watchlist
 - market_state: n/a
 - pattern_type: n/a
 - reason: 均線分數 65，價格相對主要均線檢查完成；頸線 538.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 3057 - reject (52.97)
+- tier: lower_priority
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 65，價格相對主要均線檢查完成；頸線 15.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較
 
 ## 4958 - hold (82.28)
@@ -33,4 +61,11 @@
 - market_state: n/a
 - pattern_type: n/a
 - reason: 均線分數 65，價格相對主要均線檢查完成；N 字關鍵位 1035.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 8150 - reject (56.62)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 65，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較

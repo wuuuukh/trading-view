@@ -176,6 +176,446 @@
     }
   },
   {
+    "symbol": "1597",
+    "decision": "reject",
+    "score": 67.5,
+    "tier": "secondary_watchlist",
+    "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 89.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組",
+    "market_state": "strong_uptrend",
+    "pattern_type": null,
+    "risk_note": "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；大盤跌幅超過3%轉保守，不主動攻擊、不追價；短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。",
+    "details": {
+      "symbol": "1597",
+      "latest": {
+        "timestamp": "2026-05-14 00:00:00",
+        "open": 195.0,
+        "high": 195.0,
+        "low": 180.0,
+        "close": 180.0,
+        "volume": 1210759,
+        "ma3": 185.33333333333334,
+        "ma8": 180.3125,
+        "ma21": 143.66666666666666,
+        "ma55": 106.39818181818183,
+        "ma144": 87.44513888888889,
+        "ma233": 86.37296137339057,
+        "volume_ma": 4847903.7,
+        "volume_ratio": 0.24974897913091795,
+        "macd": 23.317626007860326,
+        "macd_signal": 20.082397869421165,
+        "macd_hist": 3.2352281384391617
+      },
+      "trend": {
+        "market_state": "strong_uptrend",
+        "trend_score": 100.0,
+        "reason": "均線分數 100，價格相對主要均線檢查完成",
+        "short_strong": true,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 100
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 89.4,
+        "reason": "頸線 89.40，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 89.4,
+            "reason": "頸線 89.40，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 190.0,
+            "reason": "區間高點 190.00，量比 0.25"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 50,
+            "key_level": 190.0,
+            "reason": "N 字關鍵位 190.00，量縮回檔 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 20,
+            "key_level": 190.0,
+            "reason": "平台高點 190.00，區間幅度 85.4%，短均開花 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 60,
+            "key_level": 185.33333333333334,
+            "reason": "日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
+    "symbol": "8150",
+    "decision": "reject",
+    "score": 56.62,
+    "tier": "secondary_watchlist",
+    "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組",
+    "market_state": "strong_uptrend",
+    "pattern_type": null,
+    "risk_note": "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；大盤跌幅超過3%轉保守，不主動攻擊、不追價；短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。",
+    "details": {
+      "symbol": "8150",
+      "latest": {
+        "timestamp": "2026-05-14 00:00:00",
+        "open": 86.0,
+        "high": 88.0,
+        "low": 82.5,
+        "close": 83.9,
+        "volume": 31450051,
+        "ma3": 85.46666666666665,
+        "ma8": 88.9375,
+        "ma21": 77.70952380952382,
+        "ma55": 67.14181818181818,
+        "ma144": 54.19548611111111,
+        "ma233": 43.84291845493563,
+        "volume_ma": 48453587.1,
+        "volume_ratio": 0.6490758039253609,
+        "macd": 6.517304098805951,
+        "macd_signal": 6.012832228736135,
+        "macd_hist": 0.5044718700698159
+      },
+      "trend": {
+        "market_state": "strong_uptrend",
+        "trend_score": 75.5,
+        "reason": "均線分數 65，價格相對主要均線檢查完成",
+        "short_strong": false,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 65
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 56.8,
+        "reason": "頸線 56.80，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 56.8,
+            "reason": "頸線 56.80，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 103.0,
+            "reason": "區間高點 103.00，量比 0.65"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 50,
+            "key_level": 98.1,
+            "reason": "N 字關鍵位 98.10，量縮回檔 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 103.0,
+            "reason": "平台高點 103.00，區間幅度 66.7%，短均開花 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 85.46666666666665,
+            "reason": "日線 3MA>8MA>21MA False，短均斜率向上 False，站上3MA False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
+    "symbol": "2464",
+    "decision": "reject",
+    "score": 55.38,
+    "tier": "secondary_watchlist",
+    "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組",
+    "market_state": "strong_uptrend",
+    "pattern_type": null,
+    "risk_note": "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；大盤跌幅超過3%轉保守，不主動攻擊、不追價；短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。",
+    "details": {
+      "symbol": "2464",
+      "latest": {
+        "timestamp": "2026-05-14 00:00:00",
+        "open": 114.0,
+        "high": 118.5,
+        "low": 112.5,
+        "close": 115.0,
+        "volume": 12923311,
+        "ma3": 115.16666666666667,
+        "ma8": 115.3125,
+        "ma21": 101.9047619047619,
+        "ma55": 82.90727272727273,
+        "ma144": 71.2236111111111,
+        "ma233": 68.2343347639485,
+        "volume_ma": 24586329.6,
+        "volume_ratio": 0.5256299419332603,
+        "macd": 10.600508346403316,
+        "macd_signal": 10.440530204949484,
+        "macd_hist": 0.15997814145383238
+      },
+      "trend": {
+        "market_state": "strong_uptrend",
+        "trend_score": 75.5,
+        "reason": "均線分數 65，價格相對主要均線檢查完成",
+        "short_strong": false,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 65
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 69.2,
+        "reason": "頸線 69.20，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 69.2,
+            "reason": "頸線 69.20，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 123.0,
+            "reason": "區間高點 123.00，量比 0.53"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 50,
+            "key_level": 121.5,
+            "reason": "N 字關鍵位 121.50，量縮回檔 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 123.0,
+            "reason": "平台高點 123.00，區間幅度 69.0%，短均開花 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 115.16666666666667,
+            "reason": "日線 3MA>8MA>21MA False，短均斜率向上 False，站上3MA False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
+    "symbol": "2484",
+    "decision": "reject",
+    "score": 53.74,
+    "tier": "lower_priority",
+    "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 30.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組",
+    "market_state": "constructive",
+    "pattern_type": null,
+    "risk_note": "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；大盤跌幅超過3%轉保守，不主動攻擊、不追價；短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。",
+    "details": {
+      "symbol": "2484",
+      "latest": {
+        "timestamp": "2026-05-14 00:00:00",
+        "open": 38.35,
+        "high": 38.95,
+        "low": 36.85,
+        "close": 38.3,
+        "volume": 7908279,
+        "ma3": 38.36666666666667,
+        "ma8": 40.5875,
+        "ma21": 41.416666666666664,
+        "ma55": 33.733636363636364,
+        "ma144": 26.985763888888886,
+        "ma233": 24.916094420600857,
+        "volume_ma": 12924361.8,
+        "volume_ratio": 0.611889323618285,
+        "macd": 1.3203613448605083,
+        "macd_signal": 2.2173098352971343,
+        "macd_hist": -0.8969484904366261
+      },
+      "trend": {
+        "market_state": "constructive",
+        "trend_score": 65.5,
+        "reason": "均線分數 65，價格相對主要均線檢查完成",
+        "short_strong": false,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 65
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 30.9,
+        "reason": "頸線 30.90，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 30.9,
+            "reason": "頸線 30.90，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 51.2,
+            "reason": "區間高點 51.20，量比 0.61"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 50,
+            "key_level": 51.2,
+            "reason": "N 字關鍵位 51.20，量縮回檔 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 51.2,
+            "reason": "平台高點 51.20，區間幅度 46.3%，短均開花 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 38.36666666666667,
+            "reason": "日線 3MA>8MA>21MA False，短均斜率向上 False，站上3MA False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
+    "symbol": "3057",
+    "decision": "reject",
+    "score": 52.97,
+    "tier": "lower_priority",
+    "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 15.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組",
+    "market_state": "constructive",
+    "pattern_type": null,
+    "risk_note": "依序檢查大盤、強勢股、型態、日/週/月均線共振、籌碼、60K MACD與5K開盤節奏；大盤跌幅超過3%轉保守，不主動攻擊、不追價；短線看日K 3MA/8MA，中線看週K趨勢，長線月K 3MA不破續抱。",
+    "details": {
+      "symbol": "3057",
+      "latest": {
+        "timestamp": "2026-05-14 00:00:00",
+        "open": 20.1,
+        "high": 20.1,
+        "low": 19.05,
+        "close": 19.1,
+        "volume": 382650,
+        "ma3": 19.850000000000005,
+        "ma8": 20.70625,
+        "ma21": 19.742857142857144,
+        "ma55": 17.55818181818182,
+        "ma144": 16.712986111111107,
+        "ma233": 16.40236051502146,
+        "volume_ma": 716440.85,
+        "volume_ratio": 0.5340985232765553,
+        "macd": 0.7907517329448517,
+        "macd_signal": 0.9388862497004246,
+        "macd_hist": -0.14813451675557288
+      },
+      "trend": {
+        "market_state": "constructive",
+        "trend_score": 65.5,
+        "reason": "均線分數 65，價格相對主要均線檢查完成",
+        "short_strong": false,
+        "mid_bull": true,
+        "long_bull": true,
+        "ma_score": 65
+      },
+      "pattern": {
+        "matched": false,
+        "pattern_type": null,
+        "score": 75,
+        "key_level": 15.95,
+        "reason": "頸線 15.95，第二底不破/假跌破檢查 True",
+        "all_patterns": [
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 75,
+            "key_level": 15.95,
+            "reason": "頸線 15.95，第二底不破/假跌破檢查 True"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 22.55,
+            "reason": "區間高點 22.55，量比 0.53"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 50,
+            "key_level": 22.3,
+            "reason": "N 字關鍵位 22.30，量縮回檔 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 22.55,
+            "reason": "平台高點 22.55，區間幅度 24.9%，短均開花 False"
+          },
+          {
+            "matched": false,
+            "pattern_type": null,
+            "score": 0,
+            "key_level": 19.850000000000005,
+            "reason": "日線 3MA>8MA>21MA False，短均斜率向上 False，站上3MA False"
+          }
+        ]
+      },
+      "chip_score": 0.0,
+      "chip_reason": "沒有籌碼資料，僅能列入技術觀察，不列最高優先",
+      "chip": null
+    }
+  },
+  {
     "symbol": "6205",
     "decision": "reject",
     "score": 51.14,
