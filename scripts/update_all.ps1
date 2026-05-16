@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 Set-Location -LiteralPath $Root
 
-$Symbols = @("1597", "8150", "2464", "3057", "2484")
+$Symbols = (python scripts\fetch_twsthr_top_week.py) -split " "
 $Today = Get-Date -Format "yyyy-MM-dd"
 
 python scripts\update_ohlcv_tw.py @Symbols --months 18 --end $Today --out data\ohlcv

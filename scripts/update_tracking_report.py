@@ -16,6 +16,13 @@ SYMBOL_NAMES = {
     "6205": "詮欣",
     "8046": "南電",
     "2313": "華通",
+    "1597": "直得",
+    "8150": "南茂",
+    "2464": "盟立",
+    "3057": "喬鼎",
+    "2484": "希華",
+    "3450": "聯鈞",
+    "2492": "華新科",
 }
 
 
@@ -389,6 +396,8 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         "2464": "盟立",
         "3057": "喬鼎",
         "2484": "希華",
+        "3450": "聯鈞",
+        "2492": "華新科",
     }
 
     def candidate_from_weekly(item: dict[str, object], group_label: str) -> dict[str, object]:

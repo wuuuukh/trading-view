@@ -2,63 +2,83 @@ from __future__ import annotations
 
 import csv
 import json
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SYMBOL_NAMES = {
-    "3037": "欣興",
-    "4958": "臻鼎-KY",
-    "6205": "詮欣",
-    "8046": "南電",
-    "2313": "華通",
     "1597": "直得",
     "8150": "南茂",
     "2464": "盟立",
     "3057": "喬鼎",
     "2484": "希華",
+    "3450": "聯鈞",
+    "2492": "華新科",
 }
 
-TWSTHR_TOP5 = ["1597", "8150", "2464", "3057", "2484"]
 
-
-def load_scan(path: Path) -> list[dict[str, Any]]:
+def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def group_item(item: dict[str, Any]) -> str:
-    if str(item.get("symbol")) in TWSTHR_TOP5:
+def load_weekly_symbols() -> dict[str, Any]:
+    path = ROOT / "config" / "weekly_symbols.json"
+    if not path.exists():
+        raise FileNotFoundError("config/weekly_symbols.json not found. Run scripts/fetch_twsthr_top_week.py first.")
+    return load_json(path)
+
+
+def week_range_from_close(close_date: str) -> tuple[str, str]:
+    close = datetime.strptime(close_date, "%Y-%m-%d").date()
+    source_start = close - timedelta(days=4)
+    target_start = close + timedelta(days=3)
+    target_end = target_start + timedelta(days=4)
+    return f"{source_start.isoformat()} to {close.isoformat()}", f"{target_start.isoformat()} to {target_end.isoformat()}"
+
+
+def group_item(symbol: str, current_symbols: set[str], previous_symbols: set[str]) -> str:
+    if symbol in current_symbols:
         return "operation_group"
-    if item.get("decision") == "hold":
+    if symbol in previous_symbols:
         return "observation_group"
     return "rejected"
 
 
-def action_for(item: dict[str, Any], group: str) -> str:
+def action_for(symbol: str, group: str) -> str:
     if group == "operation_group":
-        return "神秘金字塔週榜前五，列本週操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
+        return "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
     if group == "observation_group":
-        return "列觀察組，不追高；補齊籌碼或切入確認前不進實際操作組。"
-    return "本週不列入選股池；等待型態、量能、均線與籌碼重新轉強。"
+        return "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。"
+    return "本週不列入選股池。"
 
 
 def build_weekly_selection(
     scan_rows: list[dict[str, Any]],
-    selection_date: str,
-    source_week: str,
-    target_week: str,
+    weekly_symbols: dict[str, Any],
 ) -> dict[str, Any]:
+    current_top5 = weekly_symbols["current_top5"]
+    current_symbols = {str(row["symbol"]) for row in current_top5}
+    previous_symbols = set(str(symbol) for symbol in weekly_symbols.get("previous_top5", [])) - current_symbols
+    tracked_symbols = current_symbols | previous_symbols
+    scan_by_symbol = {str(item["symbol"]): item for item in scan_rows}
+
     rows: list[dict[str, Any]] = []
-    for item in scan_rows:
-        group = group_item(item)
+    for symbol in weekly_symbols.get("symbols_to_track", []):
+        symbol = str(symbol)
+        item = scan_by_symbol.get(symbol)
+        if not item:
+            continue
+        group = group_item(symbol, current_symbols, previous_symbols)
         details = item.get("details", {})
         latest = details.get("latest", {})
         pattern = details.get("pattern", {})
+        source_row = next((row for row in current_top5 if str(row["symbol"]) == symbol), None)
         rows.append(
             {
-                "symbol": item["symbol"],
-                "name": SYMBOL_NAMES.get(str(item["symbol"]), str(item["symbol"])),
+                "symbol": symbol,
+                "name": (source_row or {}).get("name") or SYMBOL_NAMES.get(symbol, symbol),
                 "group": group,
                 "decision": item.get("decision"),
                 "score": item.get("score"),
@@ -72,23 +92,26 @@ def build_weekly_selection(
                 "ma21": round(float(latest.get("ma21", 0)), 2),
                 "key_level": pattern.get("key_level", ""),
                 "chip_status": "籌碼未確認" if details.get("chip") is None else "籌碼偏多",
-                "action": action_for(item, group),
+                "action": action_for(symbol, group),
                 "reason": item.get("reason", ""),
             }
         )
 
+    source_week, target_week = week_range_from_close(weekly_symbols["source_close_date"])
     return {
-        "selection_date": selection_date,
+        "selection_date": date.today().isoformat(),
         "source_week": source_week,
         "target_week": target_week,
         "source": "神秘金字塔股權類股排行週榜前五",
-        "source_symbols": TWSTHR_TOP5,
-        "method": "每週日先用神秘金字塔週排行找候選，再用上一週完整日K套SOP產生下週選股池，不使用下週未來資料。",
+        "source_close_date": weekly_symbols["source_close_date"],
+        "source_symbols": [row["symbol"] for row in current_top5],
+        "previous_symbols": weekly_symbols.get("previous_top5", []),
+        "method": "每週日先抓神秘金字塔週排行前五，再用上一週完整日K套SOP產生下週選股池；掉出前五的上週操作股先降觀察組一週。",
         "groups": {
             "operation_group": [row for row in rows if row["group"] == "operation_group"],
             "observation_group": [row for row in rows if row["group"] == "observation_group"],
         },
-        "rows": rows,
+        "rows": [row for row in rows if row["symbol"] in tracked_symbols],
     }
 
 
@@ -109,6 +132,7 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
         "# Weekly Selection",
         "",
         f"- selection_date: {selection['selection_date']}",
+        f"- source_close_date: {selection['source_close_date']}",
         f"- source_week: {selection['source_week']}",
         f"- target_week: {selection['target_week']}",
         f"- method: {selection['method']}",
@@ -127,20 +151,15 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
         for row in items:
             lines.append(
                 f"- {row['symbol']} {row['name']} | score {row['score']} | "
-                f"{row['pattern_type'] or '無型態'} | {row['action']}"
+                f"{row['pattern_type'] or '待確認'} | {row['action']}"
             )
         lines.append("")
     (out_dir / "weekly_selection.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
-    scan_path = ROOT / "reports" / "weekly_2026-05-10" / "twsthr_top5" / "scan.json"
-    selection = build_weekly_selection(
-        load_scan(scan_path),
-        selection_date="2026-05-10",
-        source_week="2026-05-04 to 2026-05-08",
-        target_week="2026-05-11 to 2026-05-15",
-    )
+    scan_path = ROOT / "reports" / "scan.json"
+    selection = build_weekly_selection(load_json(scan_path), load_weekly_symbols())
     write_outputs(selection, ROOT / "reports")
     write_outputs(selection, ROOT / "docs" / "reports")
     write_outputs(selection, ROOT / "site" / "reports")
