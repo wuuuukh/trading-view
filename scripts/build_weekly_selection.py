@@ -16,6 +16,10 @@ SYMBOL_NAMES = {
     "2484": "希華",
     "3450": "聯鈞",
     "2492": "華新科",
+    "3033": "威健",
+    "3048": "益登",
+    "3026": "禾伸堂",
+    "3481": "群創",
 }
 
 
@@ -48,7 +52,7 @@ def group_item(symbol: str, current_symbols: set[str], previous_symbols: set[str
 
 def action_for(symbol: str, group: str) -> str:
     if group == "operation_group":
-        return "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
+        return "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
     if group == "observation_group":
         return "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。"
     return "本週不列入選股池。"
@@ -92,6 +96,9 @@ def build_weekly_selection(
                 "ma21": round(float(latest.get("ma21", 0)), 2),
                 "key_level": pattern.get("key_level", ""),
                 "chip_status": "籌碼未確認" if details.get("chip") is None else "籌碼偏多",
+                "twsthr_rank": (source_row or {}).get("rank", ""),
+                "twsthr_latest_two_changes": (source_row or {}).get("latest_two_changes", []),
+                "twsthr_total_change": (source_row or {}).get("total_change", ""),
                 "action": action_for(symbol, group),
                 "reason": item.get("reason", ""),
             }
@@ -102,11 +109,11 @@ def build_weekly_selection(
         "selection_date": date.today().isoformat(),
         "source_week": source_week,
         "target_week": target_week,
-        "source": "神秘金字塔股權類股排行週榜前五",
+        "source": "神秘金字塔股權類股排行週榜條件篩選",
         "source_close_date": weekly_symbols["source_close_date"],
         "source_symbols": [row["symbol"] for row in current_top5],
         "previous_symbols": weekly_symbols.get("previous_top5", []),
-        "method": "每週日先抓神秘金字塔週排行前五，再用上一週完整日K套SOP產生下週選股池；掉出前五的上週操作股先降觀察組一週。",
+        "method": "每週日先抓神秘金字塔週排行，保留六週總增減排名前十且最近兩週增減皆為正值者，再用上一週完整日K套SOP產生下週選股池；掉出條件的上週操作股先降觀察組一週。",
         "groups": {
             "operation_group": [row for row in rows if row["group"] == "operation_group"],
             "observation_group": [row for row in rows if row["group"] == "observation_group"],
@@ -151,7 +158,8 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
         for row in items:
             lines.append(
                 f"- {row['symbol']} {row['name']} | score {row['score']} | "
-                f"{row['pattern_type'] or '待確認'} | {row['action']}"
+                f"{row['pattern_type'] or '待確認'} | rank {row.get('twsthr_rank') or '-'} | "
+                f"近兩週 {row.get('twsthr_latest_two_changes') or '-'} | 總增減 {row.get('twsthr_total_change') or '-'} | {row['action']}"
             )
         lines.append("")
     (out_dir / "weekly_selection.md").write_text("\n".join(lines), encoding="utf-8")

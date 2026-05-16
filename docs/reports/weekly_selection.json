@@ -2,23 +2,28 @@
   "selection_date": "2026-05-17",
   "source_week": "2026-05-11 to 2026-05-15",
   "target_week": "2026-05-18 to 2026-05-22",
-  "source": "神秘金字塔股權類股排行週榜前五",
+  "source": "神秘金字塔股權類股排行週榜條件篩選",
   "source_close_date": "2026-05-15",
   "source_symbols": [
     "3450",
     "1597",
     "2492",
-    "2464",
-    "3057"
+    "3057",
+    "3033",
+    "3048",
+    "3026",
+    "3481"
   ],
   "previous_symbols": [
+    "3450",
     "1597",
-    "8150",
+    "2492",
     "2464",
     "3057",
+    "8150",
     "2484"
   ],
-  "method": "每週日先抓神秘金字塔週排行前五，再用上一週完整日K套SOP產生下週選股池；掉出前五的上週操作股先降觀察組一週。",
+  "method": "每週日先抓神秘金字塔週排行，保留六週總增減排名前十且最近兩週增減皆為正值者，再用上一週完整日K套SOP產生下週選股池；掉出條件的上週操作股先降觀察組一週。",
   "groups": {
     "operation_group": [
       {
@@ -37,7 +42,13 @@
         "ma21": 365.76,
         "key_level": 258.0,
         "chip_status": "籌碼未確認",
-        "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "twsthr_rank": 1,
+        "twsthr_latest_two_changes": [
+          3.92,
+          7.73
+        ],
+        "twsthr_total_change": 18.47,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 258.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
@@ -56,7 +67,13 @@
         "ma21": 146.71,
         "key_level": 90.0,
         "chip_status": "籌碼未確認",
-        "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "twsthr_rank": 2,
+        "twsthr_latest_two_changes": [
+          3.63,
+          0.14
+        ],
+        "twsthr_total_change": 12.45,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 90.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
@@ -75,27 +92,14 @@
         "ma21": 155.71,
         "key_level": 120.5,
         "chip_status": "籌碼未確認",
-        "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "twsthr_rank": 3,
+        "twsthr_latest_two_changes": [
+          4.24,
+          5.43
+        ],
+        "twsthr_total_change": 12.05,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
-      },
-      {
-        "symbol": "2464",
-        "name": "盟立",
-        "group": "operation_group",
-        "decision": "reject",
-        "score": 73.46,
-        "tier": "secondary_watchlist",
-        "market_state": "strong_uptrend",
-        "pattern_type": "",
-        "close": 126.5,
-        "volume_ratio": 0.85,
-        "ma3": 118.0,
-        "ma8": 117.0,
-        "ma21": 104.39,
-        "key_level": 69.2,
-        "chip_status": "籌碼未確認",
-        "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
-        "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
       {
         "symbol": "3057",
@@ -113,11 +117,139 @@
         "ma21": 19.71,
         "key_level": 15.95,
         "chip_status": "籌碼未確認",
-        "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "twsthr_rank": 5,
+        "twsthr_latest_two_changes": [
+          1.02,
+          1.23
+        ],
+        "twsthr_total_change": 10.88,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
         "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 15.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
+      {
+        "symbol": "3033",
+        "name": "威健",
+        "group": "operation_group",
+        "decision": "hold",
+        "score": 85.0,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "w_pattern",
+        "close": 47.9,
+        "volume_ratio": 1.99,
+        "ma3": 45.75,
+        "ma8": 44.36,
+        "ma21": 38.94,
+        "key_level": 32.9,
+        "chip_status": "籌碼未確認",
+        "twsthr_rank": 7,
+        "twsthr_latest_two_changes": [
+          3.28,
+          2.49
+        ],
+        "twsthr_total_change": 9.33,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 32.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
+      {
+        "symbol": "3048",
+        "name": "益登",
+        "group": "operation_group",
+        "decision": "hold",
+        "score": 72.25,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "w_pattern",
+        "close": 56.1,
+        "volume_ratio": 2.68,
+        "ma3": 51.18,
+        "ma8": 46.39,
+        "ma21": 41.83,
+        "key_level": 35.2,
+        "chip_status": "籌碼未確認",
+        "twsthr_rank": 8,
+        "twsthr_latest_two_changes": [
+          1.18,
+          7.57
+        ],
+        "twsthr_total_change": 9.25,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 35.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
+      {
+        "symbol": "3026",
+        "name": "禾伸堂",
+        "group": "operation_group",
+        "decision": "reject",
+        "score": 67.81,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "",
+        "close": 327.0,
+        "volume_ratio": 0.28,
+        "ma3": 336.5,
+        "ma8": 321.5,
+        "ma21": 266.55,
+        "key_level": 157.5,
+        "chip_status": "籌碼未確認",
+        "twsthr_rank": 9,
+        "twsthr_latest_two_changes": [
+          0.17,
+          1.35
+        ],
+        "twsthr_total_change": 8.69,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 157.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
+      {
+        "symbol": "3481",
+        "name": "群創",
+        "group": "operation_group",
+        "decision": "hold",
+        "score": 85.0,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "w_pattern",
+        "close": 36.1,
+        "volume_ratio": 1.83,
+        "ma3": 36.33,
+        "ma8": 33.01,
+        "ma21": 28.15,
+        "key_level": 24.7,
+        "chip_status": "籌碼未確認",
+        "twsthr_rank": 10,
+        "twsthr_latest_two_changes": [
+          6.63,
+          2.81
+        ],
+        "twsthr_total_change": 8.58,
+        "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+        "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 24.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       }
     ],
     "observation_group": [
+      {
+        "symbol": "2464",
+        "name": "盟立",
+        "group": "observation_group",
+        "decision": "reject",
+        "score": 73.46,
+        "tier": "secondary_watchlist",
+        "market_state": "strong_uptrend",
+        "pattern_type": "",
+        "close": 126.5,
+        "volume_ratio": 0.85,
+        "ma3": 118.0,
+        "ma8": 117.0,
+        "ma21": 104.39,
+        "key_level": 69.2,
+        "chip_status": "籌碼未確認",
+        "twsthr_rank": "",
+        "twsthr_latest_two_changes": [],
+        "twsthr_total_change": "",
+        "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
+        "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+      },
       {
         "symbol": "8150",
         "name": "南茂",
@@ -134,6 +266,9 @@
         "ma21": 78.37,
         "key_level": 56.8,
         "chip_status": "籌碼未確認",
+        "twsthr_rank": "",
+        "twsthr_latest_two_changes": [],
+        "twsthr_total_change": "",
         "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
         "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       },
@@ -153,6 +288,9 @@
         "ma21": 41.45,
         "key_level": 31.65,
         "chip_status": "籌碼未確認",
+        "twsthr_rank": "",
+        "twsthr_latest_two_changes": [],
+        "twsthr_total_change": "",
         "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
         "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 31.65，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
       }
@@ -175,7 +313,13 @@
       "ma21": 365.76,
       "key_level": 258.0,
       "chip_status": "籌碼未確認",
-      "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "twsthr_rank": 1,
+      "twsthr_latest_two_changes": [
+        3.92,
+        7.73
+      ],
+      "twsthr_total_change": 18.47,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 258.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
@@ -194,7 +338,13 @@
       "ma21": 146.71,
       "key_level": 90.0,
       "chip_status": "籌碼未確認",
-      "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "twsthr_rank": 2,
+      "twsthr_latest_two_changes": [
+        3.63,
+        0.14
+      ],
+      "twsthr_total_change": 12.45,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 90.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
@@ -213,27 +363,14 @@
       "ma21": 155.71,
       "key_level": 120.5,
       "chip_status": "籌碼未確認",
-      "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "twsthr_rank": 3,
+      "twsthr_latest_two_changes": [
+        4.24,
+        5.43
+      ],
+      "twsthr_total_change": 12.05,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
-    },
-    {
-      "symbol": "2464",
-      "name": "盟立",
-      "group": "operation_group",
-      "decision": "reject",
-      "score": 73.46,
-      "tier": "secondary_watchlist",
-      "market_state": "strong_uptrend",
-      "pattern_type": "",
-      "close": 126.5,
-      "volume_ratio": 0.85,
-      "ma3": 118.0,
-      "ma8": 117.0,
-      "ma21": 104.39,
-      "key_level": 69.2,
-      "chip_status": "籌碼未確認",
-      "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
-      "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
       "symbol": "3057",
@@ -251,8 +388,136 @@
       "ma21": 19.71,
       "key_level": 15.95,
       "chip_status": "籌碼未確認",
-      "action": "本週神秘金字塔週榜前五，列實際操作組；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "twsthr_rank": 5,
+      "twsthr_latest_two_changes": [
+        1.02,
+        1.23
+      ],
+      "twsthr_total_change": 10.88,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
       "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 15.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "3033",
+      "name": "威健",
+      "group": "operation_group",
+      "decision": "hold",
+      "score": 85.0,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "w_pattern",
+      "close": 47.9,
+      "volume_ratio": 1.99,
+      "ma3": 45.75,
+      "ma8": 44.36,
+      "ma21": 38.94,
+      "key_level": 32.9,
+      "chip_status": "籌碼未確認",
+      "twsthr_rank": 7,
+      "twsthr_latest_two_changes": [
+        3.28,
+        2.49
+      ],
+      "twsthr_total_change": 9.33,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 32.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "3048",
+      "name": "益登",
+      "group": "operation_group",
+      "decision": "hold",
+      "score": 72.25,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "w_pattern",
+      "close": 56.1,
+      "volume_ratio": 2.68,
+      "ma3": 51.18,
+      "ma8": 46.39,
+      "ma21": 41.83,
+      "key_level": 35.2,
+      "chip_status": "籌碼未確認",
+      "twsthr_rank": 8,
+      "twsthr_latest_two_changes": [
+        1.18,
+        7.57
+      ],
+      "twsthr_total_change": 9.25,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 35.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "3026",
+      "name": "禾伸堂",
+      "group": "operation_group",
+      "decision": "reject",
+      "score": 67.81,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "",
+      "close": 327.0,
+      "volume_ratio": 0.28,
+      "ma3": 336.5,
+      "ma8": 321.5,
+      "ma21": 266.55,
+      "key_level": 157.5,
+      "chip_status": "籌碼未確認",
+      "twsthr_rank": 9,
+      "twsthr_latest_two_changes": [
+        0.17,
+        1.35
+      ],
+      "twsthr_total_change": 8.69,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 157.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "3481",
+      "name": "群創",
+      "group": "operation_group",
+      "decision": "hold",
+      "score": 85.0,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "w_pattern",
+      "close": 36.1,
+      "volume_ratio": 1.83,
+      "ma3": 36.33,
+      "ma8": 33.01,
+      "ma21": 28.15,
+      "key_level": 24.7,
+      "chip_status": "籌碼未確認",
+      "twsthr_rank": 10,
+      "twsthr_latest_two_changes": [
+        6.63,
+        2.81
+      ],
+      "twsthr_total_change": 8.58,
+      "action": "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。",
+      "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 24.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+    },
+    {
+      "symbol": "2464",
+      "name": "盟立",
+      "group": "observation_group",
+      "decision": "reject",
+      "score": 73.46,
+      "tier": "secondary_watchlist",
+      "market_state": "strong_uptrend",
+      "pattern_type": "",
+      "close": 126.5,
+      "volume_ratio": 0.85,
+      "ma3": 118.0,
+      "ma8": 117.0,
+      "ma21": 104.39,
+      "key_level": 69.2,
+      "chip_status": "籌碼未確認",
+      "twsthr_rank": "",
+      "twsthr_latest_two_changes": [],
+      "twsthr_total_change": "",
+      "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
+      "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
     {
       "symbol": "8150",
@@ -270,6 +535,9 @@
       "ma21": 78.37,
       "key_level": 56.8,
       "chip_status": "籌碼未確認",
+      "twsthr_rank": "",
+      "twsthr_latest_two_changes": [],
+      "twsthr_total_change": "",
       "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
       "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     },
@@ -289,6 +557,9 @@
       "ma21": 41.45,
       "key_level": 31.65,
       "chip_status": "籌碼未確認",
+      "twsthr_rank": "",
+      "twsthr_latest_two_changes": [],
+      "twsthr_total_change": "",
       "action": "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。",
       "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 31.65，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
     }

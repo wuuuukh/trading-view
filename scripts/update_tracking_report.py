@@ -23,6 +23,10 @@ SYMBOL_NAMES = {
     "2484": "希華",
     "3450": "聯鈞",
     "2492": "華新科",
+    "3033": "威健",
+    "3048": "益登",
+    "3026": "禾伸堂",
+    "3481": "群創",
 }
 
 
@@ -398,6 +402,10 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         "2484": "希華",
         "3450": "聯鈞",
         "2492": "華新科",
+        "3033": "威健",
+        "3048": "益登",
+        "3026": "禾伸堂",
+        "3481": "群創",
     }
 
     def candidate_from_weekly(item: dict[str, object], group_label: str) -> dict[str, object]:
@@ -481,8 +489,8 @@ def write_html(rows: list[dict[str, object]]) -> Path:
             "selection_date": weekly.get("selection_date", "n/a"),
             "source_week": weekly.get("source_week", "n/a"),
             "target_week": weekly.get("target_week", "n/a"),
-            "source": "神秘金字塔股權類股排行週榜前五",
-            "method": "每週日用上一週完整日K與神秘金字塔週榜產生下週選股池；每日盤後更新價格、均線、量能與追蹤資料。",
+            "source": weekly.get("source", "神秘金字塔股權類股排行週榜條件篩選"),
+            "method": weekly.get("method", "每週日用上一週完整日K與神秘金字塔週榜產生下週選股池；每日盤後更新價格、均線、量能與追蹤資料。"),
         },
         "candidates": candidates,
     }

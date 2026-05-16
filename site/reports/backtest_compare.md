@@ -35,11 +35,32 @@
 - reason: 均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較
 
+## 3026 - reject (67.81)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 100，價格相對主要均線檢查完成；頸線 157.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 3033 - hold (85.0)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 100，價格相對主要均線檢查完成；頸線 32.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
 ## 3037 - hold (67.97)
 - tier: secondary_watchlist
 - market_state: n/a
 - pattern_type: n/a
 - reason: 均線分數 65，價格相對主要均線檢查完成；頸線 538.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 3048 - hold (72.25)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 70，價格相對主要均線檢查完成；頸線 35.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較
 
 ## 3057 - reject (53.22)
@@ -54,6 +75,13 @@
 - market_state: n/a
 - pattern_type: n/a
 - reason: 均線分數 100，價格相對主要均線檢查完成；頸線 258.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
+- risk_note: baseline vs agent 研究比較
+
+## 3481 - hold (85.0)
+- tier: secondary_watchlist
+- market_state: n/a
+- pattern_type: n/a
+- reason: 均線分數 100，價格相對主要均線檢查完成；頸線 24.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組
 - risk_note: baseline vs agent 研究比較
 
 ## 4958 - hold (82.28)
