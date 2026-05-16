@@ -376,16 +376,16 @@ def ma_alignment(close: object, ma3: object, ma8: object, ma21: object) -> str:
 def risk_note_for_candidate(symbol: str, ma3: object, ma8: object) -> str:
     ma3_text = format_number(ma3)
     ma8_text = format_number(ma8)
-    return f"{symbol} 短線看日K 3MA {ma3_text} 與 8MA {ma8_text}；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出操作組。"
+    return f"{symbol} 短線看日K 3MA {ma3_text} 與 8MA {ma8_text}；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。"
 
 
 def clean_dashboard_reason(symbol: str, item: dict[str, object], group_label: str) -> str:
     pattern = display_pattern(item.get("pattern_type"))
     score = format_number(item.get("score"))
     volume_ratio = format_number(item.get("volume_ratio"))
-    if group_label == "實際操作組":
-        return f"{symbol} 來自神秘金字塔週榜前五，列入本週操作組；Score {score}，型態 {pattern}，量比 {volume_ratio}。仍需等待 5K 節奏與 60K MACD 確認。"
-    return f"{symbol} 先列觀察組；Score {score}，型態 {pattern}，量比 {volume_ratio}。補齊籌碼與切入條件前不進實際操作組。"
+    if group_label == "入選名單":
+        return f"{symbol} 符合本週神秘金字塔篩選條件，列入入選名單；Score {score}，型態 {pattern}，量比 {volume_ratio}。操作組規則待補，暫不直接視為可操作。"
+    return f"{symbol} 先列觀察組；Score {score}，型態 {pattern}，量比 {volume_ratio}。補齊籌碼與切入條件前不進操作組。"
 
 
 def write_html(rows: list[dict[str, object]]) -> Path:
@@ -467,14 +467,18 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         }
 
     weekly_operation = [
-        candidate_from_weekly(item, "實際操作組")
+        candidate_from_weekly(item, "入選名單")
         for item in weekly_groups.get("operation_group", [])
     ]
     weekly_observation = [
         candidate_from_weekly(item, "觀察組")
         for item in weekly_groups.get("observation_group", [])
     ]
-    candidates = weekly_operation + weekly_observation
+    weekly_trading = [
+        candidate_from_weekly(item, "操作組")
+        for item in weekly_groups.get("trading_group", [])
+    ]
+    candidates = weekly_operation + weekly_trading + weekly_observation
     latest_dates = [
         str(row.get("latest_date"))
         for row in market.values()
@@ -533,7 +537,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     .grid { display:grid; gap:12px; }
     .overview { grid-template-columns:1.2fr repeat(4,1fr); }
     .detail-grid { grid-template-columns:1.1fr 1fr 1fr; }
-    .pool-grid { grid-template-columns:1fr 1fr 1fr; }
+    .pool-grid { grid-template-columns:1fr 1fr 1fr 1fr; }
     .card {
       background:var(--panel); border:1px solid var(--line); border-radius:8px;
       padding:14px; box-shadow:0 1px 2px rgba(15,23,42,.05);
@@ -563,6 +567,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     .check { display:flex; justify-content:space-between; gap:10px; border-bottom:1px solid var(--line); padding-bottom:7px; }
     .rule-line { border-left:3px solid var(--line); padding:7px 9px; background:var(--soft); margin-top:6px; font-size:13px; }
     .pool-card.operation { border-top:4px solid var(--green); background:#f6fbf8; }
+    .pool-card.selected { border-top:4px solid var(--green); background:#f6fbf8; }
     .pool-card.watch { border-top:4px solid var(--blue); background:#f8fbff; }
     .pool-card.eliminate { border-top:4px solid var(--red); background:#fffafa; }
     .pool-item { padding:9px 0; border-top:1px solid var(--line); }
@@ -594,7 +599,7 @@ def write_html(rows: list[dict[str, object]]) -> Path:
       <div class="toolbar">
         <input id="search" placeholder="搜尋代號或名稱">
         <div><select id="decision-filter"><option value="all">全部 Decision</option><option value="hold">hold</option><option value="reject">reject</option></select>
-        <select id="group-filter"><option value="all">全部分組</option><option value="實際操作組">實際操作組</option><option value="觀察組">觀察組</option><option value="淘汰">淘汰</option></select></div>
+        <select id="group-filter"><option value="all">全部分組</option><option value="入選名單">入選名單</option><option value="操作組">操作組</option><option value="觀察組">觀察組</option><option value="淘汰">淘汰</option></select></div>
       </div>
       <table><thead><tr><th>股票</th><th>最新價格</th><th>Agent Score</th><th>Decision</th><th>Group Assignment</th><th>Pattern Type</th><th>Market State</th><th>Chip State</th><th>Entry Trigger</th><th>理由摘要</th></tr></thead><tbody id="candidate-body"></tbody></table>
     </section>
@@ -611,7 +616,8 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     <section>
       <h2>選股池更新與汰換</h2>
       <div class="grid pool-grid">
-        <div class="card pool-card operation"><h3>實際操作組</h3><div id="operation-pool"></div></div>
+        <div class="card pool-card selected"><h3>入選名單</h3><div id="selected-pool"></div></div>
+        <div class="card pool-card operation"><h3>操作組</h3><p class="muted">操作組規則待補，目前先保留空白。</p><div id="operation-pool"></div></div>
         <div class="card pool-card watch"><h3>觀察組</h3><div id="watch-pool"></div></div>
         <div class="card pool-card eliminate"><h3>淘汰清單</h3><p class="muted">刪除或淘汰標的不特別展示；若未來要看歷史，可查 reports。</p><div id="eliminate-pool"></div></div>
       </div>
@@ -640,7 +646,8 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     const pct = (value) => value === null || value === undefined || value === "" ? "-" : `${Number(value).toFixed(2)}%`;
     const yesNo = (value) => value ? '<span class="pos">是</span>' : '<span class="muted">否</span>';
     function tagClass(value) {
-      if (value === "實際操作組") return "operation";
+      if (value === "入選名單") return "operation";
+      if (value === "操作組") return "operation";
       if (value === "觀察組") return "watch";
       if (value === "淘汰") return "eliminate";
       if (value === "hold") return "hold";
@@ -712,7 +719,8 @@ def write_html(rows: list[dict[str, object]]) -> Path:
     }
     function renderPools() {
       const groups = {
-        "operation-pool": candidates.filter((x) => x.group_assignment === "實際操作組"),
+        "selected-pool": candidates.filter((x) => x.group_assignment === "入選名單"),
+        "operation-pool": candidates.filter((x) => x.group_assignment === "操作組"),
         "watch-pool": candidates.filter((x) => x.group_assignment === "觀察組"),
         "eliminate-pool": candidates.filter((x) => x.group_assignment === "淘汰")
       };

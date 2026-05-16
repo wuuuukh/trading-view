@@ -52,7 +52,7 @@ def group_item(symbol: str, current_symbols: set[str], previous_symbols: set[str
 
 def action_for(symbol: str, group: str) -> str:
     if group == "operation_group":
-        return "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；仍需等待5K切入點與60K MACD確認後才允許現價切入。"
+        return "本週符合神秘金字塔條件：六週總增減排名前十，且最近兩週增減皆為正值；先列入選名單，仍需等待操作組規則、5K切入點與60K MACD確認。"
     if group == "observation_group":
         return "上週操作組本週掉出神秘金字塔前五，先降到觀察組保留一週；若結構未轉強或籌碼鬆動，下週淘汰。"
     return "本週不列入選股池。"
@@ -116,6 +116,7 @@ def build_weekly_selection(
         "method": "每週日先抓神秘金字塔週排行，保留六週總增減排名前十且最近兩週增減皆為正值者，再用上一週完整日K套SOP產生下週選股池；掉出條件的上週操作股先降觀察組一週。",
         "groups": {
             "operation_group": [row for row in rows if row["group"] == "operation_group"],
+            "trading_group": [],
             "observation_group": [row for row in rows if row["group"] == "observation_group"],
         },
         "rows": [row for row in rows if row["symbol"] in tracked_symbols],
@@ -146,7 +147,8 @@ def write_outputs(selection: dict[str, Any], out_dir: Path) -> None:
         "",
     ]
     labels = {
-        "operation_group": "實際操作組",
+        "operation_group": "入選名單",
+        "trading_group": "操作組",
         "observation_group": "觀察組",
     }
     for group_key, label in labels.items():
