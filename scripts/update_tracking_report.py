@@ -108,6 +108,9 @@ def flatten_tracking_rows(
         ma3 = float(latest.get("ma3", 0) or 0)
         ma8 = float(latest.get("ma8", 0) or 0)
         ma21 = float(latest.get("ma21", 0) or 0)
+        ma55 = float(latest.get("ma55", 0) or 0)
+        ma144 = float(latest.get("ma144", 0) or 0)
+        ma233 = float(latest.get("ma233", 0) or 0)
         key_level = pattern.get("key_level", "")
         key_level_value = float(key_level or 0) if key_level not in ("", None) else 0.0
         rows.append(
@@ -129,6 +132,9 @@ def flatten_tracking_rows(
                 "ma3": round(ma3, 2),
                 "ma8": round(ma8, 2),
                 "ma21": round(ma21, 2),
+                "ma55": round(ma55, 2),
+                "ma144": round(ma144, 2),
+                "ma233": round(ma233, 2),
                 "ma3_gap_pct": round((close - ma3) / ma3 * 100, 2) if ma3 else "",
                 "ma8_gap_pct": round((close - ma8) / ma8 * 100, 2) if ma8 else "",
                 "ma21_gap_pct": round((close - ma21) / ma21 * 100, 2) if ma21 else "",
@@ -418,6 +424,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
         ma3 = scan_row.get("ma3", item.get("ma3", ""))
         ma8 = scan_row.get("ma8", item.get("ma8", ""))
         ma21 = scan_row.get("ma21", item.get("ma21", ""))
+        ma55 = scan_row.get("ma55", item.get("ma55", ""))
+        ma144 = scan_row.get("ma144", item.get("ma144", ""))
+        ma233 = scan_row.get("ma233", item.get("ma233", ""))
         return {
             "symbol": symbol,
             "name": name_map.get(symbol, str(item.get("name", symbol))),
@@ -447,9 +456,9 @@ def write_html(rows: list[dict[str, object]]) -> Path:
                 "3MA": ma3,
                 "8MA": ma8,
                 "21MA": ma21,
-                "55MA": scan_row.get("ma55", ""),
-                "144MA": scan_row.get("ma144", ""),
-                "233MA": scan_row.get("ma233", ""),
+                "55MA": ma55,
+                "144MA": ma144,
+                "233MA": ma233,
             },
             "patterns": {
                 "突破": item.get("pattern_type") == "breakout",
