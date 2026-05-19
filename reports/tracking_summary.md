@@ -1,8 +1,8 @@
 ﻿# Trading Tracking Summary
 
-- run_date: 2026-05-18
+- run_date: 2026-05-19
 - latest_completed_day: 2026-05-15
-- note: 2026-05-18 full daily candle was not available from the data source at update time; report uses latest completed day 2026-05-15.
+- note: 2026-05-19 full daily candle was not available from the data source at update time; report uses latest completed day 2026-05-15.
 
 | rank | symbol | name | watchlist | decision | score | close | change_pct | volume_ratio | action |
 |---:|---|---|---|---|---:|---:|---:|---:|---|

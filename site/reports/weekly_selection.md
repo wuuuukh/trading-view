@@ -1,6 +1,6 @@
 # Weekly Selection
 
-- selection_date: 2026-05-18
+- selection_date: 2026-05-19
 - source_close_date: 2026-05-15
 - source_week: 2026-05-11 to 2026-05-15
 - target_week: 2026-05-18 to 2026-05-22
