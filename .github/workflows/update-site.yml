@@ -42,3 +42,27 @@ jobs:
           }
           git commit -m "Update trading website"
           git push
+
+      - name: Publish public website only
+        shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $publishDir = Join-Path $env:RUNNER_TEMP "trading-view-pages"
+          if (Test-Path -LiteralPath $publishDir) {
+            Remove-Item -LiteralPath $publishDir -Recurse -Force
+          }
+          New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
+          Copy-Item -LiteralPath "docs\index.html" -Destination (Join-Path $publishDir "index.html") -Force
+          Set-Content -LiteralPath (Join-Path $publishDir ".nojekyll") -Value "" -Encoding ascii
+
+          Push-Location $publishDir
+          git init
+          git checkout -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html .nojekyll
+          git commit -m "Publish public dashboard"
+          git remote add origin "https://x-access-token:$env:GITHUB_TOKEN@github.com/${{ github.repository }}.git"
+          git push --force origin gh-pages
+          Pop-Location
