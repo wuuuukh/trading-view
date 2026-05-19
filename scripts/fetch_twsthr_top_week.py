@@ -10,6 +10,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = "https://twsthr.info/StockHoldersTopWeek.aspx?Show=1"
+SYMBOL_NAMES = {
+    "1597": "直得",
+    "2464": "盟立",
+    "2484": "希華",
+    "2492": "華新科",
+    "3026": "禾伸堂",
+    "3033": "威健",
+    "3048": "益登",
+    "3057": "喬鼎",
+    "3450": "聯鈞",
+    "3481": "群創",
+    "8150": "南茂",
+}
 
 
 def previous_symbols() -> list[str]:
@@ -65,7 +78,7 @@ def parse_top_rows(text: str, rank_limit: int = 10) -> tuple[str, list[dict[str,
             break
         symbol = stock_match.group(1)
         raw_name = clean_text(stock_match.group(2))
-        name = raw_name.replace(symbol, "", 1).strip() or raw_name
+        name = SYMBOL_NAMES.get(symbol) or raw_name.replace(symbol, "", 1).strip() or raw_name
         numbers = parse_numbers(row_text, symbol, name)
         weekly_changes = numbers[:6]
         latest_two_positive = len(weekly_changes) >= 6 and weekly_changes[-1] > 0 and weekly_changes[-2] > 0

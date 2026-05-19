@@ -38,7 +38,13 @@ def fetch_json(url: str, params: dict[str, str]) -> dict:
         },
     )
     with urlopen(request, timeout=20) as response:
-        return json.loads(response.read().decode("utf-8-sig"))
+        body = response.read().decode("utf-8-sig").strip()
+        if not body:
+            return {}
+        try:
+            return json.loads(body)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"Invalid JSON response from {url}") from exc
 
 
 def parse_roc_date(value: str) -> str:
@@ -131,7 +137,7 @@ def update_symbol(symbol: str, out_dir: Path, months: int, end: date) -> int:
         try:
             for row in fetch_twse_month(symbol, month):
                 by_date[str(row["timestamp"])] = row
-        except (HTTPError, URLError, TimeoutError) as exc:
+        except (HTTPError, URLError, TimeoutError, ValueError) as exc:
             print(f"{symbol}: skip {month:%Y-%m} ({exc})")
         time.sleep(0.25)
 
