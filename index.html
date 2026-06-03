@@ -44,7 +44,6 @@
     .hero-copy { padding:28px; min-height:260px; display:flex; flex-direction:column; justify-content:space-between; }
     .hero-title { font-size:34px; line-height:1.12; max-width:780px; }
     .hero-text { color:var(--muted); max-width:820px; margin-top:12px; }
-    .hero-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
     .market-snapshot { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:14px; }
     .index-stack { display:grid; gap:10px; }
     .index-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; box-shadow:var(--shadow); }
@@ -131,6 +130,7 @@
   <main>
     <nav class="page-nav">
       <button class="tab-btn active" data-page="overview">看大盤總覽</button>
+      <button class="tab-btn" data-page="candidates">看今日候選</button>
       <button class="tab-btn" data-page="weekly">本週名單</button>
       <button class="tab-btn" data-page="trading">看操作管理</button>
       <button class="tab-btn" data-page="tracking">看追蹤結果</button>
@@ -175,12 +175,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="hero-actions">
-          <button class="tab-btn" data-page="weekly">本週名單</button>
-          <button class="tab-btn" data-page="trading">看操作管理</button>
-          <button class="tab-btn" data-page="tracking">看追蹤結果</button>
-          <button class="tab-btn" data-page="review">今日複盤</button>
         </div>
       </div>
       <aside class="preview">
@@ -319,12 +313,12 @@
           improvement:"持股續抱理由要更量化，明天補上 3MA、8MA、成本線與盤中低點距離，避免只寫情緒化的續抱。"
         },
         {
-          time:"10:05", symbol:"6141", name:"柏承", strategy_type:"intraday", operated:"no_trade",
-          agent_decision:"wait", risk_result:"blocked", action:"不進場",
-          reason:"開盤未完成 5K 量價確認，風控判定追價風險偏高。",
-          sop_check:"符合 SOP。沒有放量突破、沒有站穩關鍵價，就不能把前一晚的粗估資金當成買進指令。",
-          risk_review:"主要擋單原因是 5K 觸發不足與開盤追高風險；若爆量黑 K 或跌回 3MA 下方，直接取消。",
-          improvement:"明天需要把柏承的觸發價、回測區間、失敗條件寫成更明確的三段情境，避免盤中臨場判斷模糊。"
+          time:"09:24", symbol:"6141", name:"柏承", strategy_type:"intraday", operated:"enter",
+          agent_decision:"enter", risk_result:"approved", action:"買進 50 股",
+          reason:"盤中回測週 K 3MA、月 K 3MA 與日 K 8MA 交會區後拉回，買進 50 股，屬於小部位加碼承接。",
+          sop_check:"部分符合 SOP。已用小部位控制風險，但紀錄仍需補齊當下觸發價、5K 量能、回測是否不破，否則事後不容易驗證進場品質。",
+          risk_review:"風控通過的前提是加碼後總部位 100 股仍在可承受範圍，且後續必須依日 K 3MA / 8MA 與盤中失敗條件控管。",
+          improvement:"改善空間是把 6141 的買進理由從文字判斷改成數字化：買進價 41.50、停損價、最大虧損、觸發 K 線、成交量倍率都要記錄。"
         },
         {
           time:"13:20", symbol:"6770", name:"力積電", strategy_type:"intraday", operated:"watch_only",
@@ -344,12 +338,12 @@
       },
       long_hold: [
         {symbol:"3481", name:"群創", previous_status:"持有 70 股", today_status:"續抱觀察", long_swing_decision:"hold", reason:"仍屬既有部位管理，不因候選池變動任意換股。", risk_note:"跌破日 K 8MA 或虧損擴大需全出。"},
-        {symbol:"6141", name:"柏承", previous_status:"候選觀察", today_status:"未進場", long_swing_decision:"wait", reason:"前一日只可粗估資金，實際仍等突破與回測確認。", risk_note:"若開高爆量黑 K，不追。"}
+        {symbol:"6141", name:"柏承", previous_status:"持有 50 股", today_status:"加碼 50 股後共 100 股", long_swing_decision:"add", reason:"盤中回測週/月 3MA 與日 8MA 交會區後拉回，符合小部位承接加碼。", risk_note:"加碼後若跌破日 K 8MA 或站不回成本，先降部位，不再攤平。"}
       ],
       intraday: [
         {symbol:"6770", name:"力積電", pattern:"放量後高檔整理", intraday_decision:"wait_pullback", entry_trigger:"5K 回測不破且量縮，轉強量增", simulated_result:"未成交，保留觀察", reason:"符合觀察條件，但沒有直接追價。"},
         {symbol:"2375", name:"凱美", pattern:"突破前整理", intraday_decision:"wait", entry_trigger:"突破區間高點且 60K MACD 確認", simulated_result:"等待", reason:"型態尚未完成，先排進明日盯盤。"},
-        {symbol:"6141", name:"柏承", pattern:"強勢後回測", intraday_decision:"avoid", entry_trigger:"未出現低風險回測點", simulated_result:"避開", reason:"開盤若不站穩關鍵價，不能用預估部位硬買。"}
+        {symbol:"6141", name:"柏承", pattern:"回測交會支撐後拉回", intraday_decision:"enter_now", entry_trigger:"09:24 回測週/月 3MA 與日 8MA 交會區後拉回", simulated_result:"買進 50 股", reason:"符合小部位承接條件，但仍需補齊當下 5K 量能與停損價。"}
       ],
       improvements: [
         {title:"今日發現問題", text:"隔日操作容易被誤解成固定買進股數，必須明確寫成情境與觸發條件。"},
@@ -359,12 +353,12 @@
       watchlist: [
         {symbol:"3481", name:"群創", category:"long_hold", focus:"既有持股續抱與停損線", trigger:"守住日 K 8MA；跌破則依規則出場"},
         {symbol:"6770", name:"力積電", category:"intraday", focus:"回測後是否轉強", trigger:"5K 回測不破，60K MACD 確認"},
-        {symbol:"6141", name:"柏承", category:"watch", focus:"突破後是否站穩", trigger:"站上關鍵價且不出爆量黑 K"}
+        {symbol:"6141", name:"柏承", category:"long_hold", focus:"加碼後 100 股部位管理", trigger:"守住日 K 8MA 與成本區；跌破且站不回先降部位"}
       ],
       next_operations: [
         {symbol:"3481", name:"群創", strategy_type:"long_hold", scenario:"情境 1：開盤站穩成本上方且量價正常", trigger:"不跌破日 K 8MA，盤中沒有爆量長黑", capital:"不新增資金，維持 70 股", action:"續抱；若轉弱先出 1/2", risk:"跌破日 K 8MA 全出，突破型虧損達 3% 立即停損"},
         {symbol:"6770", name:"力積電", strategy_type:"intraday", scenario:"情境 2：回測後轉強", trigger:"5K 回測不破，轉強時量增，60K MACD 確認", capital:"第一筆約 1,000 - 1,500；最多不超過剩餘資金 30%", action:"模擬試單；未觸發不買", risk:"開高爆量黑 K 不追，跌破回測低點取消"},
-        {symbol:"6141", name:"柏承", strategy_type:"watch", scenario:"情境 3：突破確認或失敗", trigger:"站上關鍵價且不是爆量黑 K；若跌回 3MA 下方則放棄", capital:"先抓 1,000 - 1,500 試單額度，實際依開盤價換算股數", action:"只做條件單模擬，不預設買進", risk:"未突破前不進場；沒有量不做；走弱不加碼"}
+        {symbol:"6141", name:"柏承", strategy_type:"long_hold", scenario:"情境 3：加碼後部位管理", trigger:"守住日 K 8MA 與 41.50 成本區，盤中不出爆量黑 K", capital:"已持有 100 股，暫不新增資金", action:"續抱觀察；跌破日 K 3MA 先降 50 股，跌破日 K 8MA 全出", risk:"不攤平；若站不回成本區，不再加碼"}
       ]
     };
     state.selectedOperation = dailyReviewData.operations[0] || null;
