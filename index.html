@@ -114,8 +114,8 @@
     .tag.secondary,.tag.long_hold,.tag.long-hold { background:var(--blue-soft); color:var(--blue); border-color:#c8d9ff; }
     .tag.intraday { background:var(--violet-soft); color:var(--violet); border-color:#d7ccff; }
     .tag.wait,.tag.hold,.tag.build,.tag.add,.tag.reduce { background:var(--orange-soft); color:var(--orange); border-color:#f0d2a5; }
-    .tag.reject,.tag.blocked,.tag.risk_off,.tag.risk-off,.tag.exit,.tag.avoid { background:var(--red-soft); color:var(--red); border-color:#efc1bc; }
-    .tag.watch,.tag.none { background:var(--gray-soft); color:var(--gray); border-color:#d8dde2; }
+    .tag.reject,.tag.blocked,.tag.risk_off,.tag.risk-off,.tag.risk-blocked,.tag.exit,.tag.avoid { background:var(--red-soft); color:var(--red); border-color:#efc1bc; }
+    .tag.watch,.tag.none,.tag.not-triggered { background:var(--gray-soft); color:var(--gray); border-color:#d8dde2; }
     .pos { color:var(--red); font-weight:800; } .neg { color:var(--teal); font-weight:800; }
     @media (max-width:1180px) { .hero,.metrics,.flow,.detail-grid,.split,.account-grid,.history-grid,.scenario-grid,.review-grid,.review-cards,.weekly-pool-grid { grid-template-columns:1fr 1fr; } .market-snapshot { grid-template-columns:1fr; } }
     @media (max-width:720px) { main,.header-inner { width:min(100% - 24px, 1480px); } .header-inner,.hero,.metrics,.flow,.detail-grid,.split,.account-grid,.history-grid,.scenario-grid,.market-stat-grid,.review-grid,.review-cards,.weekly-pool-grid { grid-template-columns:1fr; display:grid; } .hero-title { font-size:28px; } .mode { justify-content:flex-start; } .market-big { font-size:34px; } }
@@ -233,8 +233,8 @@
       <div class="grid review-grid" id="review-market"></div>
       <h2>今日候選股摘要</h2>
       <div class="grid metrics" id="review-summary"></div>
-      <h2>今日操作</h2>
-      <p class="subtitle">不管有沒有實際操作，都要記錄原因、SOP 是否遵守、風控是否擋單，以及下一次可改善的地方。</p>
+      <h2>交易日操作事件</h2>
+      <p class="subtitle">這裡不是事後成交清單，而是交易日每筆 Agent 判斷事件：成交、減碼、出場、等待、只觀察、被風控擋下都要留下原因。</p>
       <div class="table-wrap"><table><thead><tr><th>時間</th><th>股票代號</th><th>股票名稱</th><th>策略類型</th><th>是否操作</th><th>Agent 決策</th><th>風控結果</th><th>今日動作</th><th>說明</th></tr></thead><tbody id="review-operation-body"></tbody></table></div>
       <h2>今日操作詳細資料</h2>
       <div class="grid detail-grid" id="review-operation-detail"></div>
@@ -290,7 +290,7 @@
       primary:"優先", secondary:"次要", reject:"排除", long_hold:"長期波段", intraday:"盤中切入觀察", day_trade:"當沖候選", watch:"觀察",
       enter:"可進場", wait:"等待", reduce:"減碼", exit:"出場", hold:"續抱", build:"建倉", add:"加碼",
       wait_pullback:"等回測", avoid:"避開", approved:"通過", blocked:"擋下", none:"無部位", full_position:"已有持倉",
-      no_trade:"未操作", watch_only:"只觀察",
+      no_trade:"未操作", watch_only:"只觀察", not_triggered:"未觸發", risk_blocked:"風控擋下",
       insufficient_data:"資料不足", completed:"已完成", normal:"正常", cautious:"保守", risk_off:"停止攻擊",
       "market / ohlcv / chip":"行情 / K線 / 籌碼", "normal / cautious / risk_off":"正常 / 保守 / 停止攻擊",
       "primary / secondary / reject":"優先 / 次要 / 排除", "雙策略分流":"雙策略分流",
@@ -334,12 +334,14 @@
     const accountPositions = ((nextPlan.account || {}).positions || []);
     const positionBySymbol = Object.fromEntries(accountPositions.map(p => [String(p.symbol), p]));
     const todaySymbols = Array.from(new Set(todayRows.map(x => String(x.symbol))));
-    const reviewOperations = todayRows.length ? todayRows.map((x) => {
+    const tradedSymbols = new Set(todayRows.map(x => String(x.symbol)));
+    const tradeOperationEvents = todayRows.map((x, index) => {
       const side = String(x.side || "").toLowerCase();
       const isRisk = String(x.reason || "").includes("自動風控");
       const remaining = Number(x.position_after || 0);
       const decision = side === "buy" ? "enter" : (remaining <= 0 ? "exit" : "reduce");
       return {
+        event_id: `trade-${x.trade_id || index}`,
         time: x.time || "-",
         symbol: String(x.symbol || ""),
         name: x.name || String(x.symbol || ""),
@@ -353,15 +355,46 @@
         risk_review: isRisk ? "風控執行器依既有持股、日 K 3MA / 8MA 與 3% 停損規則自動補紀錄。" : "依紙上交易紀錄列入今日操作。",
         improvement: isRisk ? "後續要接即時資料與券商 API 時，這條規則要搬到盤中風控，不能只等收盤報表。" : "保留觸發價、K 線型態與成交量，方便隔日檢討。"
       };
-    }) : [{
-      time:"收盤後", symbol:"-", name:"今日無紙上交易", strategy_type:"watch", operated:"no_trade",
-      agent_decision:"wait", risk_result:"approved", action:"未操作",
-      reason:"紙上交易 CSV 今日沒有買進或賣出紀錄。",
-      sop_check:"若有持股，系統仍會檢查 3MA / 8MA / 3% 停損；未觸發才顯示未操作。",
-      risk_review:"未操作不等於沒檢查，需保留檢查原因。",
-      improvement:"若盤中有訊號但未記錄，應補分K資料與觸發條件。"
-    }];
+    });
+    const candidateOperationEvents = enriched
+      .filter((x) => !tradedSymbols.has(String(x.symbol)))
+      .map((x, index) => {
+        const blocked = x.risk_status === "blocked" || x.final_decision === "reject" || x.decision === "reject";
+        const held = isHeld(x.symbol);
+        const action = blocked ? "不進場" : (held ? "持有檢查，不加碼" : "等待觸發，不下單");
+        const operated = blocked ? "risk_blocked" : (held ? "no_trade" : "not_triggered");
+        const agentDecision = blocked ? "reject" : (held ? "hold" : "wait");
+        const riskResult = blocked ? "blocked" : "approved";
+        return {
+          event_id: `decision-${x.symbol}-${index}`,
+          time: blocked ? "風控檢查" : "盤中觀察",
+          symbol: String(x.symbol || ""),
+          name: x.name || String(x.symbol || ""),
+          strategy_type: x.route || "watch",
+          operated,
+          agent_decision: agentDecision,
+          risk_result: riskResult,
+          action,
+          reason: blocked ? (x.risk_note || x.reason || "未通過風控條件。") : (x.entry_trigger || x.reason || "未出現符合 SOP 的切入點。"),
+          sop_check: blocked ? `擋下原因：${x.risk_note || x.reason || "風控未通過"}` : `等待條件：${x.entry_trigger || "5K 切入點、量能與 60K MACD 確認"}`,
+          risk_review: blocked ? "此筆列為交易日被擋下事件，不是漏記；後續若條件改善才重新評估。" : "此筆有被檢查，但沒有觸發下單條件，所以記為等待或只觀察。",
+          improvement: blocked ? "把擋單原因保留到隔日復盤，確認是規則正確擋下，還是資料不足造成誤擋。" : "下次要補更精準的盤中價格、5K 量能與觸發時間，避免只寫籠統等待。"
+        };
+      });
+    const reviewOperations = [...tradeOperationEvents, ...candidateOperationEvents];
+    if (!reviewOperations.length) {
+      reviewOperations.push({
+        event_id:"empty-day", time:"收盤後", symbol:"-", name:"今日無操作事件", strategy_type:"watch", operated:"no_trade",
+        agent_decision:"wait", risk_result:"approved", action:"未操作",
+        reason:"今日沒有成交、候選、持股或擋單事件可記錄。",
+        sop_check:"需要確認資料更新是否完整，避免不是沒有操作，而是沒有產生事件。",
+        risk_review:"若未來要接自動交易，這種空事件也要視為異常檢查點。",
+        improvement:"補上交易日事件來源，讓每日一定有檢查紀錄。"
+      });
+    }
     const riskOperationRows = reviewOperations.filter(x => x.risk_result === "approved" && (x.agent_decision === "reduce" || x.agent_decision === "exit"));
+    const blockedOperationRows = reviewOperations.filter(x => x.risk_result === "blocked");
+    const executedOperationRows = reviewOperations.filter(x => ["enter","reduce","exit"].includes(x.agent_decision));
     const reviewLongHold = todaySymbols.length ? todaySymbols.map((symbol) => {
       const related = todayRows.filter(x => String(x.symbol) === symbol);
       const last = related[related.length - 1] || {};
@@ -399,10 +432,10 @@
       },
       operations: reviewOperations,
       risk_review: {
-        approved_count: reviewOperations.length,
-        blocked_count: enriched.filter(x=>x.risk_status==="blocked").length,
+        approved_count: executedOperationRows.length,
+        blocked_count: blockedOperationRows.length,
         main_block_reason: riskOperationRows.length ? "持股跌破 3MA / 觸發 3% 停損" : "追價風險與 5K 觸發不足",
-        blocked_reason: riskOperationRows.length ? riskOperationRows.map(x=>`${x.symbol} ${x.reason}`).join("；") : "未放量突破或突破後沒有站穩確認",
+        blocked_reason: blockedOperationRows.length ? blockedOperationRows.map(x=>`${x.symbol} ${x.reason}`).join("；") : (riskOperationRows.length ? riskOperationRows.map(x=>`${x.symbol} ${x.reason}`).join("；") : "未放量突破或突破後沒有站穩確認"),
         risk_note: riskOperationRows.length ? "今日風控有實際執行紙上賣出，後續需檢查是否應提早到盤中觸發。" : "今日沒有風控賣出，候選股仍需等明確觸發。"
       },
       long_hold: reviewLongHold,
@@ -602,9 +635,9 @@
         ["掃描股票數", s.scanned],["通過初篩數", s.passed],["Primary 數量", s.primary],["Secondary 數量", s.secondary],
         ["Reject 數量", s.reject],["Long Hold 路由數", s.long_hold],["Intraday 路由數", s.intraday],["Watch 數量", s.watch]
       ].map(([a,b]) => `<div class="metric"><span>${a}</span><strong>${b}</strong></div>`).join("");
-      byId("review-operation-body").innerHTML = dailyReviewData.operations.map(x => `<tr data-symbol="${x.symbol}" class="${state.selectedOperation && state.selectedOperation.symbol === x.symbol ? "selected-row" : ""}"><td>${x.time}</td><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${tag(x.strategy_type)}</td><td>${tag(x.operated)}</td><td>${tag(x.agent_decision)}</td><td>${tag(x.risk_result)}</td><td>${x.action}</td><td>${x.reason}</td></tr>`).join("");
+      byId("review-operation-body").innerHTML = dailyReviewData.operations.map(x => `<tr data-event-id="${x.event_id}" class="${state.selectedOperation && state.selectedOperation.event_id === x.event_id ? "selected-row" : ""}"><td>${x.time}</td><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${tag(x.strategy_type)}</td><td>${tag(x.operated)}</td><td>${tag(x.agent_decision)}</td><td>${tag(x.risk_result)}</td><td>${x.action}</td><td>${x.reason}</td></tr>`).join("");
       [...document.querySelectorAll("#review-operation-body tr")].forEach(row => row.addEventListener("click", () => {
-        state.selectedOperation = dailyReviewData.operations.find(x => x.symbol === row.dataset.symbol);
+        state.selectedOperation = dailyReviewData.operations.find(x => x.event_id === row.dataset.eventId);
         renderDailyReview();
       }));
       renderReviewOperationDetail();
