@@ -215,15 +215,18 @@
 
     <section id="detail" class="page" data-page="candidates"><h2>單一標的詳情</h2><div class="grid detail-grid" id="detail-grid"></div></section>
     <section id="next-plan" class="page" data-page="trading">
-      <h2>過去五個交易日操作方式預測紀錄檔</h2>
-      <p class="subtitle">只顯示盤後保存的「下個交易日操作預測檔」。沒有落檔的日期會明確標示未保留，不再用實際成交紀錄混充策略檔。</p>
+      <h2>過去五個交易日操作概述</h2>
+      <p class="subtitle">只統整交易日實際留下的模擬操作紀錄；無成交也會明確標示，避免把預測檔誤當交易紀錄。</p>
       <div class="grid history-grid" id="operation-history-grid"></div>
-      <h2 id="next-target-title">下個交易日詳細操作預測</h2>
+      <h2 id="next-target-title">下個交易日操作預測</h2>
       <p class="subtitle" id="next-plan-note">-</p>
       <div class="table-wrap"><table><thead><tr><th>優先順序</th><th>股票</th><th>類型</th><th>核心判斷</th><th>觸發條件</th><th>預計動作</th><th>防守</th></tr></thead><tbody id="next-action-priority-body"></tbody></table></div>
       <div class="grid account-grid" id="account-grid"></div>
       <div class="table-wrap"><table><thead><tr><th>股票</th><th>股數</th><th>成本</th><th>現價</th><th>市值</th><th>未實現</th><th>報酬率</th><th>狀態</th></tr></thead><tbody id="holding-body"></tbody></table></div>
       <div id="plan-blocks"></div>
+      <h2>交易紀錄</h2>
+      <p class="subtitle">來源：<span id="paper-trade-source">-</span>。這裡只列紙上交易帳本，不拿策略預測檔混充。</p>
+      <div class="table-wrap"><table><thead><tr><th>編號</th><th>日期</th><th>時間</th><th>股票</th><th>操作</th><th>價格</th><th>股數</th><th>金額</th><th>事後現金</th><th>事後持股</th><th>已實現</th><th>理由</th></tr></thead><tbody id="trade-record-body"></tbody></table></div>
     </section>
     <section id="long-hold" class="page" data-page="trading"><h2>長期波段持有</h2><div class="table-wrap"><table><thead><tr><th>股票</th><th>判斷</th><th>持倉階段</th><th>日K 3MA</th><th>日K 8MA</th><th>月K 3MA</th><th>風險提醒</th><th>理由</th></tr></thead><tbody id="long-hold-body"></tbody></table></div></section>
     <section id="intraday" class="page" data-page="trading"><h2>盤中切入觀察</h2><p class="subtitle">這裡只判斷盤中是否出現切入訊號；不是當沖，買進後仍依不能當沖與3MA/8MA規則管理。</p><div class="table-wrap"><table><thead><tr><th>股票</th><th>盤中判斷</th><th>切入條件</th><th>60K MACD</th><th>5K 開盤結構</th><th>量能</th><th>風險提醒</th></tr></thead><tbody id="intraday-body"></tbody></table></div></section>
@@ -549,30 +552,25 @@
       const account = nextPlan.account || {};
       byId("next-target-title").textContent = `下個交易日 ${shortDate(nextPlan.applies_to)} 操作目標`;
       byId("next-plan-note").textContent = `更新時間：${nextPlan.updated_at || "-"} / 適用交易日：${nextPlan.applies_to || "-"} / ${nextPlan.cash_allocation_note || ""}`;
-      const planHistory = dashboardData.next_trading_history || [];
-      const planRecords = [...planHistory, nextPlan].filter(plan => plan && plan.basis_day);
-      const planByBasisDay = planRecords.reduce((acc, plan) => {
-        if (plan && plan.basis_day) acc[plan.basis_day] = plan;
+      const historyDates = previousTradingDates(nextPlan.basis_day || dashboardData.latest_completed_day || dashboardData.generated_at, 5);
+      const tradesByDate = paperRows.reduce((acc, trade) => {
+        const date = String(trade.date || "");
+        if (!date) return acc;
+        (acc[date] ||= []).push(trade);
         return acc;
       }, {});
-      const historyDates = previousTradingDates(nextPlan.basis_day || dashboardData.latest_completed_day || dashboardData.generated_at, 5);
       byId("operation-history-grid").innerHTML = historyDates.map((date) => {
-        const savedPlan = planByBasisDay[date];
-        const isCurrent = savedPlan && date === nextPlan.basis_day;
-        const title = savedPlan ? `策略檔 ${shortDate(date)}` : `未保留 ${shortDate(date)}`;
-        let body = "";
-        let cls = isCurrent ? "current" : "";
-        if (savedPlan) {
-          const applies = savedPlan.applies_to ? `預測 ${shortDate(savedPlan.applies_to)}` : "預測下個交易日";
-          const positions = ((savedPlan.account || {}).positions || []).map(p => `${p.symbol} ${p.name} ${p.shares} 股`).join("、");
-          const holdingCount = (savedPlan.holding_plans || []).length;
-          const candidateCount = (savedPlan.symbol_plans || []).length;
-          body = `${applies}<br>${positions || "無持股"}<br>持有劇本 ${holdingCount} 檔 / 新候選 ${candidateCount} 檔`;
-          if (isCurrent) cls = "current";
-        } else {
-          cls = "missing";
-          body = "尚未保留當日操作預測檔。之後每日 16:30 盤後更新時會留存。";
-        }
+        const trades = tradesByDate[date] || [];
+        const isCurrent = date === String(dashboardData.latest_completed_day);
+        const cls = trades.length ? (isCurrent ? "current" : "") : "missing";
+        const buyCount = trades.filter(t => String(t.side).toLowerCase() === "buy").length;
+        const sellCount = trades.filter(t => String(t.side).toLowerCase() === "sell").length;
+        const symbols = [...new Set(trades.map(t => `${t.symbol} ${t.name}`))].join("、");
+        const last = trades[trades.length - 1] || {};
+        const body = trades.length
+          ? `買進 ${buyCount} 筆 / 賣出 ${sellCount} 筆<br>${symbols}<br>收盤後現金 ${fmt(Number(last.cash_after || 0),0)}`
+          : "無交易紀錄；視為未操作或未觸發。";
+        const title = trades.length ? `操作概述 ${shortDate(date)}` : `無操作 ${shortDate(date)}`;
         return `<div class="history-card ${cls}"><span class="subtitle">${title}</span><strong>${date}</strong><p>${body}</p></div>`;
       }).join("");
       const items = [["原始資金", account.initial_capital],["持有市值", account.position_value],["剩餘資金", account.cash],["未實現", account.unrealized_pnl],["累積獲利", account.total_pnl],["資金使用率", account.capital_usage_pct]];
@@ -603,6 +601,28 @@
         const type = plan.shares !== undefined ? `持有 ${plan.shares} 股 / 成本 ${fmt(plan.cost_basis)}` : `${plan.entry_status || "候選觀察"} / 預估 ${fmt(plan.rough_budget_low,0)} - ${fmt(plan.rough_budget_high,0)}`;
         return `<div class="card" style="margin-top:12px"><h3>${plan.symbol} ${plan.name}</h3><p class="subtitle">${type}</p><div class="grid scenario-grid">${(plan.scenarios||[]).map(s=>`<div class="scenario"><h3>${s.title}</h3><p class="subtitle">${s.condition}</p><p>${s.action}</p></div>`).join("")}</div></div>`;
       }).join("");
+      renderTradeRecords();
+    }
+    function renderTradeRecords() {
+      byId("paper-trade-source").textContent = (dashboardData.paper_trading && dashboardData.paper_trading.source_file) || "尚無模擬交易檔";
+      byId("trade-record-body").innerHTML = paperRows.length ? paperRows.map(item => {
+        const side = String(item.side || "").toLowerCase();
+        const sideLabel = side === "buy" ? "買入" : side === "sell" ? "賣出" : item.side;
+        return `<tr>
+          <td>${item.trade_id || "-"}</td>
+          <td>${item.date || "-"}</td>
+          <td>${item.time || "-"}</td>
+          <td><strong>${item.symbol || "-"}</strong><br>${item.name || ""}</td>
+          <td>${tag(side === "buy" ? "enter" : side === "sell" ? "exit" : "wait")} ${sideLabel}</td>
+          <td>${fmt(Number(item.price || 0))}</td>
+          <td>${item.shares || "-"}</td>
+          <td>${fmt(Number(item.gross_amount || 0),0)}</td>
+          <td>${fmt(Number(item.cash_after || 0),0)}</td>
+          <td>${item.position_after || "-"}</td>
+          <td class="${Number(item.realized_pnl || 0) >= 0 ? "pos" : "neg"}">${fmt(Number(item.realized_pnl || 0),0)}</td>
+          <td>${item.reason || "-"}</td>
+        </tr>`;
+      }).join("") : '<tr><td colspan="12" class="subtitle">尚無交易紀錄</td></tr>';
     }
     function renderLongHold() {
       byId("long-hold-body").innerHTML = enriched.filter(x=>x.route==="long_hold").map(x => `<tr><td><strong>${x.symbol}</strong><br>${x.name}</td><td>${tag(x.long_swing_decision)}</td><td>${tag(isHeld(x.symbol)?"full_position":"none")}</td><td>${x.daily_ma_alignment}</td><td>${(x.ma||{})["8MA"] ? fmt((x.ma||{})["8MA"]) : "-"}</td><td>${x.monthly_ma_alignment}</td><td>${x.risk_note}</td><td>${x.reason}</td></tr>`).join("");
