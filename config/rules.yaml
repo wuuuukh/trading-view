@@ -47,6 +47,8 @@ chip_filter:
   max_score: 100
 
 scanner:
+  min_daily_volume_shares: 500000
+  min_daily_volume_lots: 500
   min_volume_ratio_breakout: 1.2
   consolidation_window: 20
   breakout_window: 20
@@ -69,6 +71,8 @@ agent_weights:
 
 risk:
   breakout_stop_loss_pct: 0.03
+  open_below_daily_ma3_reduce_fraction: 0.5
+  open_below_daily_ma3_action: "每日開盤持有股跌破日K 3MA，立即出售 1/2"
   first_entry_fraction: 0.3333
   second_entry_fraction: 0.3333
   third_entry_fraction: 0.3334

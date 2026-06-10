@@ -1,0 +1,191 @@
+[
+  {
+    "symbol": "2492",
+    "status": "synced",
+    "source": "data\\ohlcv\\2492.csv",
+    "target": "data\\official_replay\\ohlcv\\2492.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "2375",
+    "status": "synced",
+    "source": "data\\ohlcv\\2375.csv",
+    "target": "data\\official_replay\\ohlcv\\2375.csv",
+    "rows": 361,
+    "min_date": "2024-11-29",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "6770",
+    "status": "synced",
+    "source": "data\\ohlcv\\6770.csv",
+    "target": "data\\official_replay\\ohlcv\\6770.csv",
+    "rows": 361,
+    "min_date": "2024-11-29",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "6141",
+    "status": "synced",
+    "source": "data\\ohlcv\\6141.csv",
+    "target": "data\\official_replay\\ohlcv\\6141.csv",
+    "rows": 361,
+    "min_date": "2024-11-29",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "4916",
+    "status": "synced",
+    "source": "data\\ohlcv\\4916.csv",
+    "target": "data\\official_replay\\ohlcv\\4916.csv",
+    "rows": 366,
+    "min_date": "2024-11-22",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3048",
+    "status": "synced",
+    "source": "data\\ohlcv\\3048.csv",
+    "target": "data\\official_replay\\ohlcv\\3048.csv",
+    "rows": 391,
+    "min_date": "2017-05-02",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "2478",
+    "status": "synced",
+    "source": "data\\ohlcv\\2478.csv",
+    "target": "data\\official_replay\\ohlcv\\2478.csv",
+    "rows": 366,
+    "min_date": "2024-11-22",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3057",
+    "status": "synced",
+    "source": "data\\ohlcv\\3057.csv",
+    "target": "data\\official_replay\\ohlcv\\3057.csv",
+    "rows": 415,
+    "min_date": "2017-11-01",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3481",
+    "status": "synced",
+    "source": "data\\ohlcv\\3481.csv",
+    "target": "data\\official_replay\\ohlcv\\3481.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3450",
+    "status": "synced",
+    "source": "data\\ohlcv\\3450.csv",
+    "target": "data\\official_replay\\ohlcv\\3450.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "1597",
+    "status": "synced",
+    "source": "data\\ohlcv\\1597.csv",
+    "target": "data\\official_replay\\ohlcv\\1597.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3033",
+    "status": "synced",
+    "source": "data\\ohlcv\\3033.csv",
+    "target": "data\\official_replay\\ohlcv\\3033.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "3026",
+    "status": "synced",
+    "source": "data\\ohlcv\\3026.csv",
+    "target": "data\\official_replay\\ohlcv\\3026.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "2464",
+    "status": "synced",
+    "source": "data\\ohlcv\\2464.csv",
+    "target": "data\\official_replay\\ohlcv\\2464.csv",
+    "rows": 372,
+    "min_date": "2024-11-14",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "8150",
+    "status": "synced",
+    "source": "data\\ohlcv\\8150.csv",
+    "target": "data\\official_replay\\ohlcv\\8150.csv",
+    "rows": 371,
+    "min_date": "2024-11-15",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "2484",
+    "status": "synced",
+    "source": "data\\ohlcv\\2484.csv",
+    "target": "data\\official_replay\\ohlcv\\2484.csv",
+    "rows": 393,
+    "min_date": "2017-12-01",
+    "max_date": "2026-05-29"
+  },
+  {
+    "symbol": "2313",
+    "status": "synced",
+    "source": "data\\ohlcv\\2313.csv",
+    "target": "data\\official_replay\\ohlcv\\2313.csv",
+    "rows": 367,
+    "min_date": "2024-11-04",
+    "max_date": "2026-05-13"
+  },
+  {
+    "symbol": "3037",
+    "status": "synced",
+    "source": "data\\ohlcv\\3037.csv",
+    "target": "data\\official_replay\\ohlcv\\3037.csv",
+    "rows": 368,
+    "min_date": "2024-11-04",
+    "max_date": "2026-05-13"
+  },
+  {
+    "symbol": "4958",
+    "status": "synced",
+    "source": "data\\ohlcv\\4958.csv",
+    "target": "data\\official_replay\\ohlcv\\4958.csv",
+    "rows": 368,
+    "min_date": "2024-11-04",
+    "max_date": "2026-05-13"
+  },
+  {
+    "symbol": "6205",
+    "status": "synced",
+    "source": "data\\ohlcv\\6205.csv",
+    "target": "data\\official_replay\\ohlcv\\6205.csv",
+    "rows": 367,
+    "min_date": "2024-11-04",
+    "max_date": "2026-05-13"
+  },
+  {
+    "symbol": "8046",
+    "status": "synced",
+    "source": "data\\ohlcv\\8046.csv",
+    "target": "data\\official_replay\\ohlcv\\8046.csv",
+    "rows": 368,
+    "min_date": "2024-11-04",
+    "max_date": "2026-05-13"
+  }
+]

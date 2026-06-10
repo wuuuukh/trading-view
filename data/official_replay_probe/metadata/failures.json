@@ -1,0 +1,170 @@
+[
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "1597",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2313",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2375",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2464",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2478",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2484",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "2492",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3026",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3033",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3037",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3048",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3057",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3450",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "3481",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "4916",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "4958",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "6141",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "6205",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "6770",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "8046",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_STOCK_DAY",
+    "date": "2026-01-01",
+    "symbol": "8150",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-01",
+    "symbol": "",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-02",
+    "symbol": "",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-05",
+    "symbol": "",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-06",
+    "symbol": "",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-07",
+    "symbol": "",
+    "error": "official endpoint returned HTML instead of JSON"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-08",
+    "symbol": "",
+    "error": "The read operation timed out"
+  },
+  {
+    "source": "TWSE_T86",
+    "date": "2026-01-09",
+    "symbol": "",
+    "error": "official endpoint returned HTML instead of JSON"
+  }
+]

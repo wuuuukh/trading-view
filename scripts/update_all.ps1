@@ -10,9 +10,11 @@ python scripts\update_ohlcv_tw.py @Symbols --months 18 --end $Today --out data\o
 python -m trading_agent.cli scan --ohlcv data\ohlcv --out reports
 python -m trading_agent.cli paper --ohlcv data\ohlcv --out reports
 python -m trading_agent.cli backtest --ohlcv data\ohlcv --out reports
+python -m trading_agent.cli simulate --start 2026-01-01 --end 2026-05-31 --capital 10000 --ohlcv data\ohlcv --out reports\historical_simulation_2026-01-01_to_2026-05-31
 python -m trading_agent.cli project --capital 1000000 --out reports
 python scripts\build_weekly_selection.py
 python scripts\update_tracking_report.py
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_static_site.ps1
+python scripts\inject_next_trading_plan.py
 
 Write-Host "Updated data, reports, tracking log, and HTML."

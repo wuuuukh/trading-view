@@ -13,6 +13,8 @@ New-Item -ItemType Directory -Force -Path $DocsReports | Out-Null
 
 Copy-Item -LiteralPath (Join-Path $Root "index.html") -Destination (Join-Path $Site "index.html") -Force
 Copy-Item -LiteralPath (Join-Path $Root "index.html") -Destination (Join-Path $Docs "index.html") -Force
+Copy-Item -LiteralPath (Join-Path $Root "historical-simulation.html") -Destination (Join-Path $Site "historical-simulation.html") -Force
+Copy-Item -LiteralPath (Join-Path $Root "historical-simulation.html") -Destination (Join-Path $Docs "historical-simulation.html") -Force
 
 $LegacyReportPages = @(
     (Join-Path $Root "trading-record.html"),
@@ -56,7 +58,10 @@ $ReportFiles = @(
     "next_week_projection.json",
     "weekly_selection.md",
     "weekly_selection.csv",
-    "weekly_selection.json"
+    "weekly_selection.json",
+    "historical_simulation_2026-01-01_to_2026-05-31.md",
+    "historical_simulation_2026-01-01_to_2026-05-31.csv",
+    "historical_simulation_2026-01-01_to_2026-05-31.json"
 )
 
 foreach ($File in $ReportFiles) {
@@ -65,6 +70,21 @@ foreach ($File in $ReportFiles) {
         Copy-Item -LiteralPath $Source -Destination (Join-Path $SiteReports $File) -Force
         Copy-Item -LiteralPath $Source -Destination (Join-Path $DocsReports $File) -Force
     }
+}
+
+Get-ChildItem -LiteralPath (Join-Path $Root "reports") -Filter "paper_trade_*" -File -ErrorAction SilentlyContinue | ForEach-Object {
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $SiteReports $_.Name) -Force
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $DocsReports $_.Name) -Force
+}
+
+Get-ChildItem -LiteralPath (Join-Path $Root "reports") -Filter "operation_events_*" -File -ErrorAction SilentlyContinue | ForEach-Object {
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $SiteReports $_.Name) -Force
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $DocsReports $_.Name) -Force
+}
+
+Get-ChildItem -LiteralPath (Join-Path $Root "reports") -Filter "postmarket_review_*" -File -ErrorAction SilentlyContinue | ForEach-Object {
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $SiteReports $_.Name) -Force
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $DocsReports $_.Name) -Force
 }
 
 Set-Content -LiteralPath (Join-Path $Site ".nojekyll") -Value "" -Encoding ascii

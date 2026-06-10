@@ -1,0 +1,39 @@
+﻿{
+  "date": "2026-06-08",
+  "source": "postmarket_review_only_not_trade_execution",
+  "summary": "盤後只做漏判檢討與明日決策回饋，不再補寫交易帳本。",
+  "findings": [
+    {
+      "symbol": "3481",
+      "name": "群創",
+      "severity": "missed_intraday_risk",
+      "missed_action": "盤中應先減碼 1/2",
+      "reason": "開盤 48.35 < 日K 3MA 52.62，盤中監控若有啟動應立即先出 1/2。",
+      "next_day_feedback": "明日盤中監控必須先處理持有股開盤 3MA 風控；若資料缺失，記為 blocked 不能默默跳過。"
+    },
+    {
+      "symbol": "3481",
+      "name": "群創",
+      "severity": "missed_stop_loss",
+      "missed_action": "盤中/收盤前應全出",
+      "reason": "收盤 48.35 <= 3% 停損價 48.50，應列為重大漏判。",
+      "next_day_feedback": "明日不允許攤平；若仍持有，開盤優先檢查是否補救出場。"
+    },
+    {
+      "symbol": "6141",
+      "name": "柏承",
+      "severity": "missed_intraday_risk",
+      "missed_action": "盤中應先減碼 1/2",
+      "reason": "開盤 34.65 < 日K 3MA 37.80，盤中監控若有啟動應立即先出 1/2。",
+      "next_day_feedback": "明日盤中監控必須先處理持有股開盤 3MA 風控；若資料缺失，記為 blocked 不能默默跳過。"
+    },
+    {
+      "symbol": "6141",
+      "name": "柏承",
+      "severity": "missed_stop_loss",
+      "missed_action": "盤中/收盤前應全出",
+      "reason": "收盤 35.50 <= 3% 停損價 40.25，應列為重大漏判。",
+      "next_day_feedback": "明日不允許攤平；若仍持有，開盤優先檢查是否補救出場。"
+    }
+  ]
+}

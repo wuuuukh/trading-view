@@ -1,0 +1,116 @@
+﻿{
+  "updated_at": "2026-06-10 18:00",
+  "applies_to": "2026-06-11",
+  "basis_day": "2026-06-10",
+  "cash_allocation_note": "剩餘資金 9,738；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 1,461 後再按強弱分配。",
+  "account": {
+    "initial_capital": 10000.0,
+    "cash": 9737.75,
+    "position_value": 0.0,
+    "total_assets": 9737.75,
+    "realized_pnl": -262.25,
+    "unrealized_pnl": 0.0,
+    "total_pnl": -262.25,
+    "capital_usage_pct": 0.0,
+    "positions": []
+  },
+  "locked_stocks": [
+    {
+      "group": "操作組",
+      "symbol": "6282",
+      "name": "康舒",
+      "latest_price": 58.5,
+      "score": 68.76,
+      "pattern_type": "W",
+      "volume_ratio": 1.36,
+      "status": "等待切入點"
+    },
+    {
+      "group": "操作組",
+      "symbol": "2406",
+      "name": "國碩",
+      "latest_price": 35.85,
+      "score": 70.12,
+      "pattern_type": "W",
+      "volume_ratio": 1.89,
+      "status": "等待切入點"
+    }
+  ],
+  "holding_plans": [],
+  "symbol_plans": [
+    {
+      "symbol": "6282",
+      "name": "康舒",
+      "latest_price": 58.5,
+      "trigger_price": 67.0,
+      "score": 68.76,
+      "pattern_type": "W",
+      "volume_ratio": 1.36,
+      "ma3": 60.17,
+      "ma8": 63.54,
+      "budget_cap": 4138.55,
+      "rough_budget_low": 2500.0,
+      "rough_budget_high": 3000.0,
+      "rough_shares_low": 37,
+      "rough_shares_high": 44,
+      "entry_status": "等待盯盤突破確認",
+      "sizing_formula": "前一日粗估 2,500 - 3,000；實際股數 = floor(投入資金 / 突破確認後成交價)",
+      "stop_price": 56.74,
+      "support_range": "59.87 - 61.07",
+      "scenarios": [
+        {
+          "title": "情境 1：突破確認才進場",
+          "condition": "開盤站穩 58.50，或盯盤資料確認突破 67.00；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。",
+          "action": "買第一筆；前一日先抓 2,500 - 3,000，約 37 - 44 股，實際用成交價重算。"
+        },
+        {
+          "title": "情境 2：突破後回測不破",
+          "condition": "先突破、再回測 59.87 - 61.07 或突破價不破，回檔量縮後重新轉強。",
+          "action": "低接買；資金仍抓 2,500 - 3,000，但未先突破前不低接。"
+        },
+        {
+          "title": "情境 3：未突破或假突破",
+          "condition": "未突破 67.00、突破後馬上跌回、爆量黑K，或跌破 3MA 60.17。",
+          "action": "不進場；沒有量不做，走弱不追，跌破 8MA 63.54 則移回觀察。"
+        }
+      ]
+    },
+    {
+      "symbol": "2406",
+      "name": "國碩",
+      "latest_price": 35.85,
+      "trigger_price": 37.9,
+      "score": 70.12,
+      "pattern_type": "W",
+      "volume_ratio": 1.89,
+      "ma3": 34.28,
+      "ma8": 35.71,
+      "budget_cap": 4138.55,
+      "rough_budget_low": 2500.0,
+      "rough_budget_high": 3000.0,
+      "rough_shares_low": 65,
+      "rough_shares_high": 79,
+      "entry_status": "等待盯盤突破確認",
+      "sizing_formula": "前一日粗估 2,500 - 3,000；實際股數 = floor(投入資金 / 突破確認後成交價)",
+      "stop_price": 34.77,
+      "support_range": "34.11 - 34.79",
+      "scenarios": [
+        {
+          "title": "情境 1：突破確認才進場",
+          "condition": "開盤站穩 35.85，或盯盤資料確認突破 37.90；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。",
+          "action": "買第一筆；前一日先抓 2,500 - 3,000，約 65 - 79 股，實際用成交價重算。"
+        },
+        {
+          "title": "情境 2：突破後回測不破",
+          "condition": "先突破、再回測 34.11 - 34.79 或突破價不破，回檔量縮後重新轉強。",
+          "action": "低接買；資金仍抓 2,500 - 3,000，但未先突破前不低接。"
+        },
+        {
+          "title": "情境 3：未突破或假突破",
+          "condition": "未突破 37.90、突破後馬上跌回、爆量黑K，或跌破 3MA 34.28。",
+          "action": "不進場；沒有量不做，走弱不追，跌破 8MA 35.71 則移回觀察。"
+        }
+      ]
+    }
+  ]
+}

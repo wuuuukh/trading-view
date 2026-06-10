@@ -1,0 +1,3 @@
+﻿event_id,date,time,symbol,name,event_type,strategy_type,price,agent_decision,risk_result,simulated_action,shares,action,reason,sop_check,risk_review,improvement,source
+2026-06-05-10:00-3481,2026-06-05,10:00,3481,群創,data_missing,long_hold,,wait,blocked,none,0,不操作,盤中即時報價缺失，禁止自動買賣。,資料缺失必須明確記錄為 blocked，不能視為沒有訊號。,這是盤中監控資料源問題，不是策略沒有觸發。,修正即時報價來源；報價正常前只允許觀察。,C:\Users\User\Desktop\Trading View\data\intraday\latest_quotes.csv
+2026-06-05-10:00-6141,2026-06-05,10:00,6141,柏承,data_missing,long_hold,,wait,blocked,none,0,不操作,盤中即時報價缺失，禁止自動買賣。,資料缺失必須明確記錄為 blocked，不能視為沒有訊號。,這是盤中監控資料源問題，不是策略沒有觸發。,修正即時報價來源；報價正常前只允許觀察。,C:\Users\User\Desktop\Trading View\data\intraday\latest_quotes.csv

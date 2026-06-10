@@ -21,6 +21,8 @@ SYMBOL_NAMES = {
     "3026": "禾伸堂",
     "3481": "群創",
 }
+MIN_DAILY_VOLUME_SHARES = 500_000
+MIN_DAILY_VOLUME_LOTS = 500
 
 
 def load_json(path: Path) -> Any:
@@ -58,6 +60,20 @@ def action_for(symbol: str, group: str) -> str:
     return "本週不列入選股池。"
 
 
+def low_daily_volume(latest: dict[str, Any]) -> bool:
+    try:
+        return float(latest.get("volume", 0) or 0) < MIN_DAILY_VOLUME_SHARES
+    except (TypeError, ValueError):
+        return True
+
+
+def volume_lots(latest: dict[str, Any]) -> float:
+    try:
+        return float(latest.get("volume", 0) or 0) / 1000
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def build_weekly_selection(
     scan_rows: list[dict[str, Any]],
     weekly_symbols: dict[str, Any],
@@ -79,6 +95,16 @@ def build_weekly_selection(
         latest = details.get("latest", {})
         pattern = details.get("pattern", {})
         source_row = next((row for row in current_top5 if str(row["symbol"]) == symbol), None)
+        is_low_volume = low_daily_volume(latest)
+        group = "rejected" if is_low_volume else group
+        action = (
+            f"日成交量約 {volume_lots(latest):.0f} 張，低於新增門檻 {MIN_DAILY_VOLUME_LOTS} 張；不操作。"
+            if is_low_volume
+            else action_for(symbol, group)
+        )
+        reason = item.get("reason", "")
+        if is_low_volume:
+            reason = f"{reason}；每日成交量低於500張，不操作" if reason else "每日成交量低於500張，不操作"
         rows.append(
             {
                 "symbol": symbol,
@@ -90,6 +116,9 @@ def build_weekly_selection(
                 "market_state": item.get("market_state"),
                 "pattern_type": item.get("pattern_type") or "",
                 "close": latest.get("close", ""),
+                "volume": int(float(latest.get("volume", 0) or 0)),
+                "volume_lots": round(volume_lots(latest), 2),
+                "volume_gate": "blocked_under_500_lots" if is_low_volume else "pass",
                 "volume_ratio": round(float(latest.get("volume_ratio", 0)), 2),
                 "ma3": round(float(latest.get("ma3", 0)), 2),
                 "ma8": round(float(latest.get("ma8", 0)), 2),
@@ -99,8 +128,8 @@ def build_weekly_selection(
                 "twsthr_rank": (source_row or {}).get("rank", ""),
                 "twsthr_latest_two_changes": (source_row or {}).get("latest_two_changes", []),
                 "twsthr_total_change": (source_row or {}).get("total_change", ""),
-                "action": action_for(symbol, group),
-                "reason": item.get("reason", ""),
+                "action": action,
+                "reason": reason,
             }
         )
 

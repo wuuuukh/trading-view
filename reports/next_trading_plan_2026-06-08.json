@@ -1,0 +1,98 @@
+﻿{
+  "updated_at": "2026-06-08 18:00",
+  "applies_to": "2026-06-09",
+  "basis_day": "2026-06-08",
+  "cash_allocation_note": "剩餘資金 2,350；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 352 後再按強弱分配。",
+  "account": {
+    "initial_capital": 10000.0,
+    "cash": 2350.0,
+    "position_value": 6934.5,
+    "total_assets": 9284.5,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": -715.5,
+    "total_pnl": -715.5,
+    "capital_usage_pct": 74.69,
+    "positions": [
+      {
+        "symbol": "3481",
+        "name": "群創",
+        "shares": 70,
+        "cost_basis": 50.0,
+        "latest_price": 48.35,
+        "market_value": 3384.5,
+        "unrealized_pnl": -115.5,
+        "unrealized_pct": -3.3,
+        "status": "持有管理"
+      },
+      {
+        "symbol": "6141",
+        "name": "柏承",
+        "shares": 100,
+        "cost_basis": 41.5,
+        "latest_price": 35.5,
+        "market_value": 3550.0,
+        "unrealized_pnl": -600.0,
+        "unrealized_pct": -14.46,
+        "status": "持有管理"
+      }
+    ]
+  },
+  "locked_stocks": [],
+  "holding_plans": [
+    {
+      "symbol": "3481",
+      "name": "群創",
+      "shares": 70,
+      "cost_basis": 50.0,
+      "latest_price": 48.35,
+      "market_value": 3384.5,
+      "unrealized_pnl": -115.5,
+      "unrealized_pct": -3.3,
+      "scenarios": [
+        {
+          "title": "情境 1：開盤跌破日K 3MA",
+          "condition": "每日開盤，持有股開盤價低於盤前日K 3MA。",
+          "action": "立即賣出 1/2，約 35 股；不等收盤確認。"
+        },
+        {
+          "title": "情境 2：開盤站穩日K 3MA",
+          "condition": "開盤站穩日K 3MA，且沒有爆量黑K。成本 50.00 僅作損益參考。",
+          "action": "續抱 70 股；放量突破且回測不破才考慮加碼 20 股。"
+        },
+        {
+          "title": "情境 3：盤中跌破3MA或成本",
+          "condition": "開盤未破，但盤中跌破日K 3MA或跌破成本 50.00 後站不回。",
+          "action": "先賣 35 股；不攤平、不加碼，跌破日K 8MA 全出。"
+        }
+      ]
+    },
+    {
+      "symbol": "6141",
+      "name": "柏承",
+      "shares": 100,
+      "cost_basis": 41.5,
+      "latest_price": 35.5,
+      "market_value": 3550.0,
+      "unrealized_pnl": -600.0,
+      "unrealized_pct": -14.46,
+      "scenarios": [
+        {
+          "title": "情境 1：開盤跌破日K 3MA",
+          "condition": "每日開盤，持有股開盤價低於盤前日K 3MA。",
+          "action": "立即賣出 1/2，約 50 股；不等收盤確認。"
+        },
+        {
+          "title": "情境 2：開盤站穩日K 3MA",
+          "condition": "開盤站穩日K 3MA，且沒有爆量黑K。成本 41.50 僅作損益參考。",
+          "action": "續抱 100 股；放量突破且回測不破才考慮加碼 20 股。"
+        },
+        {
+          "title": "情境 3：盤中跌破3MA或成本",
+          "condition": "開盤未破，但盤中跌破日K 3MA或跌破成本 41.50 後站不回。",
+          "action": "先賣 50 股；不攤平、不加碼，跌破日K 8MA 全出。"
+        }
+      ]
+    }
+  ],
+  "symbol_plans": []
+}

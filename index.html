@@ -6,238 +6,739 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>AI Agent Trading Strategy Dashboard</title>
+  <title>海牛AI自動化交易系統</title>
   <style>
     :root {
-      --bg:#f3f6f8; --panel:#fff; --soft:#f8fafc; --line:#d9e1e8;
-      --text:#1d2733; --muted:#647282; --green:#0f6b57; --green-soft:#e8f5ef;
-      --blue:#1d4f91; --blue-soft:#eaf2ff; --red:#b42318; --red-soft:#fff1ef;
-      --amber:#8a5a00; --amber-soft:#fff7df; --dark:#24313f;
+      --bg:#f5f7f2; --paper:#ffffff; --panel:#ffffffcc; --ink:#17212b; --muted:#607080;
+      --line:#dbe4e8; --teal:#14866d; --teal-soft:#e8f6f0; --blue:#2f67c6; --blue-soft:#eaf2ff;
+      --violet:#7a5ad8; --violet-soft:#f0ecff; --orange:#b96b18; --orange-soft:#fff3df;
+      --red:#bf2f2f; --red-soft:#fff0ee; --gray:#6c7680; --gray-soft:#f1f3f5;
+      --shadow:0 10px 28px rgba(35,48,60,.08);
     }
     * { box-sizing:border-box; }
-    body {
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:"Microsoft JhengHei","PingFang TC",Arial,sans-serif;
-      line-height:1.45; letter-spacing:0;
-    }
-    header {
-      background: #26313d;
-      color:#fff; border-bottom:1px solid #1b2633;
-    }
-    .header-inner { max-width:1440px; margin:0 auto; padding:22px 28px; }
-    h1 { margin:0; font-size:25px; }
-    h2 { margin:26px 0 12px; font-size:18px; }
-    h3 { margin:0 0 10px; font-size:16px; }
-    p { margin:6px 0; }
-    main { max-width:1440px; margin:0 auto; padding:18px 22px 42px; }
-    .muted { color:var(--muted); } header .muted { color:#c7d2dd; }
-    .mode { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
-    .mode span { border:1px solid #5b6877; padding:5px 9px; border-radius:999px; font-size:12px; }
-    .mode .active { background:#e7f4ef; color:#0f513f; border-color:#b7d8ca; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:
+      radial-gradient(circle at 18% -10%, #e0f2ff 0, transparent 34%),
+      radial-gradient(circle at 86% 6%, #e9f7ef 0, transparent 30%),
+      linear-gradient(180deg,#f8fbf7 0,#eef4f7 100%);
+      font-family:"Aptos","Microsoft JhengHei","PingFang TC",sans-serif; line-height:1.5; letter-spacing:0; }
+    main, .header-inner { width:min(1480px, calc(100% - 44px)); margin:0 auto; }
+    header { border-bottom:1px solid var(--line); background:rgba(255,255,255,.76); backdrop-filter:blur(14px); position:sticky; top:0; z-index:10; }
+    .header-inner { padding:18px 0; display:flex; justify-content:space-between; gap:18px; align-items:center; }
+    h1, h2, h3, p { margin:0; }
+    h1 { font-size:24px; letter-spacing:.2px; }
+    h2 { font-size:20px; margin:30px 0 14px; }
+    h3 { font-size:15px; margin-bottom:8px; }
+    .subtitle { color:var(--muted); font-size:14px; margin-top:4px; }
+    .mode { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .badge, .tag { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:4px 9px; font-size:12px; font-weight:700; border:1px solid var(--line); white-space:nowrap; }
+    .badge { background:#fff; color:var(--muted); }
+    .page-nav { display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 0; }
+    .tab-btn { border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:6px; padding:10px 13px; font-weight:800; font-size:13px; cursor:pointer; }
+    .tab-btn.active { background:var(--teal); color:#fff; border-color:var(--teal); }
+    .page { display:none; }
+    .page.active { display:block; }
+    .page.active.hero { display:grid; }
+    .hero { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; padding:24px 0 6px; align-items:stretch; }
+    .hero-copy, .preview, .card, .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); }
+    .hero-copy { padding:28px; min-height:260px; display:flex; flex-direction:column; justify-content:space-between; }
+    .hero-title { font-size:34px; line-height:1.12; max-width:780px; }
+    .hero-text { color:var(--muted); max-width:820px; margin-top:12px; }
+    .market-snapshot { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:14px; }
+    .index-stack { display:grid; gap:10px; }
+    .index-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; box-shadow:var(--shadow); }
+    .index-card.primary { border-color:#ffd1d6; background:linear-gradient(180deg,#fff,#fff7f8); }
+    .index-name { color:var(--muted); font-size:13px; font-weight:800; }
+    .index-value { font-size:26px; line-height:1.1; font-weight:900; margin-top:3px; }
+    .index-change { margin-top:4px; font-weight:900; }
+    .market-picture { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; box-shadow:var(--shadow); }
+    .market-picture-top { display:grid; grid-template-columns:1fr auto; gap:14px; align-items:start; }
+    .market-big { font-size:38px; line-height:1; color:#ff3347; font-weight:900; letter-spacing:.4px; }
+    .market-change { color:#ff3347; font-weight:900; margin-top:7px; }
+    .market-date { margin-left:6px; font-weight:600; color:var(--muted); }
+    .market-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0; }
+    .market-stat { text-align:center; border-right:1px solid var(--line); }
+    .market-stat:last-child { border-right:0; }
+    .market-stat span { display:block; color:var(--muted); font-size:12px; }
+    .market-stat strong { font-size:17px; }
+    .preview { padding:18px; }
+    .preview-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:12px; }
+    .mini { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px; min-height:76px; }
+    .mini span, .metric span { color:var(--muted); font-size:12px; display:block; }
+    .mini strong, .metric strong { font-size:24px; display:block; margin-top:4px; }
     .grid { display:grid; gap:12px; }
-    .overview { grid-template-columns:1.2fr repeat(4,1fr); }
-    .detail-grid { grid-template-columns:1.1fr 1fr 1fr; }
-    .pool-grid { grid-template-columns:1fr 1fr 1fr 1fr; }
-    .card {
-      background:var(--panel); border:1px solid var(--line); border-radius:8px;
-      padding:14px; box-shadow:0 1px 2px rgba(15,23,42,.05);
-    }
-    .metric-label { color:var(--muted); font-size:12px; }
-    .metric-value { margin-top:4px; font-size:26px; font-weight:800; }
-    .status-normal { border-left:4px solid var(--green); }
-    .status-watch { border-left:4px solid var(--blue); }
-    .notice { margin-top:10px; padding:10px 12px; border-left:4px solid var(--amber); background:var(--amber-soft); }
-    .toolbar { display:flex; gap:10px; justify-content:space-between; align-items:center; margin:10px 0; flex-wrap:wrap; }
-    input, select { height:34px; border:1px solid var(--line); border-radius:6px; padding:0 10px; background:#fff; }
-    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-    th, td { padding:10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; }
-    th { background:#edf2f4; white-space:nowrap; font-size:12px; color:#435266; }
-    tbody tr { cursor:pointer; } tbody tr:hover { background:#f6faf8; } tr:last-child td { border-bottom:0; }
-    .symbol { font-size:16px; font-weight:800; }
-    .tag { display:inline-block; padding:3px 8px; border-radius:999px; font-size:12px; font-weight:700; border:1px solid var(--line); }
-    .tag.selected { color:var(--blue); background:var(--blue-soft); border-color:#bcd2f5; }
-    .tag.operation { color:var(--red); background:var(--red-soft); border-color:#e4b7af; }
-    .tag.watch { color:var(--text); background:#fff; border-color:var(--line); }
-    .tag.eliminate { color:var(--green); background:var(--green-soft); border-color:#b7d8ca; }
-    .tag.accept, .tag.hold { color:var(--green); background:var(--green-soft); border-color:#b7d8ca; }
-    .tag.reject { color:var(--red); background:var(--red-soft); border-color:#e4b7af; }
-    .kv-grid { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-    .kv { padding:9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); min-height:56px; }
-    .kv:nth-child(3n) { border-right:0; } .kv:nth-last-child(-n+3) { border-bottom:0; }
-    .kv span, .check span { color:var(--muted); font-size:12px; display:block; }
-    .kv strong, .check strong { display:block; margin-top:3px; font-size:14px; }
-    .check-list { display:grid; gap:8px; }
-    .check { display:flex; justify-content:space-between; gap:10px; border-bottom:1px solid var(--line); padding-bottom:7px; }
-    .rule-line { border-left:3px solid var(--line); padding:7px 9px; background:var(--soft); margin-top:6px; font-size:13px; }
-    .pool-card.operation { border-top:4px solid var(--red); background:var(--red-soft); }
-    .pool-card.selected { border-top:4px solid var(--blue); background:var(--blue-soft); }
-    .pool-card.watch { border-top:4px solid var(--line); background:#fff; }
-    .pool-card.eliminate { border-top:4px solid var(--green); background:var(--green-soft); }
-    .pool-item { padding:9px 0; border-top:1px solid var(--line); }
-    .pool-item:first-child { border-top:0; }
-    .pos { color:var(--green); font-weight:700; } .neg { color:var(--red); font-weight:700; }
-    @media (max-width:1100px) { .overview,.detail-grid,.pool-grid { grid-template-columns:1fr; } table { display:block; overflow-x:auto; } }
+    .metrics { grid-template-columns:repeat(6,1fr); }
+    .metric { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; box-shadow:var(--shadow); }
+    .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .flow-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; min-height:138px; position:relative; }
+    .flow-card.route { border-color:#d8cfff; background:linear-gradient(180deg,#fff,#f7f4ff); }
+    .flow-card.risk { border-color:#bfe5d7; background:linear-gradient(180deg,#fff,#effaf5); }
+    .flow-card small { color:var(--muted); display:block; margin-bottom:8px; }
+    .flow-card p { color:var(--muted); font-size:13px; }
+    .toolbar { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+    input, select { height:36px; border:1px solid var(--line); border-radius:6px; background:#fff; padding:0 10px; color:var(--ink); }
+    .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:8px; background:#fff; box-shadow:var(--shadow); }
+    table { width:100%; border-collapse:collapse; min-width:980px; }
+    th, td { padding:11px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; }
+    th { background:#f2f6f7; color:#445464; font-size:12px; white-space:nowrap; }
+    tbody tr { cursor:pointer; } tbody tr:hover { background:#f8fbfb; }
+    .detail-grid { grid-template-columns:1fr 1.1fr 1.1fr 1fr; }
+    .card { padding:15px; }
+    .kv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .kv { background:#f8fafb; border:1px solid var(--line); border-radius:6px; padding:9px; }
+    .kv span { color:var(--muted); font-size:12px; display:block; }
+    .kv strong { margin-top:3px; display:block; }
+    .split { grid-template-columns:1fr 1fr; }
+    .account-grid { grid-template-columns:repeat(6,1fr); margin-bottom:12px; }
+    .history-grid { grid-template-columns:repeat(5,1fr); margin-bottom:12px; }
+    .history-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; box-shadow:var(--shadow); min-height:130px; }
+    .history-card.current { border-color:#b9e5d5; background:linear-gradient(180deg,#fff,#effaf5); }
+    .history-card.missing { background:#f8fafb; color:var(--muted); }
+    .history-card strong { display:block; font-size:18px; margin:4px 0; }
+    .scenario-grid { grid-template-columns:repeat(3,1fr); margin-top:10px; }
+    .scenario { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px; }
+    .weekly-pool-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .pool-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; min-height:360px; box-shadow:var(--shadow); }
+    .pool-card.selected { background:#eef6ff; border-top:4px solid var(--blue); }
+    .pool-card.operation { background:#fff1ef; border-top:4px solid var(--red); }
+    .pool-card.watch { background:#fff; border-top:4px solid #cfd9df; }
+    .pool-card.eliminate { background:#effaf5; border-top:4px solid var(--teal); }
+    .pool-item { border-bottom:1px solid var(--line); padding:10px 0; }
+    .pool-item:last-child { border-bottom:0; }
+    .review-grid { grid-template-columns:repeat(5,1fr); }
+    .review-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .issue-card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px; box-shadow:var(--shadow); }
+    .issue-card h3 { color:var(--teal); }
+    .review-toolbar { display:flex; align-items:center; gap:10px; margin:10px 0 14px; }
+    .review-toolbar label { color:var(--muted); font-size:13px; font-weight:800; }
+    .review-toolbar select { min-width:240px; padding:10px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); font-weight:800; }
+    tr.selected-row { background:#effaf5; box-shadow:inset 4px 0 0 var(--teal); }
+    .tag.primary,.tag.approved,.tag.enter,.tag.accept { background:var(--teal-soft); color:var(--teal); border-color:#b9e5d5; }
+    .tag.secondary,.tag.long_hold,.tag.long-hold { background:var(--blue-soft); color:var(--blue); border-color:#c8d9ff; }
+    .tag.intraday { background:var(--violet-soft); color:var(--violet); border-color:#d7ccff; }
+    .tag.wait,.tag.hold,.tag.build,.tag.add,.tag.reduce { background:var(--orange-soft); color:var(--orange); border-color:#f0d2a5; }
+    .tag.reject,.tag.blocked,.tag.risk_off,.tag.risk-off,.tag.risk-blocked,.tag.exit,.tag.avoid { background:var(--red-soft); color:var(--red); border-color:#efc1bc; }
+    .tag.watch,.tag.none,.tag.not-triggered { background:var(--gray-soft); color:var(--gray); border-color:#d8dde2; }
+    .pos { color:var(--red); font-weight:800; } .neg { color:var(--teal); font-weight:800; }
+    @media (max-width:1180px) { .hero,.metrics,.flow,.detail-grid,.split,.account-grid,.history-grid,.scenario-grid,.review-grid,.review-cards,.weekly-pool-grid { grid-template-columns:1fr 1fr; } .market-snapshot { grid-template-columns:1fr; } }
+    @media (max-width:720px) { main,.header-inner { width:min(100% - 24px, 1480px); } .header-inner,.hero,.metrics,.flow,.detail-grid,.split,.account-grid,.history-grid,.scenario-grid,.market-stat-grid,.review-grid,.review-cards,.weekly-pool-grid { grid-template-columns:1fr; display:grid; } .hero-title { font-size:28px; } .mode { justify-content:flex-start; } .market-big { font-size:34px; } }
   </style>
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <h1>AI Agent Trading Strategy Dashboard</h1>
-      <p class="muted">更新日：<span id="generated-at"></span> / 最新完整日K：<span id="latest-day"></span> / 每週日更新選股池</p>
-      <div class="mode"><span class="active">Candidate Scan</span><span>Paper Trading</span><span>Research Dashboard</span></div>
+      <div>
+        <h1>海牛AI自動化交易系統</h1>
+        <p class="subtitle">每日盤後整合台股日K、週選股、模擬交易與追蹤結果，分成持有管理、隔日候選、風控提醒與後驗復盤。</p>
+      </div>
+      <div class="mode">
+        <span class="badge" id="today-badge">-</span><span class="badge">研究模式</span><span class="badge">模擬交易</span><span class="badge">人工確認</span>
+      </div>
     </div>
   </header>
   <main>
-    <section class="grid overview">
-      <div class="card status-normal"><div class="metric-label">大盤狀態</div><div class="metric-value" id="index-state">正常</div><p class="muted" id="market-note"></p></div>
-      <div class="card"><div class="metric-label">掃描股票總數</div><div class="metric-value" id="metric-total">0</div></div>
-      <div class="card"><div class="metric-label">Primary Review</div><div class="metric-value" id="metric-primary">0</div></div>
-      <div class="card"><div class="metric-label">Secondary Watchlist</div><div class="metric-value" id="metric-secondary">0</div></div>
-      <div class="card status-watch"><div class="metric-label">今日操作模式</div><div class="metric-value" id="operation-mode">正常</div></div>
+    <nav class="page-nav">
+      <button class="tab-btn active" data-page="overview">看大盤總覽</button>
+      <button class="tab-btn" data-page="candidates">看隔日候選</button>
+      <button class="tab-btn" data-page="weekly">本週名單</button>
+      <button class="tab-btn" data-page="trading">看操作管理</button>
+      <button class="tab-btn" data-page="tracking">看追蹤結果</button>
+      <button class="tab-btn" data-page="review">今日複盤</button>
+    </nav>
+
+    <section class="hero page active" data-page="overview">
+      <div class="hero-copy">
+        <div>
+          <h2 class="hero-title">大盤行情</h2>
+          <div class="market-snapshot" aria-label="大盤上市上櫃行情圖片">
+            <div class="market-picture">
+              <div class="market-picture-top">
+                <div>
+                  <div class="subtitle"><span id="twse-label">加權指數</span><span class="market-date" id="twse-date"></span></div>
+                  <div class="market-big" id="twse-index">-</div>
+                  <div class="market-change" id="twse-change">-</div>
+                </div>
+                <div class="subtitle">成交 <strong id="twse-volume">-</strong> 億</div>
+              </div>
+              <div class="market-stat-grid">
+                <div class="market-stat"><span>開盤</span><strong id="twse-open">-</strong></div>
+                <div class="market-stat"><span>最高</span><strong id="twse-high">-</strong></div>
+                <div class="market-stat"><span>最低</span><strong id="twse-low">-</strong></div>
+                <div class="market-stat"><span>昨收</span><strong id="twse-prev">-</strong></div>
+              </div>
+            </div>
+            <div class="market-picture">
+              <div class="market-picture-top">
+                <div>
+                  <div class="subtitle"><span id="otc-label">上櫃指數</span><span class="market-date" id="otc-date"></span></div>
+                  <div class="market-big" id="otc-index">-</div>
+                  <div class="market-change" id="otc-change">-</div>
+                </div>
+                <div class="subtitle">成交 <strong id="otc-volume">-</strong> 億</div>
+              </div>
+              <div class="market-stat-grid">
+                <div class="market-stat"><span>開盤</span><strong id="otc-open">-</strong></div>
+                <div class="market-stat"><span>最高</span><strong id="otc-high">-</strong></div>
+                <div class="market-stat"><span>最低</span><strong id="otc-low">-</strong></div>
+                <div class="market-stat"><span>昨收</span><strong id="otc-prev">-</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="preview">
+        <h3>收盤後推估摘要</h3>
+        <p class="subtitle" id="market-note">-</p>
+        <div class="preview-grid" id="preview-grid"></div>
+      </aside>
     </section>
 
-    <section>
-      <h2>候選股排行榜</h2>
-      <p class="muted" id="selection-note"></p>
+    <section id="metrics" class="page active" data-page="overview"><h2>核心數據</h2><div class="grid metrics" id="metric-grid"></div></section>
+    <section id="agent-flow" class="page active" data-page="overview"><h2>系統流程</h2><div class="flow" id="flow-grid"></div></section>
+
+    <section id="candidates" class="page" data-page="candidates">
+      <h2>下個交易日候選股總表</h2>
+      <p class="subtitle" id="candidate-date-note">-</p>
       <div class="toolbar">
         <input id="search" placeholder="搜尋代號或名稱">
-        <div><select id="decision-filter"><option value="all">全部 Decision</option><option value="hold">hold</option><option value="reject">reject</option></select>
-        <select id="group-filter"><option value="all">全部分組</option><option value="入選名單">入選名單</option><option value="操作組">操作組</option><option value="觀察組">觀察組</option><option value="淘汰">淘汰</option></select></div>
+        <div><select id="route-filter"><option value="all">全部路由</option><option value="long_hold">長期波段</option><option value="intraday">盤中切入觀察</option><option value="day_trade">當沖候選</option><option value="watch">觀察</option><option value="reject">排除</option></select>
+        <select id="decision-filter"><option value="all">全部決策</option><option value="enter">可進場</option><option value="wait">等待</option><option value="reject">排除</option><option value="reduce">減碼</option><option value="exit">出場</option></select></div>
       </div>
-      <table><thead><tr><th>股票</th><th>最新價格</th><th>Agent Score</th><th>Decision</th><th>Group Assignment</th><th>Pattern Type</th><th>Market State</th><th>Chip State</th><th>Entry Trigger</th><th>理由摘要</th></tr></thead><tbody id="candidate-body"></tbody></table>
+      <div class="table-wrap"><table><thead><tr><th>股票</th><th>最新價</th><th>候選層級</th><th>策略路由</th><th>分數</th><th>最後決策</th><th>波段判斷</th><th>盤中切入判斷</th><th>風控</th><th>理由摘要</th></tr></thead><tbody id="candidate-body"></tbody></table></div>
     </section>
 
-    <section>
-      <h2>單一標的詳情</h2>
-      <div class="grid detail-grid">
-        <div class="card"><h3 id="detail-symbol">-</h3><p class="muted" id="detail-reason">-</p><span id="detail-group" class="tag">-</span><h3 style="margin-top:14px">多週期均線結構</h3><div class="kv-grid" id="ma-grid"></div><div class="check-list" style="margin-top:10px"><div class="check"><span>日K共振</span><strong id="daily-ma-alignment">-</strong></div><div class="check"><span>週K共振</span><strong id="weekly-ma-alignment">-</strong></div><div class="check"><span>月K共振</span><strong id="monthly-ma-alignment">-</strong></div></div></div>
-        <div class="card"><h3>型態 + 籌碼 + MACD</h3><div class="check-list"><div class="check"><span>突破型態</span><strong id="pattern-breakout">-</strong></div><div class="check"><span>W 型態</span><strong id="pattern-w">-</strong></div><div class="check"><span>N 字型態</span><strong id="pattern-n">-</strong></div><div class="check"><span>平台整理轉強</span><strong id="pattern-platform">-</strong></div><div class="check"><span>均線開花</span><strong id="pattern-bloom">-</strong></div><div class="check"><span>籌碼總分</span><strong id="shareholder-score">-</strong></div><div class="check"><span>法人/投信</span><strong id="institution-bias">-</strong></div></div></div>
-        <div class="card"><h3>進場 / 持股 / 出場</h3><div class="check-list"><div class="check"><span>開盤八法紅紅紅</span><strong id="trigger-red3">-</strong></div><div class="check"><span>5K爆大量回撤3MA</span><strong id="trigger-volume">-</strong></div><div class="check"><span>連三黑回測3MA</span><strong id="trigger-black3">-</strong></div><div class="check"><span>60K MACD轉強</span><strong id="trigger-macd">-</strong></div></div><div style="margin-top:12px"><div class="rule-line">短線：日K 3MA / 8MA</div><div class="rule-line">中線：週K均線排列</div><div class="rule-line">長線：月K 3MA 不破續抱</div><div class="rule-line" id="risk-note">-</div></div></div>
-      </div>
+    <section id="weekly-pools" class="page" data-page="weekly">
+      <h2>本週名單</h2>
+      <p class="subtitle">沿用週選股池分組，保留入選名單、操作組、觀察組與淘汰清單四塊。</p>
+      <div class="weekly-pool-grid" id="weekly-pool-grid"></div>
     </section>
 
-    <section>
-      <h2>選股池更新與汰換</h2>
-      <div class="grid pool-grid">
-        <div class="card pool-card selected"><h3>入選名單</h3><div id="selected-pool"></div></div>
-        <div class="card pool-card operation"><h3>操作組</h3><p class="muted">操作組規則待補，目前先保留空白。</p><div id="operation-pool"></div></div>
-        <div class="card pool-card watch"><h3>觀察組</h3><div id="watch-pool"></div></div>
-        <div class="card pool-card eliminate"><h3>淘汰清單</h3><p class="muted">刪除或淘汰標的不特別展示；若未來要看歷史，可查 reports。</p><div id="eliminate-pool"></div></div>
-      </div>
+    <section id="detail" class="page" data-page="candidates"><h2>單一標的詳情</h2><div class="grid detail-grid" id="detail-grid"></div></section>
+    <section id="next-plan" class="page" data-page="trading">
+      <h2>過去五個交易日操作概述</h2>
+      <p class="subtitle">只統整交易日實際留下的模擬操作紀錄；無成交也會明確標示，避免把預測檔誤當交易紀錄。</p>
+      <div class="grid history-grid" id="operation-history-grid"></div>
+      <h2 id="next-target-title">下個交易日操作預測</h2>
+      <p class="subtitle" id="next-plan-note">-</p>
+      <div class="table-wrap"><table><thead><tr><th>優先順序</th><th>股票</th><th>類型</th><th>核心判斷</th><th>觸發條件</th><th>預計動作</th><th>防守</th></tr></thead><tbody id="next-action-priority-body"></tbody></table></div>
+      <div class="grid account-grid" id="account-grid"></div>
+      <div class="table-wrap"><table><thead><tr><th>股票</th><th>股數</th><th>成本</th><th>現價</th><th>市值</th><th>未實現</th><th>報酬率</th><th>狀態</th></tr></thead><tbody id="holding-body"></tbody></table></div>
+      <div id="plan-blocks"></div>
+      <h2>交易紀錄</h2>
+      <p class="subtitle">來源：<span id="paper-trade-source">-</span>。這裡只列紙上交易帳本，不拿策略預測檔混充。</p>
+      <div class="table-wrap"><table><thead><tr><th>編號</th><th>日期</th><th>時間</th><th>股票</th><th>操作</th><th>價格</th><th>股數</th><th>金額</th><th>事後現金</th><th>事後持股</th><th>已實現</th><th>理由</th></tr></thead><tbody id="trade-record-body"></tbody></table></div>
     </section>
-
-    <section>
-      <h2>後驗追蹤</h2>
-      <table><thead><tr><th>掃描日期</th><th>股票</th><th>候選分層</th><th>當日價格</th><th>1D</th><th>3D</th><th>5D</th><th>分層驗證</th></tr></thead><tbody id="tracking-body"></tbody></table>
-    </section>
-
-    <section>
-      <h2>策略規則</h2>
-      <div class="grid detail-grid">
-        <div class="card"><h3>核心原則</h3><div class="rule-line">大盤跌幅超過 3%：轉保守、不主動攻擊、降低新倉、不追價。</div><div class="rule-line">只做主流題材、強勢族群、攻擊量、法人/籌碼偏多、多頭均線。</div></div>
-        <div class="card"><h3>進場 SOP</h3><div class="rule-line">先看型態，再看日/週/月均線共振，最後才看 5K 節奏與 60K MACD。</div><div class="rule-line">第三根 5K 紅K、爆量回撤 3MA、連三黑回測 3MA，需配合動能確認。</div></div>
-        <div class="card"><h3>持股與汰換</h3><div class="rule-line">短線看日K 3MA / 8MA；中線看週K；長線看月K 3MA。</div><div class="rule-line">每週日更新選股池；結構破壞、跌破月K 3MA、主流退潮或籌碼鬆動即移出。</div></div>
-      </div>
+    <section id="long-hold" class="page" data-page="trading"><h2>長期波段持有</h2><div class="table-wrap"><table><thead><tr><th>股票</th><th>判斷</th><th>持倉階段</th><th>日K 3MA</th><th>日K 8MA</th><th>月K 3MA</th><th>風險提醒</th><th>理由</th></tr></thead><tbody id="long-hold-body"></tbody></table></div></section>
+    <section id="intraday" class="page" data-page="trading"><h2>盤中切入觀察</h2><p class="subtitle">這裡只判斷盤中是否出現切入訊號；不是當沖，買進後仍依不能當沖與3MA/8MA規則管理。</p><div class="table-wrap"><table><thead><tr><th>股票</th><th>盤中判斷</th><th>切入條件</th><th>60K MACD</th><th>5K 開盤結構</th><th>量能</th><th>風險提醒</th></tr></thead><tbody id="intraday-body"></tbody></table></div></section>
+    <section id="risk" class="page" data-page="tracking"><h2>決策風控裁判</h2><div class="grid split" id="risk-grid"></div></section>
+    <section id="performance" class="page" data-page="tracking"><h2>後驗追蹤</h2><div class="grid metrics" id="performance-metrics"></div><div class="table-wrap"><table><thead><tr><th>掃描日期</th><th>股票</th><th>當時層級</th><th>策略路由</th><th>最後決策</th><th>當時價格</th><th>1日</th><th>3日</th><th>5日</th><th>波段結果</th><th>盤中切入結果</th><th>支持判斷</th></tr></thead><tbody id="performance-body"></tbody></table></div></section>
+    <section id="daily-review" class="page" data-page="review">
+      <h2>今日複盤</h2>
+      <p class="subtitle">每日模擬交易後檢查 Agent 是否依照 SOP 執行、風控是否有擋單、長期波段與盤中切入觀察是否分流正確，以及明天要觀察什麼。</p>
+      <h2>今日市場環境總結</h2>
+      <div class="grid review-grid" id="review-market"></div>
+      <h2>今日候選股摘要</h2>
+      <div class="grid metrics" id="review-summary"></div>
+      <h2>交易日操作事件</h2>
+      <p class="subtitle">這裡不是事後成交清單，而是交易日每筆 Agent 判斷事件：成交、減碼、出場、等待、只觀察、被風控擋下都要留下原因。</p>
+      <div class="table-wrap"><table><thead><tr><th>時間</th><th>股票代號</th><th>股票名稱</th><th>策略類型</th><th>是否操作</th><th>Agent 決策</th><th>風控結果</th><th>今日動作</th><th>說明</th></tr></thead><tbody id="review-operation-body"></tbody></table></div>
+      <h2>今日操作詳細資料</h2>
+      <div class="grid detail-grid" id="review-operation-detail"></div>
+      <h2>風控裁判複盤</h2>
+      <div class="grid review-grid" id="review-risk"></div>
+      <h2>風控明細查詢</h2>
+      <div class="review-toolbar"><label for="risk-event-select">選擇股票</label><select id="risk-event-select"></select></div>
+      <div class="grid detail-grid" id="review-risk-detail"></div>
+      <h2>長期波段持有複盤</h2>
+      <div class="table-wrap"><table><thead><tr><th>股票代號</th><th>股票名稱</th><th>原本狀態</th><th>今日狀態</th><th>波段決策</th><th>原因</th><th>風險備註</th></tr></thead><tbody id="review-long-hold"></tbody></table></div>
+      <h2>盤中切入複盤</h2>
+      <div class="table-wrap"><table><thead><tr><th>股票代號</th><th>股票名稱</th><th>盤中型態</th><th>盤中決策</th><th>進場觸發</th><th>模擬結果</th><th>原因</th></tr></thead><tbody id="review-intraday"></tbody></table></div>
+      <h2>今日錯誤與改進事項</h2>
+      <div class="review-cards" id="review-improvements"></div>
+      <h2>明日觀察清單</h2>
+      <div class="table-wrap"><table><thead><tr><th>股票代號</th><th>股票名稱</th><th>分類</th><th>明日觀察重點</th><th>觸發條件</th></tr></thead><tbody id="review-watchlist"></tbody></table></div>
+      <h2>下個交易日詳細模擬操作</h2>
+      <div class="table-wrap"><table><thead><tr><th>股票代號</th><th>股票名稱</th><th>策略類型</th><th>情境</th><th>觸發條件</th><th>預估資金</th><th>模擬操作</th><th>風控規則</th></tr></thead><tbody id="review-next-operation"></tbody></table></div>
     </section>
   </main>
   <script>
-    const dashboardData = {"generated_at":"2026-05-20","latest_completed_day":"2026-05-19","market_note":"2026-05-20 full daily candle was not available from the data source at update time; report uses latest completed day 2026-05-19.","selection":{"selection_date":"2026-05-20","source_week":"2026-05-15 to 2026-05-19","target_week":"2026-05-22 to 2026-05-26","source":"神秘金字塔股權類股排行週榜條件篩選","method":"每週日先抓神秘金字塔週排行，保留六週總增減排名前十且最近兩週增減皆為正值者，再用上一週完整日K套SOP產生下週選股池；掉出條件的上週操作股先降觀察組一週。"},"candidates":[{"symbol":"3450","name":"聯鈞","latest_price":392.5,"change_pct":-4.27,"score":51.25,"decision":"reject","reason":"3450 符合本週神秘金字塔篩選條件，列入入選名單；Score 51.25，型態 待確認，量比 0.11。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3450 短線看日K 3MA 399.33 與 8MA 421.19；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":0.11,"ma":{"3MA":399.33,"8MA":421.19,"21MA":370.31,"55MA":317.75,"144MA":279.6,"233MA":253.73},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"1597","name":"直得","latest_price":179.5,"change_pct":-5.28,"score":70.29,"decision":"reject","reason":"1597 符合本週神秘金字塔篩選條件，列入入選名單；Score 70.29，型態 待確認，量比 0.53。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"1597 短線看日K 3MA 182.83 與 8MA 182.44；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":0.53,"ma":{"3MA":182.83,"8MA":182.44,"21MA":153.12,"55MA":112.01,"144MA":89.59,"233MA":87.61},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"2492","name":"華新科","latest_price":220.0,"change_pct":1.15,"score":70.52,"decision":"reject","reason":"2492 符合本週神秘金字塔篩選條件，列入入選名單；Score 70.52，型態 待確認，量比 0.45。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"2492 短線看日K 3MA 214.50 與 8MA 197.44；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":0.45,"ma":{"3MA":214.5,"8MA":197.44,"21MA":162.48,"55MA":143.25,"144MA":131.19,"233MA":113.52},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"3057","name":"喬鼎","latest_price":18.45,"change_pct":-2.38,"score":50.14,"decision":"reject","reason":"3057 符合本週神秘金字塔篩選條件，列入入選名單；Score 50.14，型態 待確認，量比 0.25。操作組規則待補，暫不直接視為可操作。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3057 短線看日K 3MA 18.58 與 8MA 19.82；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":0.25,"ma":{"3MA":18.58,"8MA":19.82,"21MA":19.75,"55MA":17.67,"144MA":16.81,"233MA":16.38},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"3033","name":"威健","latest_price":48.8,"change_pct":0.21,"score":85.0,"decision":"hold","reason":"3033 符合本週神秘金字塔篩選條件，列入入選名單；Score 85.00，型態 W，量比 1.51。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3033 短線看日K 3MA 48.47 與 8MA 45.88；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":1.51,"ma":{"3MA":48.47,"8MA":45.88,"21MA":40.3,"55MA":35.42,"144MA":32.31,"233MA":32.03},"patterns":{"突破":false,"W":true,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"3048","name":"益登","latest_price":56.1,"change_pct":-2.09,"score":85.0,"decision":"hold","reason":"3048 符合本週神秘金字塔篩選條件，列入入選名單；Score 85.00，型態 W，量比 1.63。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3048 短線看日K 3MA 56.50 與 8MA 50.16；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"普通偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":1.63,"ma":{"3MA":56.5,"8MA":50.16,"21MA":43.48,"55MA":39.85,"144MA":39.59,"233MA":36.4},"patterns":{"突破":false,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"3026","name":"禾伸堂","latest_price":365.0,"change_pct":1.53,"score":67.61,"decision":"reject","reason":"3026 符合本週神秘金字塔篩選條件，列入入選名單；Score 67.61，型態 待確認，量比 0.16。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3026 短線看日K 3MA 350.50 與 8MA 340.44；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-19","volume_ratio":0.16,"ma":{"3MA":350.5,"8MA":340.44,"21MA":278.48,"55MA":194.55,"144MA":140.1,"233MA":118.63},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"3481","name":"群創","latest_price":36.1,"change_pct":1.98,"score":85.0,"decision":"hold","reason":"3481 符合本週神秘金字塔篩選條件，列入入選名單；Score 85.00，型態 W，量比 1.83。操作組規則待補，暫不直接視為可操作。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"3481 短線看日K 3MA 36.33 與 8MA 33.01；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"普通偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-15","volume_ratio":1.83,"ma":{"3MA":36.33,"8MA":33.01,"21MA":28.15,"55MA":27.13,"144MA":20.74,"233MA":17.59},"patterns":{"突破":false,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"2464","name":"盟立","latest_price":126.5,"change_pct":10.0,"score":73.46,"decision":"reject","reason":"2464 先列觀察組；Score 73.46，型態 待確認，量比 0.85。補齊籌碼與切入條件前不進操作組。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"2464 短線看日K 3MA 118.00 與 8MA 117.00；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"偏多","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-15","volume_ratio":0.85,"ma":{"3MA":118.0,"8MA":117.0,"21MA":104.39,"55MA":83.88,"144MA":71.64,"233MA":68.52},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"8150","name":"南茂","latest_price":80.9,"change_pct":-3.58,"score":55.12,"decision":"reject","reason":"8150 先列觀察組；Score 55.12，型態 待確認，量比 0.50。補齊籌碼與切入條件前不進操作組。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"8150 短線看日K 3MA 83.43 與 8MA 88.54；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-15","volume_ratio":0.5,"ma":{"3MA":83.43,"8MA":88.54,"21MA":78.37,"55MA":67.61,"144MA":54.55,"233MA":44.07},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}},{"symbol":"2484","name":"希華","latest_price":37.3,"change_pct":-2.61,"score":51.76,"decision":"reject","reason":"2484 先列觀察組；Score 51.76，型態 待確認，量比 0.41。補齊籌碼與切入條件前不進操作組。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"等待 5K 切入點 + 60K MACD 確認","risk_note":"2484 短線看日K 3MA 37.83 與 8MA 39.93；跌破 3MA 先警戒，跌破 8MA 或月K 3MA 結構破壞則移出入選名單。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"週K待接，但本週先依上一週完整日K與週榜分層","monthly_ma_alignment":"月K 3MA 不破才允許續抱","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-05-15","volume_ratio":0.41,"ma":{"3MA":37.83,"8MA":39.93,"21MA":41.45,"55MA":33.9,"144MA":27.09,"233MA":24.98},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":false}}]};
+    const dashboardData = {"generated_at":"2026-06-10","latest_completed_day":"2026-06-10","market_note":"2026-06-10 full daily candle is available; report uses the latest completed daily data.","selection":{"selection_date":"2026-06-10","source_week":"2026-06-05 to 2026-06-09","target_week":"2026-06-12 to 2026-06-16","source":"神秘金字塔股權類股排行週榜條件篩選","method":"每週日先抓神秘金字塔週排行，保留六週總增減排名前十且最近兩週增減皆為正值者，再用上一週完整日K套SOP產生下週選股池；掉出條件的上週操作股先降觀察組一週。"},"candidates":[{"symbol":"2492","name":"華新科","latest_price":407.5,"latest_high":482.5,"latest_low":407.5,"key_level":133.0,"change_pct":-7.39,"score":56.28,"decision":"reject","reason":"2492 低點回測週3MA 405.83 與月3MA 311.00 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"2492 已低於日8MA 418.81，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"正在測試週3MA 405.83","monthly_ma_alignment":"站上月3MA 311.00","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":4969000,"volume_lots":4969.0,"volume_gate":"pass","volume_ratio":0.62,"ma":{"3MA":415.83,"8MA":418.81,"21MA":333.79,"55MA":212.15,"144MA":159.71,"233MA":133.46},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"6282","name":"康舒","latest_price":58.5,"latest_high":67.0,"latest_low":58.1,"key_level":49.6,"change_pct":-7.44,"score":68.76,"decision":"hold","reason":"6282 低點回測週3MA 60.73 與月3MA 55.25 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"6282 已低於日8MA 63.54，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"操作組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 60.73","monthly_ma_alignment":"站上月3MA 55.25","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":88727000,"volume_lots":88727.0,"volume_gate":"pass","volume_ratio":1.36,"ma":{"3MA":60.17,"8MA":63.54,"21MA":58.38,"55MA":52.21,"144MA":48.07,"233MA":41.33},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3704","name":"合勤控","latest_price":45.05,"latest_high":49.55,"latest_low":45.0,"key_level":36.3,"change_pct":-7.78,"score":59.65,"decision":"reject","reason":"3704 低點回測週3MA 46.37 與月3MA 42.12 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3704 已低於日8MA 47.48，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"入選名單","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 46.37","monthly_ma_alignment":"站上月3MA 42.12","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":6734000,"volume_lots":6734.0,"volume_gate":"pass","volume_ratio":0.95,"ma":{"3MA":46.87,"8MA":47.48,"21MA":43.7,"55MA":38.2,"144MA":35.79,"233MA":34.0},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"2406","name":"國碩","latest_price":35.85,"latest_high":37.9,"latest_low":34.1,"key_level":30.25,"change_pct":2.43,"score":70.12,"decision":"hold","reason":"2406 低點回測週3MA 35.02 與月3MA 33.65 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"2406 短線守日3MA 34.28 偏強；回測週3MA 35.02 / 月3MA 33.65 不破才是較好的加碼或新進場位置。","group_assignment":"操作組","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"正在測試週3MA 35.02","monthly_ma_alignment":"站上月3MA 33.65","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":37297000,"volume_lots":37297.0,"volume_gate":"pass","volume_ratio":1.89,"ma":{"3MA":34.28,"8MA":35.71,"21MA":33.74,"55MA":33.15,"144MA":29.25,"233MA":25.03},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":true,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"2375","name":"凱美","latest_price":158.5,"latest_high":178.0,"latest_low":158.5,"key_level":82.9,"change_pct":-3.94,"score":70.05,"decision":"reject","reason":"2375 低點回測週3MA 160.33 與月3MA 136.67 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"2375 短線守日3MA 157.83 偏強；回測週3MA 160.33 / 月3MA 136.67 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"偏多，均線多排","weekly_ma_alignment":"正在測試週3MA 160.33","monthly_ma_alignment":"站上月3MA 136.67","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":8052000,"volume_lots":8052.0,"volume_gate":"pass","volume_ratio":0.5,"ma":{"3MA":157.83,"8MA":157.06,"21MA":136.8,"55MA":103.59,"144MA":96.02,"233MA":84.77},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"6770","name":"力積電","latest_price":64.4,"latest_high":67.8,"latest_low":64.4,"key_level":56.2,"change_pct":-9.93,"score":52.52,"decision":"reject","reason":"6770 已跌破日8MA 77.06，短線結構轉弱，除非快速站回，否則不主動操作。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"6770 已低於日8MA 77.06，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 75.90","monthly_ma_alignment":"跌破月3MA 68.33","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":129992000,"volume_lots":129992.0,"volume_gate":"pass","volume_ratio":0.49,"ma":{"3MA":67.8,"8MA":77.06,"21MA":70.75,"55MA":62.07,"144MA":54.29,"233MA":41.15},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"6141","name":"柏承","latest_price":32.5,"latest_high":36.0,"latest_low":32.0,"key_level":28.25,"change_pct":-7.41,"score":45.85,"decision":"reject","reason":"6141 已跌破日8MA 38.22，短線結構轉弱，除非快速站回，否則不主動操作。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"6141 已低於日8MA 38.22，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 39.00","monthly_ma_alignment":"跌破月3MA 37.00","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":1653000,"volume_lots":1653.0,"volume_gate":"pass","volume_ratio":0.42,"ma":{"3MA":34.37,"8MA":38.22,"21MA":35.84,"55MA":30.94,"144MA":19.63,"233MA":16.95},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"4916","name":"事欣科","latest_price":111.5,"latest_high":122.5,"latest_low":111.0,"key_level":66.7,"change_pct":-6.69,"score":60.57,"decision":"reject","reason":"4916 低點回測週3MA 114.67 與月3MA 95.20 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"4916 已低於日8MA 118.38，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 114.67","monthly_ma_alignment":"站上月3MA 95.20","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":13871000,"volume_lots":13871.0,"volume_gate":"pass","volume_ratio":1.04,"ma":{"3MA":115.67,"8MA":118.38,"21MA":100.3,"55MA":76.4,"144MA":64.43,"233MA":60.84},"patterns":{"突破":true,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3048","name":"益登","latest_price":73.3,"latest_high":77.0,"latest_low":70.9,"key_level":41.2,"change_pct":2.37,"score":85.0,"decision":"hold","reason":"3048 低點回測週3MA 70.53 與月3MA 61.15 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3048 短線守日3MA 70.50 偏強；回測週3MA 70.53 / 月3MA 61.15 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"偏多，均線多排","weekly_ma_alignment":"站上週3MA 70.53","monthly_ma_alignment":"站上月3MA 61.15","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":46274000,"volume_lots":46274.0,"volume_gate":"pass","volume_ratio":2.06,"ma":{"3MA":70.5,"8MA":69.8,"21MA":66.18,"55MA":49.15,"144MA":43.16,"233MA":39.35},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":true,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"2478","name":"大毅","latest_price":170.0,"latest_high":183.5,"latest_low":163.5,"key_level":67.6,"change_pct":1.8,"score":85.0,"decision":"hold","reason":"2478 收盤站上日3MA 163.00 且3MA高於8MA，量比 3.01，偏攻擊結構；盤中若5K乾淨可升操作判斷。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"站上日3MA，等5K紅K與60K MACD確認","risk_note":"2478 短線守日3MA 163.00 偏強；回測週3MA 153.00 / 月3MA 125.80 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"偏多，均線多排","weekly_ma_alignment":"站上週3MA 153.00","monthly_ma_alignment":"站上月3MA 125.80","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":27730000,"volume_lots":27730.0,"volume_gate":"pass","volume_ratio":3.01,"ma":{"3MA":163.0,"8MA":150.06,"21MA":124.24,"55MA":89.56,"144MA":73.72,"233MA":63.29},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":true,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3481","name":"群創","latest_price":44.3,"latest_high":50.0,"latest_low":44.3,"key_level":24.7,"change_pct":-9.78,"score":49.49,"decision":"reject","reason":"3481 低點回測週3MA 49.67 與月3MA 39.75 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3481 已低於日8MA 52.87，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 49.67","monthly_ma_alignment":"站上月3MA 39.75","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":125533000,"volume_lots":125533.0,"volume_gate":"pass","volume_ratio":0.19,"ma":{"3MA":47.25,"8MA":52.87,"21MA":46.32,"55MA":33.86,"144MA":24.95,"233MA":20.38},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3450","name":"聯鈞","latest_price":472.0,"latest_high":528.0,"latest_low":466.0,"key_level":323.5,"change_pct":-6.9,"score":67.62,"decision":"hold","reason":"3450 低點回測週3MA 487.83 與月3MA 421.50 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"constructive","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3450 已低於日8MA 512.00，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 487.83","monthly_ma_alignment":"站上月3MA 421.50","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":19571000,"volume_lots":19571.0,"volume_gate":"pass","volume_ratio":1.98,"ma":{"3MA":480.0,"8MA":512.0,"21MA":474.93,"55MA":378.65,"144MA":305.15,"233MA":273.77},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"1597","name":"直得","latest_price":147.5,"latest_high":163.0,"latest_low":147.5,"key_level":112.5,"change_pct":-7.81,"score":54.21,"decision":"reject","reason":"1597 已跌破日8MA 164.94，短線結構轉弱，除非快速站回，否則不主動操作。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"1597 已低於日8MA 164.94，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 165.00","monthly_ma_alignment":"跌破月3MA 157.00","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":2686000,"volume_lots":2686.0,"volume_gate":"pass","volume_ratio":0.66,"ma":{"3MA":154.33,"8MA":164.94,"21MA":178.05,"55MA":141.03,"144MA":100.57,"233MA":93.76},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3033","name":"威健","latest_price":50.2,"latest_high":52.2,"latest_low":50.0,"key_level":35.8,"change_pct":-1.57,"score":60.92,"decision":"reject","reason":"3033 低點回測週3MA 50.77 與月3MA 45.42 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3033 短線守日3MA 49.70 偏強；回測週3MA 50.77 / 月3MA 45.42 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"正在測試週3MA 50.77","monthly_ma_alignment":"站上月3MA 45.42","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":23649000,"volume_lots":23649.0,"volume_gate":"pass","volume_ratio":1.08,"ma":{"3MA":49.7,"8MA":49.89,"21MA":49.63,"55MA":40.94,"144MA":34.63,"233MA":33.18},"patterns":{"突破":true,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"3026","name":"禾伸堂","latest_price":642.0,"latest_high":725.0,"latest_low":639.0,"key_level":250.5,"change_pct":-2.87,"score":62.03,"decision":"reject","reason":"3026 低點回測週3MA 636.33 與月3MA 498.50 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"strong_uptrend","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"3026 短線守日3MA 634.67 偏強；回測週3MA 636.33 / 月3MA 498.50 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"轉弱警戒","weekly_ma_alignment":"正在測試週3MA 636.33","monthly_ma_alignment":"站上月3MA 498.50","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":2616000,"volume_lots":2616.0,"volume_gate":"pass","volume_ratio":1.19,"ma":{"3MA":634.67,"8MA":639.25,"21MA":528.55,"55MA":332.49,"144MA":192.8,"233MA":153.09},"patterns":{"突破":true,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"2464","name":"盟立","latest_price":146.0,"latest_high":158.5,"latest_low":145.0,"key_level":94.9,"change_pct":-2.67,"score":54.2,"decision":"reject","reason":"2464 低點回測週3MA 165.17 與月3MA 148.00 交會區後收回，屬於盤中可動態升級的承接型候選；依新規則，回撤月K 3MA 時可直接買入，不必等待5K轉紅。","market_state":"constructive","pattern_type":"待確認","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"2464 已低於日8MA 167.38，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 165.17","monthly_ma_alignment":"正在測試月3MA 148.00","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":14473000,"volume_lots":14473.0,"volume_gate":"pass","volume_ratio":0.66,"ma":{"3MA":148.17,"8MA":167.38,"21MA":153.93,"55MA":112.67,"144MA":83.52,"233MA":76.25},"patterns":{"突破":false,"W":false,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"8150","name":"南茂","latest_price":88.3,"latest_high":102.0,"latest_low":88.2,"key_level":71.8,"change_pct":-7.92,"score":67.62,"decision":"hold","reason":"8150 已跌破日8MA 96.03，短線結構轉弱，除非快速站回，否則不主動操作。","market_state":"constructive","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"回測週/月3MA交會；回撤月K3MA直接買，不等5K轉紅","risk_note":"8150 已低於日8MA 96.03，短線以防守為主；重新站回8MA前不拉操作組。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"防守：跌破8MA","weekly_ma_alignment":"跌破週3MA 99.37","monthly_ma_alignment":"正在測試月3MA 90.37","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":77803000,"volume_lots":77803.0,"volume_gate":"pass","volume_ratio":1.63,"ma":{"3MA":90.47,"8MA":96.03,"21MA":90.0,"55MA":76.9,"144MA":61.91,"233MA":48.9},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":false},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":false,"連三黑回測3MA":false,"60K MACD轉強":true}},{"symbol":"2484","name":"希華","latest_price":58.1,"latest_high":65.1,"latest_low":57.2,"key_level":47.6,"change_pct":-4.44,"score":85.0,"decision":"hold","reason":"2484 收盤站上日3MA 58.07 且3MA高於8MA，量比 3.23，偏攻擊結構；盤中若5K乾淨可升操作判斷。","market_state":"strong_uptrend","pattern_type":"W","chip_state":"神秘金字塔週榜偏多；正式籌碼資料待接","entry_trigger":"站上日3MA，等5K紅K與60K MACD確認","risk_note":"2484 短線守日3MA 58.07 偏強；回測週3MA 55.07 / 月3MA 50.65 不破才是較好的加碼或新進場位置。","group_assignment":"觀察組","index_state":"正常","daily_ma_alignment":"偏多，均線多排","weekly_ma_alignment":"站上週3MA 55.07","monthly_ma_alignment":"站上月3MA 50.65","shareholder_score":"-","institution_bias":"待接法人/投信資料","next_1d_return":null,"next_3d_return":null,"next_5d_return":null,"latest_date":"2026-06-10","volume":99353000,"volume_lots":99353.0,"volume_gate":"pass","volume_ratio":3.23,"ma":{"3MA":58.07,"8MA":54.68,"21MA":49.66,"55MA":41.64,"144MA":30.72,"233MA":27.32},"patterns":{"突破":true,"W":true,"N字":false,"平台":false,"開花":true},"triggers":{"開盤八法紅紅紅":false,"5K爆大量回撤3MA":true,"連三黑回測3MA":false,"60K MACD轉強":true}}],"paper_trading":{"source_file":"paper_trade_2026-05-29_to_2026-06-05.csv","rows":[{"trade_id":"T001","date":"2026-05-29","time":"09:15","symbol":"3481","name":"群創","side":"buy","price":"50.00","shares":"70","gross_amount":"3500.00","fee_tax":"0.00","cash_after":"6500.00","position_after":"70","reason":"盤中更正：站回日K 3MA，5K轉強，符合使用者SOP","sop_check":"日K3MA約47.43，9:00低點47.65未跌破3MA，9:05-09:15 5K轉強","hold_days":"0","realized_pnl":"0.00","unrealized_pnl":"70.00","notes":"更正漏判：5/29收盤51.00，未實現損益以收盤估算"},{"trade_id":"T002","date":"2026-06-01","time":"intraday_review","symbol":"6141","name":"柏承","side":"buy","price":"41.50","shares":"50","gross_amount":"2075.00","fee_tax":"0.00","cash_after":"4425.00","position_after":"50","reason":"盤後更正：回測週K 3MA與月K 3MA雙重交會區，符合使用者SOP的回撤承接條件","sop_check":"週K3MA約41.47，月K3MA約40.97，當日最低41.40後收44.40；未取得精準5K時間，故記為盤後更正而非偽造即時分K","hold_days":"0","realized_pnl":"0.00","unrealized_pnl":"145.00","notes":"更正漏判：6141為本週操作候選，6/1回測週/月3MA交會區應納入買入"},{"trade_id":"T003","date":"2026-06-03","time":"09:24","symbol":"6141","name":"柏承","side":"buy","price":"41.50","shares":"50","gross_amount":"2075.00","fee_tax":"0.00","cash_after":"2350.00","position_after":"100","reason":"盤中加碼：已持有6141再次回測週K 3MA與月K 3MA交會區後拉回，符合持股加碼承接","sop_check":"TWSE 09:24快照：開40.35、低39.80、高41.50；週K3MA約40.12、月K3MA約39.62、日8MA約39.44，低點測交會區後拉回；視為5K止跌轉強型承接","hold_days":"2","realized_pnl":"0.00","unrealized_pnl":"0.00","notes":"加碼後6141共100股，平均成本仍約41.50；現金2350"},{"trade_id":"T004","date":"2026-06-05","time":"09:00_risk","symbol":"3481","name":"群創","side":"sell","price":"53.30","shares":"35","gross_amount":"1865.50","fee_tax":"0.00","cash_after":"4215.50","position_after":"35","reason":"自動風控：開盤跌破日K 3MA，先出 1/2","sop_check":"open 53.30 < 3MA 56.30; 8MA 53.60","hold_days":"","realized_pnl":"115.50","unrealized_pnl":"0.00","notes":"補登漏寫風控；risk_action=open_below_3ma_reduce; source=postmarket_review"},{"trade_id":"T005","date":"2026-06-05","time":"09:00_risk","symbol":"6141","name":"柏承","side":"sell","price":"38.10","shares":"50","gross_amount":"1905.00","fee_tax":"0.00","cash_after":"6120.50","position_after":"50","reason":"自動風控：開盤跌破日K 3MA，先出 1/2","sop_check":"open 38.10 < 3MA 39.30; 8MA 41.39","hold_days":"","realized_pnl":"-54.50","unrealized_pnl":"0.00","notes":"補登漏寫風控；risk_action=open_below_3ma_reduce; source=postmarket_review"},{"trade_id":"T006","date":"2026-06-05","time":"13:30_risk","symbol":"6141","name":"柏承","side":"sell","price":"38.50","shares":"50","gross_amount":"1925.00","fee_tax":"0.00","cash_after":"8045.50","position_after":"0","reason":"自動風控：突破型虧損達 3%，剩餘部位全出","sop_check":"close 38.50; 3MA 39.30; 8MA 41.39; stop 40.25","hold_days":"","realized_pnl":"-204.50","unrealized_pnl":"0.00","notes":"補登漏寫風控；risk_action=breakout_stop_loss_exit; source=postmarket_review"},{"trade_id":"T007","date":"2026-06-08","time":"09:00_risk","symbol":"3481","name":"群創","side":"sell","price":"48.35","shares":"17","gross_amount":"821.95","fee_tax":"0.00","cash_after":"8867.45","position_after":"18","reason":"補登自動風控：開盤跌破日K 3MA，先出 1/2","sop_check":"open 48.35 < 3MA 52.62; 8MA 53.37","hold_days":"","realized_pnl":"-232.55","unrealized_pnl":"0.00","notes":"補登漏寫風控；risk_action=open_below_3ma_reduce; source=postmarket_review_2026-06-08"},{"trade_id":"T008","date":"2026-06-08","time":"13:30_risk","symbol":"3481","name":"群創","side":"sell","price":"48.35","shares":"18","gross_amount":"870.30","fee_tax":"0.00","cash_after":"9737.75","position_after":"0","reason":"補登自動風控：突破型虧損達 3%，剩餘部位全出","sop_check":"close 48.35; 3MA 52.62; 8MA 53.37; stop 48.50","hold_days":"","realized_pnl":"-262.25","unrealized_pnl":"0.00","notes":"補登漏寫風控；risk_action=breakout_stop_loss_exit; source=postmarket_review_2026-06-08"}]},"operation_events":{"source_file":"","rows":[]},"postmarket_review":{"date":"2026-06-10","source":"postmarket_review_only_not_trade_execution","summary":"盤後只做漏判檢討與明日決策回饋，不再補寫交易帳本。","findings":[]},"next_trading_plan":{"updated_at":"2026-06-10 18:00","applies_to":"2026-06-11","basis_day":"2026-06-10","cash_allocation_note":"剩餘資金 9,738；盤中全部盯盤，觀察組符合條件可直接升操作組。多檔同時觸發時先保留約 1,461，其餘按型態乾淨度、週/月3MA交會、5K確認強弱排序。","account":{"initial_capital":10000.0,"cash":9737.75,"position_value":0.0,"total_assets":9737.75,"realized_pnl":0.0,"unrealized_pnl":0.0,"total_pnl":-262.25,"capital_usage_pct":0.0,"positions":[]},"locked_stocks":[{"group":"觀察組","symbol":"2375","name":"凱美","latest_price":158.5,"score":70.05,"pattern_type":"待確認","volume_ratio":0.5,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"2484","name":"希華","latest_price":58.1,"score":85.0,"pattern_type":"W","volume_ratio":3.23,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"3450","name":"聯鈞","latest_price":472.0,"score":67.62,"pattern_type":"W","volume_ratio":1.98,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"8150","name":"南茂","latest_price":88.3,"score":67.62,"pattern_type":"W","volume_ratio":1.63,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"6770","name":"力積電","latest_price":64.4,"score":52.52,"pattern_type":"待確認","volume_ratio":0.49,"status":"盤中同步盯；符合條件即動態升級"},{"group":"入選名單","symbol":"2492","name":"華新科","latest_price":407.5,"score":56.28,"pattern_type":"待確認","volume_ratio":0.62,"status":"盤中同步盯；符合條件即動態升級"},{"group":"操作組","symbol":"6282","name":"康舒","latest_price":58.5,"score":68.76,"pattern_type":"W","volume_ratio":1.36,"status":"盤中同步盯；符合條件即動態升級"},{"group":"入選名單","symbol":"3704","name":"合勤控","latest_price":45.05,"score":59.65,"pattern_type":"待確認","volume_ratio":0.95,"status":"盤中同步盯；符合條件即動態升級"},{"group":"操作組","symbol":"2406","name":"國碩","latest_price":35.85,"score":70.12,"pattern_type":"W","volume_ratio":1.89,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"6141","name":"柏承","latest_price":32.5,"score":45.85,"pattern_type":"待確認","volume_ratio":0.42,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"4916","name":"事欣科","latest_price":111.5,"score":60.57,"pattern_type":"待確認","volume_ratio":1.04,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"3048","name":"益登","latest_price":73.3,"score":85.0,"pattern_type":"W","volume_ratio":2.06,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"2478","name":"大毅","latest_price":170.0,"score":85.0,"pattern_type":"W","volume_ratio":3.01,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"3481","name":"群創","latest_price":44.3,"score":49.49,"pattern_type":"待確認","volume_ratio":0.19,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"1597","name":"直得","latest_price":147.5,"score":54.21,"pattern_type":"待確認","volume_ratio":0.66,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"3033","name":"威健","latest_price":50.2,"score":60.92,"pattern_type":"待確認","volume_ratio":1.08,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"3026","name":"禾伸堂","latest_price":642.0,"score":62.03,"pattern_type":"待確認","volume_ratio":1.19,"status":"盤中同步盯；符合條件即動態升級"},{"group":"觀察組","symbol":"2464","name":"盟立","latest_price":146.0,"score":54.2,"pattern_type":"待確認","volume_ratio":0.66,"status":"盤中同步盯；符合條件即動態升級"}],"holding_plans":[],"symbol_plans":[{"symbol":"2375","name":"凱美","latest_price":158.5,"latest_high":178.0,"key_level":157.83,"trigger_price":157.83,"score":70.05,"pattern_type":"待確認","volume_ratio":0.5,"volume":8052000,"volume_lots":8052.0,"volume_gate":"pass","ma3":157.83,"ma8":157.06,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":6,"rough_shares_high":12,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":157.06,"support_range":"136.67 - 160.33","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 157.83，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 136.67 - 160.33 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 157.06 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"2484","name":"希華","latest_price":58.1,"latest_high":65.1,"key_level":58.07,"trigger_price":58.07,"score":85.0,"pattern_type":"W","volume_ratio":3.23,"volume":99353000,"volume_lots":99353.0,"volume_gate":"pass","ma3":58.07,"ma8":54.68,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":17,"rough_shares_high":34,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":54.68,"support_range":"50.65 - 58.07","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 58.07，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 50.65 - 58.07 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 54.68 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3450","name":"聯鈞","latest_price":472.0,"latest_high":528.0,"key_level":480.0,"trigger_price":480.0,"score":67.62,"pattern_type":"W","volume_ratio":1.98,"volume":19571000,"volume_lots":19571.0,"volume_gate":"pass","ma3":480.0,"ma8":512.0,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":2,"rough_shares_high":4,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":512.0,"support_range":"421.50 - 487.83","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 480.00，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 421.50 - 487.83 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 512.00 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"8150","name":"南茂","latest_price":88.3,"latest_high":102.0,"key_level":90.47,"trigger_price":90.47,"score":67.62,"pattern_type":"W","volume_ratio":1.63,"volume":77803000,"volume_lots":77803.0,"volume_gate":"pass","ma3":90.47,"ma8":96.02,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":11,"rough_shares_high":22,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":96.02,"support_range":"90.37 - 99.37","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 90.47，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 90.37 - 99.37 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 96.02 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"6770","name":"力積電","latest_price":64.4,"latest_high":67.8,"key_level":67.8,"trigger_price":67.8,"score":52.52,"pattern_type":"待確認","volume_ratio":0.49,"volume":129992000,"volume_lots":129992.0,"volume_gate":"pass","ma3":67.8,"ma8":77.06,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":15,"rough_shares_high":31,"entry_status":"操作組，但週/月爆量不追","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":77.06,"support_range":"67.80 - 75.90","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 67.80，5K 紅K確認且 60K MACD 不轉弱。","action":"照使用者規則不追，記錄為等待次週回撤月K 3MA。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 67.80 - 75.90 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 77.06 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"2492","name":"華新科","latest_price":407.5,"latest_high":482.5,"key_level":415.83,"trigger_price":415.83,"score":56.28,"pattern_type":"待確認","volume_ratio":0.62,"volume":4969000,"volume_lots":4969.0,"volume_gate":"pass","ma3":415.83,"ma8":418.81,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":2,"rough_shares_high":4,"entry_status":"特殊規則股，非最後關緊閉日不追","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":418.81,"support_range":"311.00 - 415.83","scenarios":[{"title":"情境一：不是最後關緊閉日","condition":"即使續漲，也沒有確認是最後一日。","action":"不追，僅觀察。"},{"title":"情境二：最後關緊閉日且續強","condition":"若確認為最後關緊閉日，且 13:15 前價格持續上漲。","action":"依使用者特殊規則，13:15 現價買入，股數依剩餘現金控管。"},{"title":"情境三：跌破日3MA","condition":"跌破日K 3MA 415.83 且站不回。","action":"特殊買入條件取消。"}]},{"symbol":"6282","name":"康舒","latest_price":58.5,"latest_high":67.0,"key_level":60.17,"trigger_price":60.17,"score":68.76,"pattern_type":"W","volume_ratio":1.36,"volume":88727000,"volume_lots":88727.0,"volume_gate":"pass","ma3":60.17,"ma8":63.54,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":17,"rough_shares_high":34,"entry_status":"盤中同步盯；符合條件即動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":63.54,"support_range":"55.25 - 60.73","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 60.17，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 55.25 - 60.73 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 63.54 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3704","name":"合勤控","latest_price":45.05,"latest_high":49.55,"key_level":46.87,"trigger_price":46.87,"score":59.65,"pattern_type":"待確認","volume_ratio":0.95,"volume":6734000,"volume_lots":6734.0,"volume_gate":"pass","ma3":46.87,"ma8":47.48,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":22,"rough_shares_high":44,"entry_status":"盤中同步盯；符合條件即動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":47.48,"support_range":"42.12 - 46.87","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 46.87，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 42.12 - 46.87 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 47.48 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"2406","name":"國碩","latest_price":35.85,"latest_high":37.9,"key_level":34.28,"trigger_price":34.28,"score":70.12,"pattern_type":"W","volume_ratio":1.89,"volume":37297000,"volume_lots":37297.0,"volume_gate":"pass","ma3":34.28,"ma8":35.71,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":27,"rough_shares_high":55,"entry_status":"盤中同步盯；符合條件即動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":35.71,"support_range":"33.65 - 35.02","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 34.28，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 33.65 - 35.02 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 35.71 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"6141","name":"柏承","latest_price":32.5,"latest_high":36.0,"key_level":34.37,"trigger_price":34.37,"score":45.85,"pattern_type":"待確認","volume_ratio":0.42,"volume":1653000,"volume_lots":1653.0,"volume_gate":"pass","ma3":34.37,"ma8":38.22,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":30,"rough_shares_high":61,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":38.22,"support_range":"34.37 - 39.00","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 34.37，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 34.37 - 39.00 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 38.22 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"4916","name":"事欣科","latest_price":111.5,"latest_high":122.5,"key_level":115.67,"trigger_price":115.67,"score":60.57,"pattern_type":"待確認","volume_ratio":1.04,"volume":13871000,"volume_lots":13871.0,"volume_gate":"pass","ma3":115.67,"ma8":118.38,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":8,"rough_shares_high":17,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":118.38,"support_range":"95.20 - 115.67","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 115.67，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 95.20 - 115.67 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 118.38 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3048","name":"益登","latest_price":73.3,"latest_high":77.0,"key_level":70.5,"trigger_price":70.5,"score":85.0,"pattern_type":"W","volume_ratio":2.06,"volume":46274000,"volume_lots":46274.0,"volume_gate":"pass","ma3":70.5,"ma8":69.8,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":13,"rough_shares_high":27,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":69.8,"support_range":"61.15 - 70.53","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 70.50，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 61.15 - 70.53 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 69.80 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"2478","name":"大毅","latest_price":170.0,"latest_high":183.5,"key_level":163.0,"trigger_price":163.0,"score":85.0,"pattern_type":"W","volume_ratio":3.01,"volume":27730000,"volume_lots":27730.0,"volume_gate":"pass","ma3":163.0,"ma8":150.06,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":5,"rough_shares_high":11,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":150.06,"support_range":"125.80 - 163.00","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 163.00，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 125.80 - 163.00 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 150.06 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3481","name":"群創","latest_price":44.3,"latest_high":50.0,"key_level":47.25,"trigger_price":47.25,"score":49.49,"pattern_type":"待確認","volume_ratio":0.19,"volume":125533000,"volume_lots":125533.0,"volume_gate":"pass","ma3":47.25,"ma8":52.87,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":22,"rough_shares_high":45,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":52.87,"support_range":"39.75 - 49.67","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 47.25，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 39.75 - 49.67 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 52.87 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"1597","name":"直得","latest_price":147.5,"latest_high":163.0,"key_level":154.33,"trigger_price":154.33,"score":54.21,"pattern_type":"待確認","volume_ratio":0.66,"volume":2686000,"volume_lots":2686.0,"volume_gate":"pass","ma3":154.33,"ma8":164.94,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":6,"rough_shares_high":13,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":164.94,"support_range":"154.33 - 165.00","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 154.33，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 154.33 - 165.00 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 164.94 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3033","name":"威健","latest_price":50.2,"latest_high":52.2,"key_level":49.7,"trigger_price":49.7,"score":60.92,"pattern_type":"待確認","volume_ratio":1.08,"volume":23649000,"volume_lots":23649.0,"volume_gate":"pass","ma3":49.7,"ma8":49.89,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":19,"rough_shares_high":39,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":49.89,"support_range":"45.42 - 50.77","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 49.70，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 45.42 - 50.77 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 49.89 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"3026","name":"禾伸堂","latest_price":642.0,"latest_high":725.0,"key_level":634.67,"trigger_price":634.67,"score":62.03,"pattern_type":"待確認","volume_ratio":1.19,"volume":2616000,"volume_lots":2616.0,"volume_gate":"pass","ma3":634.67,"ma8":639.25,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":1,"rough_shares_high":3,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":639.25,"support_range":"498.50 - 636.33","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 634.67，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 498.50 - 636.33 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 639.25 且站不回。","action":"不買，轉防守/淘汰。"}]},{"symbol":"2464","name":"盟立","latest_price":146.0,"latest_high":158.5,"key_level":148.17,"trigger_price":148.17,"score":54.2,"pattern_type":"待確認","volume_ratio":0.66,"volume":14473000,"volume_lots":14473.0,"volume_gate":"pass","ma3":148.17,"ma8":167.38,"budget_cap":2000.0,"rough_budget_low":1000.0,"rough_budget_high":2000.0,"rough_shares_low":6,"rough_shares_high":13,"entry_status":"觀察組，站回日3MA或週/月3MA交會可動態升級","sizing_formula":"日成交量低於500張不操作；通過量能門檻後，盤中全部盯盤，觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。","stop_price":167.38,"support_range":"148.00 - 165.17","scenarios":[{"title":"情境一：站回日K 3MA","condition":"盤中站回日K 3MA 148.17，5K 紅K確認且 60K MACD 不轉弱。","action":"直接拉進操作組判斷；依剩餘現金與訊號品質小買。"},{"title":"情境二：回測週/月3MA交會","condition":"回測 148.00 - 165.17 不破，尤其回撤月K 3MA 時直接視為承接買點。","action":"依新規則直接買入；不必等待5K轉紅，但仍要控管持股上限與現金。"},{"title":"情境三：跌破日K 8MA","condition":"跌破日K 8MA 167.38 且站不回。","action":"不買，轉防守/淘汰。"}]}]},"market_indices":{"twse":{"label":"加權指數","symbol":"^TWII","date":"2026-06-10","value":43225.54,"change":-277.24,"pct":-0.64,"volume":"","open":44581.45,"high":44676.49,"low":43225.54,"prev":43502.78,"source":"Yahoo Finance chart"},"otc":{"label":"上櫃指數","symbol":"TPEx","date":"2026-06-10","value":405.91,"change":-18.8,"pct":-4.43,"volume":"","open":422.75,"high":426.9,"low":405.4,"prev":424.71,"source":"TPEx OpenAPI tpex_index"}},"next_trading_history":[{"updated_at":"2026-06-04 18:00","applies_to":"2026-06-05","basis_day":"2026-06-04","cash_allocation_note":"剩餘資金 2,350；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 352 後再按強弱分配。","account":{"initial_capital":10000.0,"cash":2350.0,"position_value":7846.0,"total_assets":10196.0,"realized_pnl":0.0,"unrealized_pnl":196.0,"total_pnl":196.0,"capital_usage_pct":76.95,"positions":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":55.8,"market_value":3906.0,"unrealized_pnl":406.0,"unrealized_pct":11.6,"status":"持有管理"},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":39.4,"market_value":3940.0,"unrealized_pnl":-210.0,"unrealized_pct":-5.06,"status":"持有管理"}]},"locked_stocks":[],"holding_plans":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":55.8,"market_value":3906.0,"unrealized_pnl":406.0,"unrealized_pct":11.6,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 35 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 50.00 僅作損益參考。","action":"續抱 70 股；放量突破且回測不破才考慮加碼 17 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 50.00 後站不回。","action":"先賣 35 股；不攤平、不加碼，跌破日K 8MA 全出。"}]},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":39.4,"market_value":3940.0,"unrealized_pnl":-210.0,"unrealized_pct":-5.06,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 50 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 41.50 僅作損益參考。","action":"續抱 100 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 41.50 後站不回。","action":"先賣 50 股；不攤平、不加碼，跌破日K 8MA 全出。"}]}],"symbol_plans":[]},{"updated_at":"2026-06-07 18:00","applies_to":"2026-06-08","basis_day":"2026-06-05","cash_allocation_note":"剩餘資金 2,350；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 352 後再按強弱分配。","account":{"initial_capital":10000.0,"cash":2350.0,"position_value":7609.0,"total_assets":9959.0,"realized_pnl":0.0,"unrealized_pnl":-41.0,"total_pnl":-41.0,"capital_usage_pct":76.4,"positions":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":53.7,"market_value":3759.0,"unrealized_pnl":259.0,"unrealized_pct":7.4,"status":"持有管理"},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":38.5,"market_value":3850.0,"unrealized_pnl":-300.0,"unrealized_pct":-7.23,"status":"持有管理"}]},"locked_stocks":[{"group":"操作組","symbol":"6282","name":"康舒","latest_price":63.8,"score":85.0,"pattern_type":"W","volume_ratio":1.69,"status":"等待切入點"},{"group":"操作組","symbol":"2406","name":"國碩","latest_price":34.65,"score":84.47,"pattern_type":"W","volume_ratio":1.45,"status":"等待切入點"}],"holding_plans":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":53.7,"market_value":3759.0,"unrealized_pnl":259.0,"unrealized_pct":7.4,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 35 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 50.00 僅作損益參考。","action":"續抱 70 股；放量突破且回測不破才考慮加碼 18 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 50.00 後站不回。","action":"先賣 35 股；不攤平、不加碼，跌破日K 8MA 全出。"}]},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":38.5,"market_value":3850.0,"unrealized_pnl":-300.0,"unrealized_pct":-7.23,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 50 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 41.50 僅作損益參考。","action":"續抱 100 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 41.50 後站不回。","action":"先賣 50 股；不攤平、不加碼，跌破日K 8MA 全出。"}]}],"symbol_plans":[{"symbol":"6282","name":"康舒","latest_price":63.8,"trigger_price":68.8,"score":85.0,"pattern_type":"W","volume_ratio":1.69,"ma3":66.33,"ma8":63.1,"budget_cap":998.75,"rough_budget_low":2350.0,"rough_budget_high":2350.0,"rough_shares_low":34,"rough_shares_high":34,"entry_status":"等待盯盤突破確認","sizing_formula":"前一日粗估 2,350 - 2,350；實際股數 = floor(投入資金 / 突破確認後成交價)","stop_price":61.89,"support_range":"66.00 - 67.32","scenarios":[{"title":"情境 1：突破確認才進場","condition":"開盤站穩 63.80，或盯盤資料確認突破 68.80；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。","action":"買第一筆；前一日先抓 2,350 - 2,350，約 34 - 34 股，實際用成交價重算。"},{"title":"情境 2：突破後回測不破","condition":"先突破、再回測 66.00 - 67.32 或突破價不破，回檔量縮後重新轉強。","action":"低接買；資金仍抓 2,350 - 2,350，但未先突破前不低接。"},{"title":"情境 3：未突破或假突破","condition":"未突破 68.80、突破後馬上跌回、爆量黑K，或跌破 3MA 66.33。","action":"不進場；沒有量不做，走弱不追，跌破 8MA 63.10 則移回觀察。"}]},{"symbol":"2406","name":"國碩","latest_price":34.65,"trigger_price":38.75,"score":84.47,"pattern_type":"W","volume_ratio":1.45,"ma3":37.05,"ma8":35.7,"budget_cap":998.75,"rough_budget_low":2350.0,"rough_budget_high":2350.0,"rough_shares_low":60,"rough_shares_high":60,"entry_status":"等待盯盤突破確認","sizing_formula":"前一日粗估 2,350 - 2,350；實際股數 = floor(投入資金 / 突破確認後成交價)","stop_price":33.61,"support_range":"36.86 - 37.61","scenarios":[{"title":"情境 1：突破確認才進場","condition":"開盤站穩 34.65，或盯盤資料確認突破 38.75；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。","action":"買第一筆；前一日先抓 2,350 - 2,350，約 60 - 60 股，實際用成交價重算。"},{"title":"情境 2：突破後回測不破","condition":"先突破、再回測 36.86 - 37.61 或突破價不破，回檔量縮後重新轉強。","action":"低接買；資金仍抓 2,350 - 2,350，但未先突破前不低接。"},{"title":"情境 3：未突破或假突破","condition":"未突破 38.75、突破後馬上跌回、爆量黑K，或跌破 3MA 37.05。","action":"不進場；沒有量不做，走弱不追，跌破 8MA 35.70 則移回觀察。"}]}]},{"updated_at":"2026-06-08 18:00","applies_to":"2026-06-09","basis_day":"2026-06-08","cash_allocation_note":"剩餘資金 2,350；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 352 後再按強弱分配。","account":{"initial_capital":10000.0,"cash":2350.0,"position_value":6934.5,"total_assets":9284.5,"realized_pnl":0.0,"unrealized_pnl":-715.5,"total_pnl":-715.5,"capital_usage_pct":74.69,"positions":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":48.35,"market_value":3384.5,"unrealized_pnl":-115.5,"unrealized_pct":-3.3,"status":"持有管理"},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":35.5,"market_value":3550.0,"unrealized_pnl":-600.0,"unrealized_pct":-14.46,"status":"持有管理"}]},"locked_stocks":[],"holding_plans":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":48.35,"market_value":3384.5,"unrealized_pnl":-115.5,"unrealized_pct":-3.3,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 35 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 50.00 僅作損益參考。","action":"續抱 70 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 50.00 後站不回。","action":"先賣 35 股；不攤平、不加碼，跌破日K 8MA 全出。"}]},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":35.5,"market_value":3550.0,"unrealized_pnl":-600.0,"unrealized_pct":-14.46,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 50 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 41.50 僅作損益參考。","action":"續抱 100 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 41.50 後站不回。","action":"先賣 50 股；不攤平、不加碼，跌破日K 8MA 全出。"}]}],"symbol_plans":[]},{"updated_at":"2026-06-09 18:00","applies_to":"2026-06-10","basis_day":"2026-06-09","cash_allocation_note":"剩餘資金 2,350；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 352 後再按強弱分配。","account":{"initial_capital":10000.0,"cash":2350.0,"position_value":6947.0,"total_assets":9297.0,"realized_pnl":0.0,"unrealized_pnl":-703.0,"total_pnl":-703.0,"capital_usage_pct":74.72,"positions":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":49.1,"market_value":3437.0,"unrealized_pnl":-63.0,"unrealized_pct":-1.8,"status":"持有管理"},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":35.1,"market_value":3510.0,"unrealized_pnl":-640.0,"unrealized_pct":-15.42,"status":"持有管理"}]},"locked_stocks":[],"holding_plans":[{"symbol":"3481","name":"群創","shares":70,"cost_basis":50.0,"latest_price":49.1,"market_value":3437.0,"unrealized_pnl":-63.0,"unrealized_pct":-1.8,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 35 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 50.00 僅作損益參考。","action":"續抱 70 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 50.00 後站不回。","action":"先賣 35 股；不攤平、不加碼，跌破日K 8MA 全出。"}]},{"symbol":"6141","name":"柏承","shares":100,"cost_basis":41.5,"latest_price":35.1,"market_value":3510.0,"unrealized_pnl":-640.0,"unrealized_pct":-15.42,"scenarios":[{"title":"情境 1：開盤跌破日K 3MA","condition":"每日開盤，持有股開盤價低於盤前日K 3MA。","action":"立即賣出 1/2，約 50 股；不等收盤確認。"},{"title":"情境 2：開盤站穩日K 3MA","condition":"開盤站穩日K 3MA，且沒有爆量黑K。成本 41.50 僅作損益參考。","action":"續抱 100 股；放量突破且回測不破才考慮加碼 20 股。"},{"title":"情境 3：盤中跌破3MA或成本","condition":"開盤未破，但盤中跌破日K 3MA或跌破成本 41.50 後站不回。","action":"先賣 50 股；不攤平、不加碼，跌破日K 8MA 全出。"}]}],"symbol_plans":[]},{"updated_at":"2026-06-10 18:00","applies_to":"2026-06-11","basis_day":"2026-06-10","cash_allocation_note":"剩餘資金 9,738；單檔觸發前一日先粗估 2,500 - 3,000，多檔同時觸發時保留 1,461 後再按強弱分配。","account":{"initial_capital":10000.0,"cash":9737.75,"position_value":0.0,"total_assets":9737.75,"realized_pnl":-262.25,"unrealized_pnl":0.0,"total_pnl":-262.25,"capital_usage_pct":0.0,"positions":[]},"locked_stocks":[{"group":"操作組","symbol":"6282","name":"康舒","latest_price":58.5,"score":68.76,"pattern_type":"W","volume_ratio":1.36,"status":"等待切入點"},{"group":"操作組","symbol":"2406","name":"國碩","latest_price":35.85,"score":70.12,"pattern_type":"W","volume_ratio":1.89,"status":"等待切入點"}],"holding_plans":[],"symbol_plans":[{"symbol":"6282","name":"康舒","latest_price":58.5,"trigger_price":67.0,"score":68.76,"pattern_type":"W","volume_ratio":1.36,"ma3":60.17,"ma8":63.54,"budget_cap":4138.55,"rough_budget_low":2500.0,"rough_budget_high":3000.0,"rough_shares_low":37,"rough_shares_high":44,"entry_status":"等待盯盤突破確認","sizing_formula":"前一日粗估 2,500 - 3,000；實際股數 = floor(投入資金 / 突破確認後成交價)","stop_price":56.74,"support_range":"59.87 - 61.07","scenarios":[{"title":"情境 1：突破確認才進場","condition":"開盤站穩 58.50，或盯盤資料確認突破 67.00；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。","action":"買第一筆；前一日先抓 2,500 - 3,000，約 37 - 44 股，實際用成交價重算。"},{"title":"情境 2：突破後回測不破","condition":"先突破、再回測 59.87 - 61.07 或突破價不破，回檔量縮後重新轉強。","action":"低接買；資金仍抓 2,500 - 3,000，但未先突破前不低接。"},{"title":"情境 3：未突破或假突破","condition":"未突破 67.00、突破後馬上跌回、爆量黑K，或跌破 3MA 60.17。","action":"不進場；沒有量不做，走弱不追，跌破 8MA 63.54 則移回觀察。"}]},{"symbol":"2406","name":"國碩","latest_price":35.85,"trigger_price":37.9,"score":70.12,"pattern_type":"W","volume_ratio":1.89,"ma3":34.28,"ma8":35.71,"budget_cap":4138.55,"rough_budget_low":2500.0,"rough_budget_high":3000.0,"rough_shares_low":65,"rough_shares_high":79,"entry_status":"等待盯盤突破確認","sizing_formula":"前一日粗估 2,500 - 3,000；實際股數 = floor(投入資金 / 突破確認後成交價)","stop_price":34.77,"support_range":"34.11 - 34.79","scenarios":[{"title":"情境 1：突破確認才進場","condition":"開盤站穩 35.85，或盯盤資料確認突破 37.90；5K 量能放大且不是爆量黑K，60K MACD 同步轉強。","action":"買第一筆；前一日先抓 2,500 - 3,000，約 65 - 79 股，實際用成交價重算。"},{"title":"情境 2：突破後回測不破","condition":"先突破、再回測 34.11 - 34.79 或突破價不破，回檔量縮後重新轉強。","action":"低接買；資金仍抓 2,500 - 3,000，但未先突破前不低接。"},{"title":"情境 3：未突破或假突破","condition":"未突破 37.90、突破後馬上跌回、爆量黑K，或跌破 3MA 34.28。","action":"不進場；沒有量不做，走弱不追，跌破 8MA 35.71 則移回觀察。"}]}]}]};
     const candidates = dashboardData.candidates || [];
-    const state = { query: "", decision: "all", group: "all", selected: candidates[0] || null };
+    const nextPlan = dashboardData.next_trading_plan || {};
+    const state = { query: "", route: "all", decision: "all", selected: null, selectedOperation: null, selectedRiskEvent: null };
     const byId = (id) => document.getElementById(id);
     const fmt = (value, digits = 2) => value === "" || value === null || value === undefined || Number.isNaN(Number(value)) ? "-" : Number(value).toFixed(digits);
     const pct = (value) => value === null || value === undefined || value === "" ? "-" : `${Number(value).toFixed(2)}%`;
-    const yesNo = (value) => value ? '<span class="pos">是</span>' : '<span class="muted">否</span>';
-    function tagClass(value) {
-      if (value === "入選名單") return "selected";
-      if (value === "操作組") return "operation";
-      if (value === "觀察組") return "watch";
-      if (value === "淘汰") return "eliminate";
-      if (value === "hold") return "hold";
-      if (value === "accept") return "accept";
-      if (value === "reject") return "reject";
-      return "watch";
-    }
-    function filteredCandidates() {
-      return candidates.filter((item) => {
-        const q = state.query.trim().toLowerCase();
-        const matchQuery = !q || `${item.symbol} ${item.name}`.toLowerCase().includes(q);
-        const matchDecision = state.decision === "all" || item.decision === state.decision;
-        const matchGroup = state.group === "all" || item.group_assignment === state.group;
-        return matchQuery && matchDecision && matchGroup;
-      }).sort((a, b) => Number(b.score) - Number(a.score));
-    }
-    function renderMetrics() {
-      byId("generated-at").textContent = dashboardData.generated_at;
-      byId("latest-day").textContent = dashboardData.latest_completed_day;
-      byId("market-note").textContent = dashboardData.market_note;
-      byId("selection-note").textContent = `選股日：${dashboardData.selection.selection_date} / 使用資料：${dashboardData.selection.source_week} / 適用週期：${dashboardData.selection.target_week} / 來源：${dashboardData.selection.source}`;
-      byId("metric-total").textContent = candidates.length;
-      byId("metric-primary").textContent = candidates.filter((x) => x.score >= 85).length;
-      byId("metric-secondary").textContent = candidates.filter((x) => x.score >= 55 && x.score < 85).length;
-      byId("operation-mode").textContent = candidates.some((x) => x.index_state === "保守") ? "保守" : "正常";
-    }
-    function renderCandidateTable() {
-      const rows = filteredCandidates();
-      byId("candidate-body").innerHTML = rows.map((item) => `
-        <tr data-symbol="${item.symbol}">
-          <td><div class="symbol">${item.symbol}</div><div class="muted">${item.name}</div></td>
-          <td>${fmt(item.latest_price)}<br><span class="${Number(item.change_pct) >= 0 ? "pos" : "neg"}">${pct(item.change_pct)}</span></td>
-          <td><strong>${fmt(item.score)}</strong></td>
-          <td><span class="tag ${tagClass(item.decision)}">${item.decision}</span></td>
-          <td><span class="tag ${tagClass(item.group_assignment)}">${item.group_assignment}</span></td>
-          <td>${item.pattern_type}</td>
-          <td>${item.market_state}</td>
-          <td>${item.chip_state}</td>
-          <td>${item.entry_trigger}</td>
-          <td>${item.reason}</td>
-        </tr>`).join("");
-      [...byId("candidate-body").querySelectorAll("tr")].forEach((row) => {
-        row.addEventListener("click", () => { state.selected = candidates.find((item) => item.symbol === row.dataset.symbol); renderDetail(); });
+    const shortDate = (value) => {
+      if (!value) return "-";
+      const parts = String(value).split("-");
+      return parts.length === 3 ? `${Number(parts[1])}/${Number(parts[2])}` : value;
+    };
+    const addDays = (date, days) => {
+      const next = new Date(date);
+      next.setDate(next.getDate() + days);
+      return next;
+    };
+    const isoDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+    const previousTradingDates = (basis, count) => {
+      const result = [];
+      let cursor = new Date(`${basis || new Date().toISOString().slice(0,10)}T00:00:00`);
+      while (result.length < count) {
+        const day = cursor.getDay();
+        if (day !== 0 && day !== 6) result.unshift(isoDate(cursor));
+        cursor = addDays(cursor, -1);
+      }
+      return result;
+    };
+    const labelMap = {
+      primary:"優先", secondary:"次要", reject:"排除", long_hold:"長期波段", intraday:"盤中切入觀察", day_trade:"當沖候選", watch:"觀察",
+      enter:"可進場", wait:"等待", reduce:"減碼", exit:"出場", hold:"續抱", build:"建倉", add:"加碼",
+      wait_pullback:"等回測", avoid:"避開", approved:"通過", blocked:"擋下", none:"無部位", full_position:"已有持倉",
+      no_trade:"未操作", watch_only:"只觀察", not_triggered:"未觸發", risk_blocked:"風控擋下",
+      insufficient_data:"資料不足", completed:"已完成", normal:"正常", cautious:"保守", risk_off:"停止攻擊",
+      "market / ohlcv / chip":"行情 / K線 / 籌碼", "normal / cautious / risk_off":"正常 / 保守 / 停止攻擊",
+      "primary / secondary / reject":"優先 / 次要 / 排除", "雙策略分流":"雙策略分流",
+      "build / add / hold / reduce / exit":"建倉 / 加碼 / 續抱 / 減碼 / 出場",
+      "enter_now / wait_pullback / wait / avoid":"立即進場 / 等回測 / 等待 / 避開",
+      "enter / wait / reject / reduce / exit":"可進場 / 等待 / 排除 / 減碼 / 出場",
+      aggressive:"積極", primary:"優先", normal:"正常", cautious:"保守", risk_off:"停止攻擊",
+      "候選、理由、風控提醒":"候選、理由、風控提醒", "completed / pending":"已完成 / 待追蹤"
+    };
+    const label = (value) => labelMap[value] || value || "-";
+    const tag = (value) => `<span class="tag ${String(value).replaceAll("_","-")}">${label(value)}</span>`;
+    const levelOf = (x) => Number(x.score) >= 85 ? "primary" : Number(x.score) >= 55 ? "secondary" : "reject";
+    const isHeld = (symbol) => ((nextPlan.account || {}).positions || []).some((p) => String(p.symbol) === String(symbol));
+    const routeOf = (x) => {
+      if (x.decision === "reject") return "reject";
+      if (isHeld(x.symbol) || x.group_assignment === "操作組") return "long_hold";
+      if (Object.values(x.triggers || {}).some(Boolean)) return "intraday";
+      if (levelOf(x) === "secondary") return "watch";
+      return "reject";
+    };
+    const finalOf = (x) => x.decision === "reject" ? "reject" : (isHeld(x.symbol) ? "wait" : "wait");
+    const longDecisionOf = (x) => routeOf(x) === "long_hold" ? (isHeld(x.symbol) ? "hold" : "wait") : "wait";
+    const intraDecisionOf = (x) => routeOf(x) === "intraday" ? "wait_pullback" : (routeOf(x) === "reject" ? "avoid" : "wait");
+    const riskOf = (x) => finalOf(x) === "reject" ? "blocked" : "approved";
+    const enriched = candidates.map((x) => ({...x, candidate_level:levelOf(x), route:routeOf(x), final_decision:finalOf(x), long_swing_decision:longDecisionOf(x), intraday_decision:intraDecisionOf(x), risk_status:riskOf(x)}));
+    state.selected = enriched[0] || null;
+    const moduleFlow = [
+      ["資料讀取","讀取模組","讀取加權指數、日週月K、5K/15K/60K、籌碼與法人資料","market / ohlcv / chip"],
+      ["加權指數判斷","大盤模式","判斷今天適合正常操作、保守觀察或停止攻擊","normal / cautious / risk_off"],
+      ["股票初篩","候選池建立","排除弱勢、無量與空頭標的","primary / secondary / reject"],
+      ["策略路由","多策略分流","判斷適合長期波段、盤中切入、當沖候選、只觀察或排除","多策略分流"],
+      ["長期波段判斷","持有與加碼","建倉、加碼、續抱、減碼、出場","build / add / hold / reduce / exit"],
+      ["盤中切入觀察","盤中節奏","盤中切入點與追價風險判斷；不是當沖","enter_now / wait_pullback / wait / avoid"],
+      ["當沖候選判斷","當日進出","只有股票可當沖且策略允許當沖時才啟用；目前 paper trade 預設不執行","enter_now / wait / avoid"],
+      ["決策風控裁判","最後審核","統一審核所有結果，避免追價、重複訊號與過度持倉","enter / wait / reject / reduce / exit"],
+      ["輸出報告","報表與網頁","產出 JSON、CSV、Markdown 與 Dashboard","候選、理由、風控提醒"],
+      ["後驗追蹤","復盤驗證","追蹤 1日 / 3日 / 5日結果，檢查原判斷是否有效","completed / pending"]
+    ];
+    const paperRows = (dashboardData.paper_trading && dashboardData.paper_trading.rows) || [];
+    const operationEventRows = (dashboardData.operation_events && dashboardData.operation_events.rows) || [];
+    const postmarketReview = dashboardData.postmarket_review || {findings:[]};
+    const todayRows = paperRows.filter(x => String(x.date) === String(dashboardData.latest_completed_day));
+    const todayOperationEventRows = operationEventRows.filter(x => String(x.date) === String(dashboardData.latest_completed_day));
+    const accountPositions = ((nextPlan.account || {}).positions || []);
+    const positionBySymbol = Object.fromEntries(accountPositions.map(p => [String(p.symbol), p]));
+    const todaySymbols = Array.from(new Set(todayRows.map(x => String(x.symbol))));
+    const tradedSymbols = new Set(todayRows.map(x => String(x.symbol)));
+    const tradeOperationEvents = todayRows.map((x, index) => {
+      const side = String(x.side || "").toLowerCase();
+      const isRisk = String(x.reason || "").includes("自動風控");
+      const remaining = Number(x.position_after || 0);
+      const decision = side === "buy" ? "enter" : (remaining <= 0 ? "exit" : "reduce");
+      return {
+        event_id: `trade-${x.trade_id || index}`,
+        time: x.time || "-",
+        symbol: String(x.symbol || ""),
+        name: x.name || String(x.symbol || ""),
+        strategy_type: "long_hold",
+        operated: side === "buy" ? "enter" : decision,
+        agent_decision: decision,
+        risk_result: isRisk || side === "sell" ? "approved" : "approved",
+        action: `${side === "buy" ? "買進" : "賣出"} ${x.shares || "-"} 股 @ ${x.price || "-"}`,
+        reason: x.reason || "-",
+        sop_check: x.sop_check || "-",
+        risk_review: isRisk ? "風控執行器依既有持股、日 K 3MA / 8MA 與 3% 停損規則自動補紀錄。" : "依紙上交易紀錄列入今日操作。",
+        improvement: isRisk ? "後續要接即時資料與券商 API 時，這條規則要搬到盤中風控，不能只等收盤報表。" : "保留觸發價、K 線型態與成交量，方便隔日檢討。"
+      };
+    });
+    const intradayOperationEvents = todayOperationEventRows.map((x, index) => ({
+      event_id: x.event_id || `intraday-${index}`,
+      time: x.time || "-",
+      symbol: String(x.symbol || ""),
+      name: x.name || String(x.symbol || ""),
+      strategy_type: x.strategy_type || "watch",
+      operated: x.simulated_action && x.simulated_action !== "none" ? x.simulated_action : (x.event_type || "not_triggered"),
+      agent_decision: x.agent_decision || "wait",
+      risk_result: x.risk_result || "blocked",
+      action: x.action || x.simulated_action || "未操作",
+      reason: x.reason || "-",
+      sop_check: x.sop_check || "-",
+      risk_review: x.risk_review || "盤中事件由 operation_events 記錄。",
+      improvement: x.improvement || "若為 data_missing，優先修即時資料源；若為 blocked，檢查擋單是否合理。"
+    }));
+    const candidateOperationEvents = enriched
+      .filter((x) => !tradedSymbols.has(String(x.symbol)))
+      .map((x, index) => {
+        const blocked = x.risk_status === "blocked" || x.final_decision === "reject" || x.decision === "reject";
+        const held = isHeld(x.symbol);
+        const action = blocked ? "不進場" : (held ? "持有檢查，不加碼" : "等待觸發，不下單");
+        const operated = blocked ? "risk_blocked" : (held ? "no_trade" : "not_triggered");
+        const agentDecision = blocked ? "reject" : (held ? "hold" : "wait");
+        const riskResult = blocked ? "blocked" : "approved";
+        return {
+          event_id: `decision-${x.symbol}-${index}`,
+          time: blocked ? "風控檢查" : "盤中觀察",
+          symbol: String(x.symbol || ""),
+          name: x.name || String(x.symbol || ""),
+          strategy_type: x.route || "watch",
+          operated,
+          agent_decision: agentDecision,
+          risk_result: riskResult,
+          action,
+          reason: blocked ? (x.risk_note || x.reason || "未通過風控條件。") : (x.entry_trigger || x.reason || "未出現符合 SOP 的切入點。"),
+          sop_check: blocked ? `擋下原因：${x.risk_note || x.reason || "風控未通過"}` : `等待條件：${x.entry_trigger || "5K 切入點、量能與 60K MACD 確認"}`,
+          risk_review: blocked ? "此筆列為交易日被擋下事件，不是漏記；後續若條件改善才重新評估。" : "此筆有被檢查，但沒有觸發下單條件，所以記為等待或只觀察。",
+          improvement: blocked ? "把擋單原因保留到隔日復盤，確認是規則正確擋下，還是資料不足造成誤擋。" : "下次要補更精準的盤中價格、5K 量能與觸發時間，避免只寫籠統等待。"
+        };
       });
+    const reviewOperations = intradayOperationEvents.length ? intradayOperationEvents : [...tradeOperationEvents, ...candidateOperationEvents];
+    if (!reviewOperations.length) {
+      reviewOperations.push({
+        event_id:"empty-day", time:"收盤後", symbol:"-", name:"今日無操作事件", strategy_type:"watch", operated:"no_trade",
+        agent_decision:"wait", risk_result:"approved", action:"未操作",
+        reason:"今日沒有成交、候選、持股或擋單事件可記錄。",
+        sop_check:"需要確認資料更新是否完整，避免不是沒有操作，而是沒有產生事件。",
+        risk_review:"若未來要接自動交易，這種空事件也要視為異常檢查點。",
+        improvement:"補上交易日事件來源，讓每日一定有檢查紀錄。"
+      });
+    }
+    const riskOperationRows = reviewOperations.filter(x => x.risk_result === "approved" && (x.agent_decision === "reduce" || x.agent_decision === "exit"));
+    const blockedOperationRows = reviewOperations.filter(x => x.risk_result === "blocked");
+    const executedOperationRows = reviewOperations.filter(x => ["enter","reduce","exit"].includes(x.agent_decision));
+    const riskDetailRows = blockedOperationRows.length ? blockedOperationRows : reviewOperations.filter(x => x.agent_decision === "wait" || x.operated === "not_triggered");
+    const reviewLongHold = todaySymbols.length ? todaySymbols.map((symbol) => {
+      const related = todayRows.filter(x => String(x.symbol) === symbol);
+      const last = related[related.length - 1] || {};
+      const remaining = Number(last.position_after || 0);
+      return {
+        symbol,
+        name: last.name || symbol,
+        previous_status: "依交易紀錄回推原持股",
+        today_status: remaining > 0 ? `剩餘 ${remaining} 股` : "已出清",
+        long_swing_decision: remaining > 0 ? "reduce" : "exit",
+        reason: related.map(x => x.reason).join("；"),
+        risk_note: related.map(x => x.sop_check).join("；")
+      };
+    }) : accountPositions.map((p) => ({
+      symbol:String(p.symbol), name:p.name, previous_status:"既有持股", today_status:`持有 ${p.shares} 股`,
+      long_swing_decision:"hold", reason:"今日沒有新增交易紀錄，依帳戶狀態續抱。", risk_note:"隔日仍需檢查 3MA / 8MA / 3% 停損。"
+    }));
+    const dailyReviewData = {
+      market: {
+        index_status: "加權指數站回短均，盤面允許正常觀察但不追高",
+        operation_mode: "normal",
+        allow_new_position: "允許，限符合 5K 觸發與量能確認",
+        allow_chase: "不允許",
+        reason: "上市與上櫃同步轉強，但候選股仍需等待回測或突破確認，避免用隔日計畫直接當成進場指令。"
+      },
+      summary: {
+        scanned: enriched.length,
+        passed: enriched.filter(x=>x.candidate_level!=="reject").length,
+        primary: enriched.filter(x=>x.candidate_level==="primary").length,
+        secondary: enriched.filter(x=>x.candidate_level==="secondary").length,
+        reject: enriched.filter(x=>x.candidate_level==="reject").length,
+        long_hold: enriched.filter(x=>x.route==="long_hold").length,
+        intraday: enriched.filter(x=>x.route==="intraday").length,
+        watch: enriched.filter(x=>x.route==="watch").length
+      },
+      operations: reviewOperations,
+      risk_review: {
+        approved_count: executedOperationRows.length,
+        blocked_count: blockedOperationRows.length,
+        main_block_reason: riskOperationRows.length ? "持股跌破 3MA / 觸發 3% 停損" : "追價風險與 5K 觸發不足",
+        blocked_reason: blockedOperationRows.length ? `${blockedOperationRows.length} 檔未通過，詳見下方明細` : (riskOperationRows.length ? "今日有持股風控賣出，詳見交易日操作事件" : "無風控擋單"),
+        risk_note: riskOperationRows.length ? "今日風控有實際執行紙上賣出，後續需檢查是否應提早到盤中觸發。" : "今日沒有風控賣出，候選股仍需等明確觸發。"
+      },
+      risk_events: riskDetailRows,
+      long_hold: reviewLongHold,
+      intraday: [
+        {symbol:"6770", name:"力積電", pattern:"放量後高檔整理", intraday_decision:"wait_pullback", entry_trigger:"5K 回測不破且量縮，轉強量增", simulated_result:"未成交，保留觀察", reason:"符合觀察條件，但沒有直接追價。"},
+        {symbol:"2375", name:"凱美", pattern:"突破前整理", intraday_decision:"wait", entry_trigger:"突破區間高點且 60K MACD 確認", simulated_result:"等待", reason:"型態尚未完成，先排進明日盯盤。"},
+        {symbol:"6141", name:"柏承", pattern:"回測交會支撐後拉回", intraday_decision:"enter_now", entry_trigger:"09:24 回測週/月 3MA 與日 8MA 交會區後拉回", simulated_result:"買進 50 股", reason:"符合小部位承接條件，但仍需補齊當下 5K 量能與停損價。"}
+      ],
+      improvements: [
+        ...((postmarketReview.findings || []).slice(0,3).map(x => ({title:`盤後漏判：${x.symbol} ${x.name}`, text:`${x.missed_action}。${x.reason} ${x.next_day_feedback}`}))),
+        {title:"今日發現問題", text:(postmarketReview.findings || []).length ? "盤後回看發現盤中風控事件沒有即時寫入交易帳本，已改為只記漏判檢討，不再假裝盤中成交。" : "今日沒有盤後漏判 findings；仍需確認盤中事件檔是否正常產生。"},
+        {title:"明日調整方向", text:"盤中監控必須即時寫 operation_events；讀不到即時資料也要記 data_missing / blocked，不能安靜跳過。"},
+        {title:"需要補資料的地方", text:"需要穩定即時報價與 5K/60K 資料源；沒有資料時只允許觀察或擋單，不允許自動買賣。"}
+      ],
+      watchlist: [
+        {symbol:"3481", name:"群創", category:"long_hold", focus:"剩餘 35 股持有管理", trigger:"守住日 K 8MA；跌破或虧損達 3% 剩餘部位全出"},
+        {symbol:"6770", name:"力積電", category:"intraday", focus:"回測後是否轉強", trigger:"5K 回測不破，60K MACD 確認"},
+        {symbol:"6141", name:"柏承", category:"watch", focus:"今日已依風控出清，隔日只觀察是否重新站回", trigger:"重新站回日 K 3MA / 8MA 且 5K 量價轉強才重新評估"}
+      ],
+      next_operations: [
+        {symbol:"3481", name:"群創", strategy_type:"long_hold", scenario:"情境 1：剩餘部位防守", trigger:"不跌破日 K 8MA，盤中沒有爆量長黑", capital:"不新增資金，維持剩餘 35 股", action:"續抱觀察；跌破 8MA 或成本風險擴大則全出", risk:"已完成 3MA 降碼，不能再用加碼攤平處理"},
+        {symbol:"6770", name:"力積電", strategy_type:"intraday", scenario:"情境 2：回測後轉強", trigger:"5K 回測不破，轉強時量增，60K MACD 確認", capital:"第一筆約 1,000 - 1,500；最多不超過剩餘資金 30%", action:"模擬試單；未觸發不買", risk:"開高爆量黑 K 不追，跌破回測低點取消"},
+        {symbol:"6141", name:"柏承", strategy_type:"watch", scenario:"情境 3：出清後重新觀察", trigger:"重新站回日 K 3MA / 8MA，且 5K 切入點與 60K MACD 同步確認", capital:"已出清，隔日不預設投入；若重新觸發再用剩餘資金試算第一筆", action:"等待，不追價；未重新站回不買", risk:"今日已觸發 3% 停損，不允許用攤平方式立刻買回"}
+      ]
+    };
+    state.selectedOperation = dailyReviewData.operations[0] || null;
+    function renderHeader() {
+      const basisDay = dashboardData.latest_completed_day || dashboardData.generated_at || "-";
+      const appliesTo = (nextPlan && nextPlan.applies_to) || "-";
+      byId("today-badge").textContent = `基準日 ${basisDay} -> 適用 ${appliesTo}`;
+      byId("market-note").textContent = dashboardData.market_note || "";
+      byId("candidate-date-note").textContent = `依 ${basisDay} 收盤資料推估 ${appliesTo} 的候選股與操作劇本；不是盤中即時買入清單。`;
+      const primary = enriched.filter(x => x.candidate_level === "primary").length;
+      const longHold = enriched.filter(x => x.route === "long_hold").length;
+      const intraday = enriched.filter(x => x.route === "intraday").length;
+      const dayTrade = enriched.filter(x => x.route === "day_trade").length;
+      const blocked = enriched.filter(x => x.risk_status === "blocked").length;
+      const preview = [["大盤模式",label("normal")],["掃描股票數",enriched.length],["優先候選",primary],["長期波段",longHold],["盤中切入",intraday],["當沖候選",dayTrade],["風控擋下",blocked],["後驗追蹤",enriched.length]];
+      byId("preview-grid").innerHTML = preview.map(([a,b]) => `<div class="mini"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      const metrics = [["掃描股票數",enriched.length,"收盤後納入研究清單"],["通過初篩",enriched.filter(x=>x.candidate_level!=="reject").length,"優先 / 次要"],["優先 / 次要",`${primary}/${enriched.filter(x=>x.candidate_level==="secondary").length}`,"候選分層"],["長期波段",longHold,"波段持有路由"],["盤中切入",intraday,"盤中切入觀察，不是當沖"],["當沖候選",dayTrade,"需可當沖且策略允許，目前不執行"],["風控擋下",blocked,"風控擋下或排除"]];
+      byId("metric-grid").innerHTML = metrics.map(([a,b,c]) => `<div class="metric"><span>${a}</span><strong>${b}</strong><p class="subtitle">${c}</p></div>`).join("");
+    }
+    function renderMarketIndices() {
+      const indices = dashboardData.market_indices || {};
+      const formatNumber = (value) => value === "" || value === null || value === undefined || Number.isNaN(Number(value)) ? "-" : Number(value).toLocaleString("zh-TW", {minimumFractionDigits:2, maximumFractionDigits:2});
+      const formatVolume = (value) => value === "" || value === null || value === undefined || Number.isNaN(Number(value)) ? "-" : Number(value).toLocaleString("zh-TW", {maximumFractionDigits:1});
+      const apply = (prefix, item) => {
+        if (!item) return;
+        byId(`${prefix}-label`).textContent = item.label || (prefix === "twse" ? "加權指數" : "上櫃指數");
+        byId(`${prefix}-date`).textContent = item.date ? `· ${item.date}` : "";
+        byId(`${prefix}-index`).textContent = formatNumber(item.value);
+        const change = Number(item.change || 0);
+        const pctValue = Number(item.pct || 0);
+        const direction = change >= 0 ? "▲" : "▼";
+        const changeNode = byId(`${prefix}-change`);
+        changeNode.textContent = `${direction} ${formatNumber(Math.abs(change))} (${Math.abs(pctValue).toFixed(2)}%)`;
+        changeNode.className = `market-change ${change >= 0 ? "pos" : "neg"}`;
+        byId(`${prefix}-index`).className = `market-big ${change >= 0 ? "pos" : "neg"}`;
+        byId(`${prefix}-volume`).textContent = formatVolume(item.volume);
+        byId(`${prefix}-open`).textContent = formatNumber(item.open);
+        byId(`${prefix}-high`).textContent = formatNumber(item.high);
+        byId(`${prefix}-low`).textContent = formatNumber(item.low);
+        byId(`${prefix}-prev`).textContent = formatNumber(item.prev);
+      };
+      apply("twse", indices.twse);
+      apply("otc", indices.otc);
+    }
+    function renderFlow() {
+      byId("flow-grid").innerHTML = moduleFlow.map((m, i) => `<div class="flow-card ${i===3?'route':''} ${i===6?'risk':''}"><small>${m[1]}</small><h3>${m[0]}</h3><p>${m[2]}</p><p>${tag(m[3])}</p></div>`).join("");
+    }
+    function filteredRows() {
+      return enriched.filter(x => {
+        const q = state.query.trim().toLowerCase();
+        return (!q || `${x.symbol} ${x.name}`.toLowerCase().includes(q)) && (state.route==="all" || x.route===state.route) && (state.decision==="all" || x.final_decision===state.decision);
+      }).sort((a,b)=>Number(b.score)-Number(a.score));
+    }
+    function renderCandidates() {
+      byId("candidate-body").innerHTML = filteredRows().map(x => `<tr data-symbol="${x.symbol}"><td><strong>${x.symbol}</strong><br><span class="subtitle">${x.name}</span></td><td>${fmt(x.latest_price)}<br><span class="${Number(x.change_pct)>=0?'pos':'neg'}">${pct(x.change_pct)}</span></td><td>${tag(x.candidate_level)}</td><td>${tag(x.route)}</td><td><strong>${fmt(x.score)}</strong></td><td>${tag(x.final_decision)}</td><td>${tag(x.long_swing_decision)}</td><td>${tag(x.intraday_decision)}</td><td>${tag(x.risk_status)}</td><td>${x.reason}</td></tr>`).join("");
+      [...document.querySelectorAll("#candidate-body tr")].forEach(row => row.addEventListener("click", () => { state.selected = enriched.find(x => x.symbol === row.dataset.symbol); renderDetail(); }));
+    }
+    function renderWeeklyPools() {
+      const groups = [
+        ["入選名單", "selected", enriched.filter(x => x.group_assignment === "入選名單")],
+        ["操作組", "operation", enriched.filter(x => x.group_assignment === "操作組")],
+        ["觀察組", "watch", enriched.filter(x => x.group_assignment === "觀察組")],
+        ["淘汰清單", "eliminate", enriched.filter(x => x.group_assignment === "淘汰" || x.candidate_level === "reject")]
+      ];
+      byId("weekly-pool-grid").innerHTML = groups.map(([title, cls, rows]) => `
+        <div class="pool-card ${cls}">
+          <h3>${title}</h3>
+          ${rows.length ? rows.map(x => `<div class="pool-item"><strong>${x.symbol} ${x.name}</strong><br><span class="subtitle">Score ${fmt(x.score)} / ${label(x.route)} / ${x.entry_trigger}</span></div>`).join("") : "<p class='subtitle'>無</p>"}
+        </div>`).join("");
     }
     function renderDetail() {
-      const item = state.selected;
-      if (!item) return;
-      byId("detail-symbol").textContent = `${item.symbol} ${item.name}`;
-      byId("detail-reason").textContent = item.reason;
-      byId("detail-group").textContent = item.group_assignment;
-      byId("detail-group").className = `tag ${tagClass(item.group_assignment)}`;
-      byId("ma-grid").innerHTML = Object.entries(item.ma).map(([key, value]) => `<div class="kv"><span>${key}</span><strong>${fmt(value)}</strong></div>`).join("");
-      byId("daily-ma-alignment").textContent = item.daily_ma_alignment;
-      byId("weekly-ma-alignment").textContent = item.weekly_ma_alignment;
-      byId("monthly-ma-alignment").textContent = item.monthly_ma_alignment;
-      byId("pattern-breakout").innerHTML = yesNo(item.patterns["突破"]);
-      byId("pattern-w").innerHTML = yesNo(item.patterns["W"]);
-      byId("pattern-n").innerHTML = yesNo(item.patterns["N字"]);
-      byId("pattern-platform").innerHTML = yesNo(item.patterns["平台"]);
-      byId("pattern-bloom").innerHTML = yesNo(item.patterns["開花"]);
-      byId("shareholder-score").textContent = item.shareholder_score;
-      byId("institution-bias").textContent = item.institution_bias;
-      byId("trigger-red3").innerHTML = yesNo(item.triggers["開盤八法紅紅紅"]);
-      byId("trigger-volume").innerHTML = yesNo(item.triggers["5K爆大量回撤3MA"]);
-      byId("trigger-black3").innerHTML = yesNo(item.triggers["連三黑回測3MA"]);
-      byId("trigger-macd").innerHTML = yesNo(item.triggers["60K MACD轉強"]);
-      byId("risk-note").textContent = item.risk_note;
+      const x = state.selected; if (!x) return;
+      const ma = x.ma || {};
+      byId("detail-grid").innerHTML = `
+        <div class="card"><h3>${x.symbol} ${x.name}</h3><p>${tag(x.candidate_level)} ${tag(x.route)}</p><p class="subtitle">最新價 ${fmt(x.latest_price)} / 分數 ${fmt(x.score)}</p><p>${x.reason}</p></div>
+        <div class="card"><h3>多週期結構</h3><div class="kv-grid">${Object.entries(ma).map(([k,v])=>`<div class="kv"><span>${k}</span><strong>${fmt(v)}</strong></div>`).join("")}</div><p class="subtitle">${x.daily_ma_alignment}<br>${x.weekly_ma_alignment}<br>${x.monthly_ma_alignment}</p></div>
+        <div class="card"><h3>系統判斷摘要</h3><p>大盤模式：${label("normal")}</p><p>股票初篩：${label(x.candidate_level)}</p><p>策略路由：${label(x.route)}</p><p>風控裁判：${label(x.risk_status)}</p></div>
+        <div class="card"><h3>操作計畫</h3><p>${x.route==="long_hold" ? "建倉 / 加碼 / 續抱 / 減碼 / 出場以日K 3MA、8MA與月K 3MA管理。" : "觀察開盤八法、5K 回撤 3MA、連三黑回測與 60K MACD。"}</p><p class="subtitle">${x.risk_note}</p></div>`;
     }
-    function renderPools() {
-      const groups = {
-        "selected-pool": candidates.filter((x) => x.group_assignment === "入選名單"),
-        "operation-pool": candidates.filter((x) => x.group_assignment === "操作組"),
-        "watch-pool": candidates.filter((x) => x.group_assignment === "觀察組"),
-        "eliminate-pool": candidates.filter((x) => x.group_assignment === "淘汰")
-      };
-      Object.entries(groups).forEach(([id, rows]) => {
-        byId(id).innerHTML = rows.length ? rows.map((item) => `<div class="pool-item"><strong>${item.symbol} ${item.name}</strong><br><span class="muted">Score ${fmt(item.score)} / ${item.pattern_type} / ${item.entry_trigger}</span></div>`).join("") : '<div class="muted">無</div>';
+    function renderNextPlan() {
+      const account = nextPlan.account || {};
+      byId("next-target-title").textContent = `下個交易日 ${shortDate(nextPlan.applies_to)} 操作目標`;
+      byId("next-plan-note").textContent = `更新時間：${nextPlan.updated_at || "-"} / 適用交易日：${nextPlan.applies_to || "-"} / ${nextPlan.cash_allocation_note || ""}`;
+      const historyDates = previousTradingDates(nextPlan.basis_day || dashboardData.latest_completed_day || dashboardData.generated_at, 5);
+      const tradesByDate = paperRows.reduce((acc, trade) => {
+        const date = String(trade.date || "");
+        if (!date) return acc;
+        (acc[date] ||= []).push(trade);
+        return acc;
+      }, {});
+      byId("operation-history-grid").innerHTML = historyDates.map((date) => {
+        const trades = tradesByDate[date] || [];
+        const isCurrent = date === String(dashboardData.latest_completed_day);
+        const cls = trades.length ? (isCurrent ? "current" : "") : "missing";
+        const buyCount = trades.filter(t => String(t.side).toLowerCase() === "buy").length;
+        const sellCount = trades.filter(t => String(t.side).toLowerCase() === "sell").length;
+        const symbols = [...new Set(trades.map(t => `${t.symbol} ${t.name}`))].join("、");
+        const last = trades[trades.length - 1] || {};
+        const body = trades.length
+          ? `買進 ${buyCount} 筆 / 賣出 ${sellCount} 筆<br>${symbols}<br>收盤後現金 ${fmt(Number(last.cash_after || 0),0)}`
+          : "無交易紀錄；視為未操作或未觸發。";
+        const title = trades.length ? `操作概述 ${shortDate(date)}` : `無操作 ${shortDate(date)}`;
+        return `<div class="history-card ${cls}"><span class="subtitle">${title}</span><strong>${date}</strong><p>${body}</p></div>`;
+      }).join("");
+      const items = [["原始資金", account.initial_capital],["持有市值", account.position_value],["剩餘資金", account.cash],["未實現", account.unrealized_pnl],["累積獲利", account.total_pnl],["資金使用率", account.capital_usage_pct]];
+      byId("account-grid").innerHTML = items.map(([a,b],i)=>`<div class="metric"><span>${a}</span><strong>${i===5?pct(b):fmt(b,0)}</strong></div>`).join("");
+      const positions = account.positions || [];
+      byId("holding-body").innerHTML = positions.map(p => `<tr><td><strong>${p.symbol}</strong><br>${p.name}</td><td>${p.shares}</td><td>${fmt(p.cost_basis)}</td><td>${fmt(p.latest_price)}</td><td>${fmt(p.market_value,0)}</td><td class="${Number(p.unrealized_pnl)>=0?'pos':'neg'}">${fmt(p.unrealized_pnl,0)}</td><td class="${Number(p.unrealized_pct)>=0?'pos':'neg'}">${pct(p.unrealized_pct)}</td><td>${tag(p.status || "hold")}</td></tr>`).join("");
+      const plans = [...(nextPlan.holding_plans || []), ...(nextPlan.symbol_plans || [])];
+      const priorityRows = plans.flatMap((plan, planIndex) => {
+        const scenarios = plan.scenarios || [];
+        if (!scenarios.length) return [];
+        const first = scenarios[0];
+        const second = scenarios[1] || {};
+        const last = scenarios[scenarios.length - 1] || {};
+        const type = plan.shares !== undefined ? "持有管理" : "候選觀察";
+        return [{
+          order: planIndex + 1,
+          symbol: plan.symbol,
+          name: plan.name,
+          type,
+          thesis: plan.shares !== undefined ? `${plan.shares} 股，先處理開盤3MA防守` : (plan.entry_status || "等待盤中觸發"),
+          trigger: `${first.title}：${first.condition}`,
+          action: first.action,
+          defense: last.action || second.action || "-"
+        }];
       });
+      byId("next-action-priority-body").innerHTML = priorityRows.length ? priorityRows.map(row => `<tr><td>${row.order}</td><td><strong>${row.symbol}</strong><br>${row.name}</td><td>${row.type}</td><td>${row.thesis}</td><td>${row.trigger}</td><td>${row.action}</td><td>${row.defense}</td></tr>`).join("") : '<tr><td colspan="7" class="subtitle">目前沒有下個交易日預測劇本。</td></tr>';
+      byId("plan-blocks").innerHTML = plans.map(plan => {
+        const type = plan.shares !== undefined ? `持有 ${plan.shares} 股 / 成本 ${fmt(plan.cost_basis)}` : `${plan.entry_status || "候選觀察"} / 預估 ${fmt(plan.rough_budget_low,0)} - ${fmt(plan.rough_budget_high,0)}`;
+        return `<div class="card" style="margin-top:12px"><h3>${plan.symbol} ${plan.name}</h3><p class="subtitle">${type}</p><div class="grid scenario-grid">${(plan.scenarios||[]).map(s=>`<div class="scenario"><h3>${s.title}</h3><p class="subtitle">${s.condition}</p><p>${s.action}</p></div>`).join("")}</div></div>`;
+      }).join("");
+      renderTradeRecords();
     }
-    function renderTracking() {
-      byId("tracking-body").innerHTML = candidates.map((item) => `<tr><td>${dashboardData.selection.selection_date}</td><td><strong>${item.symbol}</strong><br><span class="muted">${item.name}</span></td><td>${item.group_assignment}</td><td>${fmt(item.latest_price)}</td><td>${pct(item.next_1d_return)}</td><td>${pct(item.next_3d_return)}</td><td>${pct(item.next_5d_return)}</td><td class="muted">等待後續日K驗證</td></tr>`).join("");
+    function renderTradeRecords() {
+      byId("paper-trade-source").textContent = (dashboardData.paper_trading && dashboardData.paper_trading.source_file) || "尚無模擬交易檔";
+      byId("trade-record-body").innerHTML = paperRows.length ? paperRows.map(item => {
+        const side = String(item.side || "").toLowerCase();
+        const sideLabel = side === "buy" ? "買入" : side === "sell" ? "賣出" : item.side;
+        return `<tr>
+          <td>${item.trade_id || "-"}</td>
+          <td>${item.date || "-"}</td>
+          <td>${item.time || "-"}</td>
+          <td><strong>${item.symbol || "-"}</strong><br>${item.name || ""}</td>
+          <td>${tag(side === "buy" ? "enter" : side === "sell" ? "exit" : "wait")} ${sideLabel}</td>
+          <td>${fmt(Number(item.price || 0))}</td>
+          <td>${item.shares || "-"}</td>
+          <td>${fmt(Number(item.gross_amount || 0),0)}</td>
+          <td>${fmt(Number(item.cash_after || 0),0)}</td>
+          <td>${item.position_after || "-"}</td>
+          <td class="${Number(item.realized_pnl || 0) >= 0 ? "pos" : "neg"}">${fmt(Number(item.realized_pnl || 0),0)}</td>
+          <td>${item.reason || "-"}</td>
+        </tr>`;
+      }).join("") : '<tr><td colspan="12" class="subtitle">尚無交易紀錄</td></tr>';
     }
-    function renderAll() { renderMetrics(); renderCandidateTable(); renderDetail(); renderPools(); renderTracking(); }
-    byId("search").addEventListener("input", (event) => { state.query = event.target.value; renderCandidateTable(); });
-    byId("decision-filter").addEventListener("change", (event) => { state.decision = event.target.value; renderCandidateTable(); });
-    byId("group-filter").addEventListener("change", (event) => { state.group = event.target.value; renderCandidateTable(); });
+    function renderLongHold() {
+      byId("long-hold-body").innerHTML = enriched.filter(x=>x.route==="long_hold").map(x => `<tr><td><strong>${x.symbol}</strong><br>${x.name}</td><td>${tag(x.long_swing_decision)}</td><td>${tag(isHeld(x.symbol)?"full_position":"none")}</td><td>${x.daily_ma_alignment}</td><td>${(x.ma||{})["8MA"] ? fmt((x.ma||{})["8MA"]) : "-"}</td><td>${x.monthly_ma_alignment}</td><td>${x.risk_note}</td><td>${x.reason}</td></tr>`).join("");
+    }
+    function renderIntraday() {
+      byId("intraday-body").innerHTML = enriched.filter(x=>x.route==="intraday" || x.route==="watch").map(x => `<tr><td><strong>${x.symbol}</strong><br>${x.name}</td><td>${tag(x.intraday_decision)}</td><td>${x.entry_trigger}</td><td>${x.triggers && x.triggers["60K MACD轉強"] ? "確認" : "等待"}</td><td>${x.triggers && x.triggers["開盤八法紅紅紅"] ? "紅K轉強" : "等待"}</td><td>${fmt(x.volume_ratio)}</td><td>${x.risk_note}</td></tr>`).join("");
+    }
+    function renderRisk() {
+      const approved = enriched.filter(x=>x.risk_status==="approved");
+      const blocked = enriched.filter(x=>x.risk_status==="blocked");
+      byId("risk-grid").innerHTML = [["通過名單",approved],["擋下名單",blocked]].map(([title,rows]) => `<div class="card"><h3>${title}</h3>${rows.slice(0,10).map(x=>`<p><strong>${x.symbol} ${x.name}</strong> ${tag(x.risk_status)} <span class="subtitle">${x.risk_note}</span></p>`).join("") || "<p class='subtitle'>無</p>"}</div>`).join("");
+    }
+    function renderPerformance() {
+      const completed = enriched.filter(x=>x.next_1d_return!==null && x.next_1d_return!==undefined).length;
+      byId("performance-metrics").innerHTML = [["已完成筆數",completed],["待追蹤筆數",enriched.length-completed],["資料不足警示",enriched.length-completed]].map(([a,b])=>`<div class="metric"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      byId("performance-body").innerHTML = enriched.map(x => `<tr><td>${dashboardData.selection.selection_date}</td><td><strong>${x.symbol}</strong><br>${x.name}</td><td>${tag(x.candidate_level)}</td><td>${tag(x.route)}</td><td>${tag(x.final_decision)}</td><td>${fmt(x.latest_price)}</td><td>${pct(x.next_1d_return)}</td><td>${pct(x.next_3d_return)}</td><td>${pct(x.next_5d_return)}</td><td>${x.route==="long_hold" ? "待追蹤" : "-"}</td><td>${x.route==="intraday" ? "待追蹤" : "-"}</td><td>${x.next_1d_return===null || x.next_1d_return===undefined ? tag("insufficient_data") : tag("completed")}</td></tr>`).join("");
+    }
+    function renderReviewOperationDetail() {
+      const x = state.selectedOperation;
+      if (!x) return;
+      byId("review-operation-detail").innerHTML = `
+        <div class="card"><h3>${x.symbol} ${x.name}</h3><p>${tag(x.strategy_type)} ${tag(x.operated)} ${tag(x.agent_decision)}</p><p class="subtitle">${x.time} / 今日動作：${x.action}</p><p>${x.reason}</p></div>
+        <div class="card"><h3>SOP 檢查</h3><p>${x.sop_check}</p></div>
+        <div class="card"><h3>風控複盤</h3><p>${tag(x.risk_result)}</p><p class="subtitle">${x.risk_review}</p></div>
+        <div class="card"><h3>改善空間</h3><p>${x.improvement}</p></div>`;
+    }
+    function renderDailyReview() {
+      const m = dailyReviewData.market;
+      byId("review-market").innerHTML = [
+        ["加權指數狀態", m.index_status],
+        ["operation_mode", tag(m.operation_mode)],
+        ["是否允許新倉", m.allow_new_position],
+        ["是否允許追價", m.allow_chase],
+        ["大盤判斷理由", m.reason]
+      ].map(([a,b]) => `<div class="metric"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      const s = dailyReviewData.summary;
+      byId("review-summary").innerHTML = [
+        ["掃描股票數", s.scanned],["通過初篩數", s.passed],["Primary 數量", s.primary],["Secondary 數量", s.secondary],
+        ["Reject 數量", s.reject],["Long Hold 路由數", s.long_hold],["Intraday 路由數", s.intraday],["Watch 數量", s.watch]
+      ].map(([a,b]) => `<div class="metric"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      byId("review-operation-body").innerHTML = dailyReviewData.operations.map(x => `<tr data-event-id="${x.event_id}" class="${state.selectedOperation && state.selectedOperation.event_id === x.event_id ? "selected-row" : ""}"><td>${x.time}</td><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${tag(x.strategy_type)}</td><td>${tag(x.operated)}</td><td>${tag(x.agent_decision)}</td><td>${tag(x.risk_result)}</td><td>${x.action}</td><td>${x.reason}</td></tr>`).join("");
+      [...document.querySelectorAll("#review-operation-body tr")].forEach(row => row.addEventListener("click", () => {
+        state.selectedOperation = dailyReviewData.operations.find(x => x.event_id === row.dataset.eventId);
+        renderDailyReview();
+      }));
+      renderReviewOperationDetail();
+      const r = dailyReviewData.risk_review;
+      byId("review-risk").innerHTML = [
+        ["今日通過交易數", r.approved_count],
+        ["今日擋下交易數", r.blocked_count],
+        ["主要擋單原因", r.main_block_reason],
+        ["blocked_reason", r.blocked_reason],
+        ["risk_note", r.risk_note]
+      ].map(([a,b]) => `<div class="metric"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      renderRiskDetailSelector();
+      byId("review-long-hold").innerHTML = dailyReviewData.long_hold.map(x => `<tr><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${x.previous_status}</td><td>${x.today_status}</td><td>${tag(x.long_swing_decision)}</td><td>${x.reason}</td><td>${x.risk_note}</td></tr>`).join("");
+      byId("review-intraday").innerHTML = dailyReviewData.intraday.map(x => `<tr><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${x.pattern}</td><td>${tag(x.intraday_decision)}</td><td>${x.entry_trigger}</td><td>${x.simulated_result}</td><td>${x.reason}</td></tr>`).join("");
+      byId("review-improvements").innerHTML = dailyReviewData.improvements.map(x => `<div class="issue-card"><h3>${x.title}</h3><p>${x.text}</p></div>`).join("");
+      byId("review-watchlist").innerHTML = dailyReviewData.watchlist.map(x => `<tr><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${tag(x.category)}</td><td>${x.focus}</td><td>${x.trigger}</td></tr>`).join("");
+      byId("review-next-operation").innerHTML = dailyReviewData.next_operations.map(x => `<tr><td><strong>${x.symbol}</strong></td><td>${x.name}</td><td>${tag(x.strategy_type)}</td><td>${x.scenario}</td><td>${x.trigger}</td><td>${x.capital}</td><td>${x.action}</td><td>${x.risk}</td></tr>`).join("");
+    }
+    function renderRiskDetailSelector() {
+      const events = dailyReviewData.risk_events || [];
+      const select = byId("risk-event-select");
+      if (!events.length) {
+        select.innerHTML = `<option value="">無明細</option>`;
+        byId("review-risk-detail").innerHTML = `<div class="card"><h3>無明細</h3><p class="subtitle">今日沒有風控擋單或等待事件。</p></div>`;
+        return;
+      }
+      if (!state.selectedRiskEvent || !events.some(x => x.event_id === state.selectedRiskEvent.event_id)) {
+        state.selectedRiskEvent = events[0];
+      }
+      select.innerHTML = events.map(x => `<option value="${x.event_id}" ${state.selectedRiskEvent && state.selectedRiskEvent.event_id === x.event_id ? "selected" : ""}>${x.symbol} ${x.name} - ${label(x.risk_result)} / ${label(x.operated)}</option>`).join("");
+      select.onchange = () => {
+        state.selectedRiskEvent = events.find(x => x.event_id === select.value) || events[0];
+        renderRiskDetailSelector();
+      };
+      const x = state.selectedRiskEvent || events[0];
+      byId("review-risk-detail").innerHTML = [
+        ["股票", `<strong>${x.symbol} ${x.name}</strong><br>${tag(x.strategy_type)} ${tag(x.risk_result)}`],
+        ["判斷結果", `${tag(x.agent_decision)} ${tag(x.operated)}<br><span class="subtitle">${x.action}</span>`],
+        ["原因", x.reason],
+        ["SOP 檢查", x.sop_check],
+        ["風控檢討", x.risk_review],
+        ["改善方向", x.improvement]
+      ].map(([a,b]) => `<div class="card"><h3>${a}</h3><p>${b}</p></div>`).join("");
+    }
+    function switchPage(page) {
+      document.querySelectorAll(".page").forEach((el) => el.classList.toggle("active", el.dataset.page === page));
+      document.querySelectorAll(".tab-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.page === page));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function renderAll(){ renderHeader(); renderMarketIndices(); renderFlow(); renderCandidates(); renderWeeklyPools(); renderDetail(); renderNextPlan(); renderLongHold(); renderIntraday(); renderRisk(); renderPerformance(); renderDailyReview(); }
+    byId("search").addEventListener("input", e => { state.query = e.target.value; renderCandidates(); });
+    byId("route-filter").addEventListener("change", e => { state.route = e.target.value; renderCandidates(); });
+    byId("decision-filter").addEventListener("change", e => { state.decision = e.target.value; renderCandidates(); });
+    document.querySelectorAll(".tab-btn[data-page]").forEach((btn) => btn.addEventListener("click", () => switchPage(btn.dataset.page)));
     renderAll();
   </script>
 </body>

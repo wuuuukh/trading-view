@@ -1,0 +1,2426 @@
+{
+  "summary": {
+    "mode": "weekly_sunday_replay",
+    "start": "2026-01-04",
+    "end": "2026-05-31",
+    "initial_capital": 10000.0,
+    "final_equity": 10000.0,
+    "total_return_pct": 0.0,
+    "cash": 10000.0,
+    "open_positions": {},
+    "trade_count": 0,
+    "scan_count": 22,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 0.0,
+    "max_drawdown_pct": 0.0,
+    "limitations": [
+      "weekly Sunday replay; each scan uses only data on or before that Sunday",
+      "daily-level simulation only",
+      "buy execution uses the next available trading day's close",
+      "sell/rotation execution is not added because current rules do not define a complete historical exit engine",
+      "5K/15K/60K/VWAP intraday execution not available",
+      "formal chip and institution data not applied"
+    ]
+  },
+  "weekly_scans": [
+    {
+      "scan_date": "2026-01-04",
+      "candidate_count": 21,
+      "accept_count": 0,
+      "hold_count": 9,
+      "reject_count": 12,
+      "top_candidates": [
+        {
+          "symbol": "3048",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 38.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.62,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 35.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 77.27,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 72.58,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 165.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 30.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 12.55，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 39.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 71.35,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 232.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 56.03,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 78.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2375",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 55.25,
+          "reason": "均線分數 30，價格相對主要均線檢查完成；頸線 91.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-01-11",
+      "candidate_count": 21,
+      "accept_count": 0,
+      "hold_count": 4,
+      "reject_count": 17,
+      "top_candidates": [
+        {
+          "symbol": "2313",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 78.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 44.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 73.58,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 42.20，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.39,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 165.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 68.33,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 57.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 62.53,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 45.45，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3057",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 61.51,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 14.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2492",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 61.25,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 119.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 60.4,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 29.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 58.02,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 58.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-01-18",
+      "candidate_count": 21,
+      "accept_count": 0,
+      "hold_count": 11,
+      "reject_count": 10,
+      "top_candidates": [
+        {
+          "symbol": "2375",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 91.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 189.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 141.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.72,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 43.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2492",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.99,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 119.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.7,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 115.50，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1597",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 72.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 20.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 37.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 70.23,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-01-25",
+      "candidate_count": 21,
+      "accept_count": 0,
+      "hold_count": 9,
+      "reject_count": 12,
+      "top_candidates": [
+        {
+          "symbol": "2492",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 119.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 33.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 83.99,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 103.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 80.42,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 274.00，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 76.84,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 144.50，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2375",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.2,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 91.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1597",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 72.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 62.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 20.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 12.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-02-01",
+      "candidate_count": 21,
+      "accept_count": 0,
+      "hold_count": 6,
+      "reject_count": 15,
+      "top_candidates": [
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 35.25，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.15,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 216.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 75.43,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 85.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 141.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.76,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 62.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.43,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 20.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 68.15,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 67.62,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 12.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.33,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 103.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.98,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 250.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-02-08",
+      "candidate_count": 830,
+      "accept_count": 0,
+      "hold_count": 2,
+      "reject_count": 828,
+      "top_candidates": [
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.23,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 140.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.89,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 96.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 61.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.0,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 37.35，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 67.02,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 245.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 60.53,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 216.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 54.96,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 12.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3324",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3332",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3508",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-02-15",
+      "candidate_count": 862,
+      "accept_count": 0,
+      "hold_count": 2,
+      "reject_count": 860,
+      "top_candidates": [
+        {
+          "symbol": "8046",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.89,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 253.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.99,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.41,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 42.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 58.03,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 64.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 56.95,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 220.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 56.42,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 30.35，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.65,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 13.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.27,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 57.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.09,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 144.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2937",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-02-22",
+      "candidate_count": 862,
+      "accept_count": 0,
+      "hold_count": 2,
+      "reject_count": 860,
+      "top_candidates": [
+        {
+          "symbol": "8046",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.89,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 253.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.99,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.41,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 42.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 58.03,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 64.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 56.95,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 220.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 56.42,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 30.35，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.65,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 13.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.27,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 57.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 53.09,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 144.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2937",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-03-01",
+      "candidate_count": 884,
+      "accept_count": 0,
+      "hold_count": 8,
+      "reject_count": 876,
+      "top_candidates": [
+        {
+          "symbol": "8046",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 253.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.42,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 63.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.4,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 225.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 76.73,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 204.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 76.54,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.63,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 194.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 72.9,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 102.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 58.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 264.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 18.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-03-08",
+      "candidate_count": 888,
+      "accept_count": 0,
+      "hold_count": 2,
+      "reject_count": 886,
+      "top_candidates": [
+        {
+          "symbol": "6141",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 12.35，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 50.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 61.7,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 264.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 61.34,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；區間高點 29.80，量比 1.42；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 58.9,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 112.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 57.84,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 60.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 54.5,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 105.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.78,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 243.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1294",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 78.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2073",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；平台高點 26.70，區間幅度 6.0%，短均開花 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-03-15",
+      "candidate_count": 894,
+      "accept_count": 0,
+      "hold_count": 3,
+      "reject_count": 891,
+      "top_candidates": [
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 22.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 10.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.41,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 264.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.31,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 144.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 70.24,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 68.84,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 278.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 67.2,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 54.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 57.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 50.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 57.02,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 60.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 54.46,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；N 字關鍵位 214.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-03-22",
+      "candidate_count": 896,
+      "accept_count": 0,
+      "hold_count": 10,
+      "reject_count": 886,
+      "top_candidates": [
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 105.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 70.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 397.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.54,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 264.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.07,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.41,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 509.00，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 29.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 72.11,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 10.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.82,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 60.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.63,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 158.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-03-29",
+      "candidate_count": 896,
+      "accept_count": 0,
+      "hold_count": 5,
+      "reject_count": 891,
+      "top_candidates": [
+        {
+          "symbol": "2313",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 192.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；區間高點 30.60，量比 5.40；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 105.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 170.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 400.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1597",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 61.84,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 73.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.81,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 358.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.64,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 10.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2640",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 125.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2732",
+          "decision": "reject",
+          "tier": "lower_priority",
+          "score": 52.38,
+          "reason": "均線分數 35，價格相對主要均線檢查完成；頸線 64.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；弱勢或趨勢不清，不做強勢股以外標的；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-04-05",
+      "candidate_count": 897,
+      "accept_count": 0,
+      "hold_count": 37,
+      "reject_count": 860,
+      "top_candidates": [
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.29,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 183.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 80.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 False，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 358.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2640",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 125.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3081",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；區間高點 1790.00，量比 1.59；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3163",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 490.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 49.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3221",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 31.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3264",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-04-12",
+      "candidate_count": 898,
+      "accept_count": 0,
+      "hold_count": 102,
+      "reject_count": 796,
+      "top_candidates": [
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 84.07,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 381.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 76.08,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 75.35,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 603.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2313",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.29,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 272.50，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1597",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 71.24,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 73.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；區間高點 304.00，量比 1.86；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 10.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1570",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 30.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-04-19",
+      "candidate_count": 899,
+      "accept_count": 0,
+      "hold_count": 138,
+      "reject_count": 761,
+      "top_candidates": [
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 27.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 12.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 52.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 83.14,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 304.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.78,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 170.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 77.36,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.88,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 25.05，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1597",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 73.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 60.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-04-26",
+      "candidate_count": 900,
+      "accept_count": 0,
+      "hold_count": 114,
+      "reject_count": 786,
+      "top_candidates": [
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 85.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 170.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 55.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.67,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 75.59,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 749.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.37,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3057",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.26,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 15.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；每日成交量低於500張，不操作；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1569",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 53.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1570",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 30.95，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1595",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 41.15，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-05-03",
+      "candidate_count": 901,
+      "accept_count": 0,
+      "hold_count": 71,
+      "reject_count": 830,
+      "top_candidates": [
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3037",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 594.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3057",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 15.15，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6205",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 66.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8046",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.99,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.96,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 108.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1591",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 40.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1595",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 41.25，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "1785",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 69.75,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 85.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-05-10",
+      "candidate_count": 902,
+      "accept_count": 0,
+      "hold_count": 141,
+      "reject_count": 761,
+      "top_candidates": [
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 60.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 29.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2492",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3026",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 125.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 258.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 24.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "8150",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 56.80，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3057",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.46,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 20.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6141",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 75.45,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 21.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-05-17",
+      "candidate_count": 902,
+      "accept_count": 0,
+      "hold_count": 112,
+      "reject_count": 790,
+      "top_candidates": [
+        {
+          "symbol": "2478",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 60.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 32.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 24.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 58.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.28,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 73.46,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2375",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 77.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3048",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 35.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2492",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.2,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 120.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 70.12,
+          "reason": "均線分數 65，價格相對主要均線檢查完成；頸線 59.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-05-24",
+      "candidate_count": 902,
+      "accept_count": 0,
+      "hold_count": 110,
+      "reject_count": 792,
+      "top_candidates": [
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 32.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3048",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 35.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 58.50，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.57,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 69.20，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.28,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3033",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 76.98,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 72.63,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2375",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 77.40，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2492",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.61,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2478",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.27,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    },
+    {
+      "scan_date": "2026-05-31",
+      "candidate_count": 904,
+      "accept_count": 0,
+      "hold_count": 108,
+      "reject_count": 796,
+      "top_candidates": [
+        {
+          "symbol": "6141",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 39.00，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "6770",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 85.0,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 59.10，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2484",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.72,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 34.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4958",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 82.28,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3481",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 77.27,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3450",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 76.65,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 470.50，量縮回檔 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "3048",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 74.51,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；頸線 41.70，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2375",
+          "decision": "hold",
+          "tier": "secondary_watchlist",
+          "score": 72.25,
+          "reason": "均線分數 70，價格相對主要均線檢查完成；頸線 95.90，第二底不破/假跌破檢查 True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "2464",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.71,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；N 字關鍵位 149.00，量縮回檔 False；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        },
+        {
+          "symbol": "4916",
+          "decision": "reject",
+          "tier": "secondary_watchlist",
+          "score": 71.02,
+          "reason": "均線分數 100，價格相對主要均線檢查完成；日線 3MA>8MA>21MA True，短均斜率向上 True，站上3MA True；沒有籌碼資料，僅能列入技術觀察，不列最高優先；沒有結構，不做；沒有足夠成交量，不列最高優先；籌碼未確認偏多，只能列觀察組，不能列實際操作組"
+        }
+      ]
+    }
+  ],
+  "trades": [],
+  "equity_curve": [
+    {
+      "date": "2026-01-05",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-06",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-07",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-08",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-09",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-12",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-13",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-14",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-15",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-16",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-19",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-20",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-21",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-22",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-23",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-26",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-27",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-28",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-29",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-01-30",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-02",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-03",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-04",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-05",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-06",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-09",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-10",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-11",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-23",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-24",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-25",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-02-26",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-02",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-03",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-04",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-05",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-06",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-09",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-10",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-11",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-12",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-13",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-16",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-17",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-18",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-19",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-20",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-23",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-24",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-25",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-26",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-27",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-30",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-03-31",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-01",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-02",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-07",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-08",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-09",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-10",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-13",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-14",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-15",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-16",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-17",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-20",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-21",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-22",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-23",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-24",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-27",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-28",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-29",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-04-30",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-04",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-05",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-06",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-07",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-08",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-11",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-12",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-13",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-14",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-15",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-18",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-19",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-20",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-21",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-22",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-25",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-26",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-27",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-28",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    },
+    {
+      "date": "2026-05-29",
+      "cash": 10000.0,
+      "position_value": 0.0,
+      "total_equity": 10000.0,
+      "open_positions": 0
+    }
+  ]
+}

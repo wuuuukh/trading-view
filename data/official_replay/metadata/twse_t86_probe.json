@@ -1,0 +1,170 @@
+[
+  {
+    "date": "2026-01-01",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260101&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"很抱歉，沒有符合條件的資料!\",\"total\":0}"
+  },
+  {
+    "date": "2026-01-01",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260101&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"很抱歉，沒有符合條件的資料!\",\"total\":0}"
+  },
+  {
+    "date": "2026-01-02",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260102&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260102\",\"title\":\"115年01月02日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-02",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260102&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260102\",\"title\":\"115年01月02日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-05",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260105&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260105\",\"title\":\"115年01月05日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-05",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260105&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260105\",\"title\":\"115年01月05日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-06",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260106&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260106\",\"title\":\"115年01月06日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-06",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260106&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260106\",\"title\":\"115年01月06日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-07",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260107&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260107\",\"title\":\"115年01月07日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-07",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260107&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260107\",\"title\":\"115年01月07日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-08",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260108&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260108\",\"title\":\"115年01月08日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-08",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260108&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260108\",\"title\":\"115年01月08日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-09",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260109&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260109\",\"title\":\"115年01月09日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-09",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260109&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260109\",\"title\":\"115年01月09日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-12",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260112&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260112\",\"title\":\"115年01月12日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-12",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260112&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260112\",\"title\":\"115年01月12日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-13",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260113&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260113\",\"title\":\"115年01月13日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-13",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260113&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260113\",\"title\":\"115年01月13日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-14",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260114&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260114\",\"title\":\"115年01月14日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-14",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260114&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260114\",\"title\":\"115年01月14日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-15",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260115&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260115\",\"title\":\"115年01月15日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-15",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260115&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260115\",\"title\":\"115年01月15日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-16",
+    "url": "https://www.twse.com.tw/rwd/zh/fund/T86?date=20260116&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260116\",\"title\":\"115年01月16日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  },
+  {
+    "date": "2026-01-16",
+    "url": "https://www.twse.com.tw/fund/T86?date=20260116&selectType=ALLBUT0999&response=json",
+    "ok": true,
+    "content_type": "application/json;charset=UTF-8",
+    "sample": "{\"stat\":\"OK\",\"date\":\"20260116\",\"title\":\"115年01月16日 三大法人買賣超日報\",\"hints\":\"單位：股\",\"fields\":[\"證券代號\",\"證券名稱\",\"外陸資買進股數(不含外資自營商)\",\"外陸資賣出股數(不含外資自營商)\",\"外陸資買賣超股數(不含外資自營商)\",\"外資自營商買進股數\",\"外資自營商賣出股數\",\"外資自營商買賣超股數\",\"投信買"
+  }
+]

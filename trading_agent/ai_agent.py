@@ -42,8 +42,10 @@ class RuleConstrainedAgent:
         no_structure = candidate["pattern"]["pattern_type"] is None
         weak_market = candidate["trend"]["market_state"] == "weak_or_unclear"
         no_volume = float(candidate["latest"].get("volume_ratio", 0)) < self.rules.get("scanner", {}).get("min_volume_ratio_breakout", 1.2)
+        min_daily_volume = float(self.rules.get("scanner", {}).get("min_daily_volume_shares", 500_000))
+        low_daily_volume = float(candidate["latest"].get("volume", 0) or 0) < min_daily_volume
 
-        if no_structure or weak_market:
+        if no_structure or weak_market or low_daily_volume:
             decision = "reject"
         elif score >= self.rules.get("scanner", {}).get("primary_min_score", 75):
             decision = "accept"
@@ -69,6 +71,8 @@ class RuleConstrainedAgent:
             reasons.append("沒有結構，不做")
         if no_volume:
             reasons.append("沒有足夠成交量，不列最高優先")
+        if low_daily_volume:
+            reasons.append("每日成交量低於500張，不操作")
         if weak_market:
             reasons.append("弱勢或趨勢不清，不做強勢股以外標的")
         if chip <= 0:

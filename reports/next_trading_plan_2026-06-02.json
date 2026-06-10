@@ -1,0 +1,473 @@
+{
+  "updated_at": "2026-06-01 16:30",
+  "applies_to": "2026-06-02",
+  "basis_day": "2026-06-01",
+  "cash_allocation_note": "剩餘資金 4,425；盤中全部盯盤，觀察組符合條件可直接升操作組。多檔同時觸發時先保留約 664，其餘按型態乾淨度、週/月3MA交會、5K確認強弱排序。",
+  "account": {
+    "initial_capital": 10000.0,
+    "cash": 4425.0,
+    "position_value": 6147.0,
+    "total_assets": 10572.0,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 572.0,
+    "total_pnl": 572.0,
+    "capital_usage_pct": 58.14,
+    "positions": [
+      {
+        "symbol": "3481",
+        "name": "群創",
+        "shares": 70,
+        "cost_basis": 50.0,
+        "latest_price": 56.1,
+        "market_value": 3927.0,
+        "unrealized_pnl": 427.0,
+        "unrealized_pct": 12.2,
+        "status": "持有，強勢續抱，回測不破才加碼"
+      },
+      {
+        "symbol": "6141",
+        "name": "柏承",
+        "shares": 50,
+        "cost_basis": 41.5,
+        "latest_price": 44.4,
+        "market_value": 2220.0,
+        "unrealized_pnl": 145.0,
+        "unrealized_pct": 6.99,
+        "status": "持有，週/月3MA交會買點已成立"
+      }
+    ]
+  },
+  "locked_stocks": [
+    {
+      "group": "持有觀察",
+      "symbol": "3481",
+      "name": "群創",
+      "latest_price": 56.1,
+      "score": 71.89,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.59,
+      "status": "持有，一定盯盤"
+    },
+    {
+      "group": "持有觀察",
+      "symbol": "6141",
+      "name": "柏承",
+      "latest_price": 44.4,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 1.89,
+      "status": "持有，一定盯盤"
+    },
+    {
+      "group": "入選名單",
+      "symbol": "2375",
+      "name": "凱美",
+      "latest_price": 164.0,
+      "score": 70.68,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.47,
+      "status": "站穩日3MA可操作"
+    },
+    {
+      "group": "觀察組",
+      "symbol": "2484",
+      "name": "希華",
+      "latest_price": 53.2,
+      "score": 71.63,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.66,
+      "status": "站回日3MA或回測週/月支撐可升級"
+    },
+    {
+      "group": "觀察組",
+      "symbol": "3057",
+      "name": "喬鼎",
+      "latest_price": 22.4,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 3.07,
+      "status": "週/月/日3MA接近，盤中可升級"
+    },
+    {
+      "group": "觀察組",
+      "symbol": "3450",
+      "name": "聯鈞",
+      "latest_price": 539.0,
+      "score": 77.85,
+      "pattern_type": "N字",
+      "volume_ratio": 0.79,
+      "status": "強勢但不追高"
+    },
+    {
+      "group": "觀察組",
+      "symbol": "8150",
+      "name": "南茂",
+      "latest_price": 106.5,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 2.21,
+      "status": "爆量後等回測"
+    },
+    {
+      "group": "操作組",
+      "symbol": "6770",
+      "name": "力積電",
+      "latest_price": 87.0,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 2.43,
+      "status": "爆量不追，等次週週3MA"
+    },
+    {
+      "group": "入選名單",
+      "symbol": "2492",
+      "name": "華新科",
+      "latest_price": 416.0,
+      "score": 68.64,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.26,
+      "status": "特殊規則，最後關緊閉日才買"
+    }
+  ],
+  "holding_plans": [
+    {
+      "symbol": "3481",
+      "name": "群創",
+      "shares": 70,
+      "cost_basis": 50.0,
+      "latest_price": 56.1,
+      "market_value": 3927.0,
+      "unrealized_pnl": 427.0,
+      "unrealized_pct": 12.2,
+      "scenarios": [
+        {
+          "title": "情境一：強勢續攻",
+          "condition": "開盤站穩 56.10，5K 續紅且沒有爆量黑K。",
+          "action": "續抱 70 股，不追高加碼；若回測不破再評估。"
+        },
+        {
+          "title": "情境二：回測 53.70～51.17",
+          "condition": "盤中回測 6/1 低點 53.70 到日K 3MA 51.17，尤其回撤月K 3MA 時直接視為承接買點。",
+          "action": "依新規則直接買入；不必等待5K轉紅，但仍要控管最多2檔持股與現金。"
+        },
+        {
+          "title": "情境三：跌破日K 3MA",
+          "condition": "跌破 51.17 且無法快速站回。",
+          "action": "不加碼；轉持有觀察，若跌破日K 8MA 47.97 才做短線出場判斷。"
+        },
+        {
+          "title": "情境四：爆量開高後轉黑",
+          "condition": "開高但連續 5K 放量黑K，追價失敗。",
+          "action": "不追、不加碼，等下一次回測支撐。"
+        }
+      ]
+    },
+    {
+      "symbol": "6141",
+      "name": "柏承",
+      "shares": 50,
+      "cost_basis": 41.5,
+      "latest_price": 44.4,
+      "market_value": 2220.0,
+      "unrealized_pnl": 145.0,
+      "unrealized_pct": 6.99,
+      "scenarios": [
+        {
+          "title": "情境一：站回日K 3MA 44.53",
+          "condition": "開盤後站回 44.53，5K 轉強且量價乾淨。",
+          "action": "續抱；若回測不破可小加，但資金優先保留給新觸發標的。"
+        },
+        {
+          "title": "情境二：回測週/月3MA交會",
+          "condition": "回測 41.47～40.97 不破，尤其回撤月K 3MA 時直接視為承接買點。",
+          "action": "依新規則直接買入；不必等待5K轉紅，但仍要控管最多2檔持股與現金。"
+        },
+        {
+          "title": "情境三：跌破 40.97 且站不回",
+          "condition": "跌破月K 3MA 40.97，反彈無法站回，且量增黑K。",
+          "action": "不加碼，轉防守；若再破日K 8MA 38.64，短線出場。"
+        },
+        {
+          "title": "情境四：開高急拉",
+          "condition": "直接開高遠離 44.53，沒有回測。",
+          "action": "只續抱，不追加。"
+        }
+      ]
+    }
+  ],
+  "symbol_plans": [
+    {
+      "symbol": "2375",
+      "name": "凱美",
+      "latest_price": 164.0,
+      "latest_high": 175.0,
+      "key_level": 164.0,
+      "trigger_price": 164.0,
+      "score": 70.68,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.47,
+      "ma3": 164.0,
+      "ma8": 146.0,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 6,
+      "rough_shares_high": 12,
+      "entry_status": "入選名單，盤中可升操作組",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 146.0,
+      "support_range": "158.00 - 164.00",
+      "scenarios": [
+        {
+          "title": "情境一：站穩日K 3MA 續攻",
+          "condition": "開盤後站穩 164.00，5K 轉紅且沒有連續放量黑K，60K MACD 不轉弱。",
+          "action": "可買約 10 股；屬於新倉小試。"
+        },
+        {
+          "title": "情境二：回測 158～164 止跌",
+          "condition": "盤中回測 158.00～164.00，量縮後 5K 轉強。",
+          "action": "低接優先於追價，可買約 10 股。"
+        },
+        {
+          "title": "情境三：跌破 158 且站不回",
+          "condition": "跌破 6/1 低點 158.00，反彈無法站回。",
+          "action": "不買，留在入選觀察。"
+        }
+      ]
+    },
+    {
+      "symbol": "2484",
+      "name": "希華",
+      "latest_price": 53.2,
+      "latest_high": 55.2,
+      "key_level": 54.23,
+      "trigger_price": 54.23,
+      "score": 71.63,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.66,
+      "ma3": 54.23,
+      "ma8": 52.46,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 18,
+      "rough_shares_high": 37,
+      "entry_status": "觀察組，站回日3MA可動態升級",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 52.46,
+      "support_range": "52.27 - 52.46",
+      "scenarios": [
+        {
+          "title": "情境一：站回 54.23",
+          "condition": "盤中站回日K 3MA 54.23 且 5K 紅K確認。",
+          "action": "直接拉進操作組，可小買。"
+        },
+        {
+          "title": "情境二：回測週3MA/日8MA交會",
+          "condition": "回測 52.27～52.46 不破，量縮止跌。",
+          "action": "等 5K 轉強低接；沒轉強不先買。"
+        },
+        {
+          "title": "情境三：跌破 52.46",
+          "condition": "跌破日K 8MA 52.46 且站不回。",
+          "action": "不升級，轉防守觀察。"
+        }
+      ]
+    },
+    {
+      "symbol": "3057",
+      "name": "喬鼎",
+      "latest_price": 22.4,
+      "latest_high": 22.45,
+      "key_level": 21.0,
+      "trigger_price": 21.0,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 3.07,
+      "ma3": 20.97,
+      "ma8": 20.26,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 44,
+      "rough_shares_high": 89,
+      "entry_status": "觀察組，週/月/日3MA接近，可動態升級",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 20.26,
+      "support_range": "20.87 - 21.00",
+      "scenarios": [
+        {
+          "title": "情境一：回測 21 附近守住",
+          "condition": "回測週K 3MA 20.87、月K 3MA 21.00 附近，尤其回撤月K 3MA 時直接視為承接買點。",
+          "action": "依新規則直接買入；不必等待5K轉紅，但仍要控管最多2檔持股與現金。"
+        },
+        {
+          "title": "情境二：續強站穩 22.40",
+          "condition": "站穩 6/1 收盤 22.40 且量價乾淨。",
+          "action": "不追第一根，等回測不破再買。"
+        },
+        {
+          "title": "情境三：跌破 20.26",
+          "condition": "跌破日K 8MA 20.26 且無法快速站回。",
+          "action": "不買，降防守。"
+        }
+      ]
+    },
+    {
+      "symbol": "3450",
+      "name": "聯鈞",
+      "latest_price": 539.0,
+      "latest_high": 539.0,
+      "key_level": 503.5,
+      "trigger_price": 503.5,
+      "score": 77.85,
+      "pattern_type": "N字",
+      "volume_ratio": 0.79,
+      "ma3": 503.5,
+      "ma8": 492.75,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 1,
+      "rough_shares_high": 3,
+      "entry_status": "觀察組，強勢但不追高",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 492.75,
+      "support_range": "496.33 - 503.50",
+      "scenarios": [
+        {
+          "title": "情境一：回測 496～503 守住",
+          "condition": "回測週K 3MA 496.33 或日K 3MA 503.50，5K 轉強。",
+          "action": "可動態升操作組，但股價高，僅記錄觀察或極小股數。"
+        },
+        {
+          "title": "情境二：繼續開高",
+          "condition": "直接開高遠離 503.50。",
+          "action": "不追，等回測。"
+        },
+        {
+          "title": "情境三：跌破 492.75",
+          "condition": "跌破日K 8MA 492.75。",
+          "action": "不買，回觀察防守。"
+        }
+      ]
+    },
+    {
+      "symbol": "8150",
+      "name": "南茂",
+      "latest_price": 106.5,
+      "latest_high": 114.0,
+      "key_level": 107.5,
+      "trigger_price": 107.5,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 2.21,
+      "ma3": 107.5,
+      "ma8": 92.95,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 9,
+      "rough_shares_high": 18,
+      "entry_status": "觀察組，爆量後等回測",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 92.95,
+      "support_range": "96.43 - 99.53",
+      "scenarios": [
+        {
+          "title": "情境一：站回 107.50",
+          "condition": "站回日K 3MA 107.50 且 5K 不是爆量黑K。",
+          "action": "可升操作組判斷，但先看量是否沉澱。"
+        },
+        {
+          "title": "情境二：回測週/月3MA",
+          "condition": "回測 96.43～99.53，尤其回撤月K 3MA 時直接視為承接買點。",
+          "action": "依新規則直接買入；不必等待5K轉紅，但仍要控管最多2檔持股與現金。"
+        },
+        {
+          "title": "情境三：跌破 92.95",
+          "condition": "跌破日K 8MA 92.95。",
+          "action": "不買，防守/淘汰。"
+        }
+      ]
+    },
+    {
+      "symbol": "6770",
+      "name": "力積電",
+      "latest_price": 87.0,
+      "latest_high": 94.5,
+      "key_level": 85.47,
+      "trigger_price": 85.47,
+      "score": 85.0,
+      "pattern_type": "W",
+      "volume_ratio": 2.43,
+      "ma3": 85.47,
+      "ma8": 74.06,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 11,
+      "rough_shares_high": 22,
+      "entry_status": "操作組，但週/月爆量不追",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 74.06,
+      "support_range": "75.87 - 79.83",
+      "scenarios": [
+        {
+          "title": "情境一：爆量續攻",
+          "condition": "開高續攻或再碰高點，但量仍過熱。",
+          "action": "照你的規則不追，記錄為等待次週回撤週K 3MA。"
+        },
+        {
+          "title": "情境二：回測日3MA 85.47",
+          "condition": "回測 85.47 附近且 5K 轉強。",
+          "action": "因已有爆量規則，僅觀察不急買；除非量縮乾淨才考慮極小部位。"
+        },
+        {
+          "title": "情境三：回測週/月3MA",
+          "condition": "後續回測 75.87～79.83。",
+          "action": "這才是主要等待買點。"
+        }
+      ]
+    },
+    {
+      "symbol": "2492",
+      "name": "華新科",
+      "latest_price": 416.0,
+      "latest_high": 433.0,
+      "key_level": 400.0,
+      "trigger_price": 400.0,
+      "score": 68.64,
+      "pattern_type": "待確認",
+      "volume_ratio": 0.26,
+      "ma3": 400.0,
+      "ma8": 346.19,
+      "budget_cap": 2000,
+      "rough_budget_low": 1000,
+      "rough_budget_high": 2000,
+      "rough_shares_low": 2,
+      "rough_shares_high": 4,
+      "entry_status": "特殊規則股，非最後關緊閉日不追",
+      "sizing_formula": "盤中全部盯盤；觀察組符合日3MA站回或週/月3MA交會時，直接動態升操作組，再依剩餘現金與訊號品質排序配置。",
+      "stop_price": 346.19,
+      "support_range": "367.50 - 400.00",
+      "scenarios": [
+        {
+          "title": "情境一：不是最後關緊閉日",
+          "condition": "即使續漲，也沒有確認是最後一日。",
+          "action": "不追，僅觀察。"
+        },
+        {
+          "title": "情境二：最後關緊閉日且續強",
+          "condition": "若確認為最後關緊閉日，且 13:15 前價格持續上漲。",
+          "action": "依你的特殊規則，13:15 現價買入，股數依剩餘現金控管。"
+        },
+        {
+          "title": "情境三：跌破日3MA 400",
+          "condition": "跌破 400 且站不回。",
+          "action": "特殊買入條件取消。"
+        }
+      ]
+    }
+  ]
+}

@@ -70,6 +70,7 @@ Rule-Constrained AI Agent Trading System SOP
 型態必須同時配合：
 - 均線。
 - 量能。
+- 每日成交量低於 500 張不操作。
 - 籌碼。
 - 大盤。
 
@@ -134,6 +135,10 @@ Rule-Constrained AI Agent Trading System SOP
 1. 短線持股
 - 觀察日K 3MA。
 - 觀察日K 8MA。
+- 每日開盤先檢查所有持有股。
+- 若開盤價跌破日K 3MA，立即出售 1/2，不等收盤確認。
+- 若開盤未破、盤中或收盤才跌破日K 3MA，才做補防守減碼判斷。
+- 跌破日K 8MA且無法站回，短線部位全出。
 
 2. 中線持股
 - 觀察週K均線排列。
